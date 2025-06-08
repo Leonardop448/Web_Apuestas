@@ -6,14 +6,14 @@
 
           <!-- Cedula input -->
           <div class="form-outline mb-4">
-			  <label class="form-label " for="email"><h5 class=" fw-bold">Cedula</h5></label>
+			  <label class="form-label " for="email"><h6 class=" fw-bold">Cedula</h6></label>
             <input type="number" id="cedula" name="cedula" class="form-control form-control-lg"
               placeholder="Ingrese documento" />
           </div>
 
           <!-- Password input -->
           <div class="form-outline mb-3">
-			  <label class="form-label fw-bold" for="cantidad"><h5 class=" fw-bold">Cantidad</h5></label>
+			  <label class="form-label fw-bold" for="cantidad"><h6 class=" fw-bold">Cantidad</h6></label>
             <input type="number" id="cantidad" name="cantidad" class="form-control form-control-lg"
               placeholder="Cantidad a Recargar" />
           </div>
@@ -22,7 +22,7 @@
 
           <div class="">
             <input type="submit" class="btn btn-primary btn-lg" name="verificar" value="Verificar"
-              style="padding-left: 2.5rem; padding-right: 2.5rem;">
+              style="padding-left: 2rem; padding-right: 2rem;">
             
           </div>
         <?php      
@@ -70,10 +70,9 @@
 <form method="post" action = "#">
           
           <div class="divider d-flex align-items-center my-4 ">
-                    
-            <input type="hidden" id="valor" name="valor" class="form-control form-control-lg" value="<?php echo $cantidad;?>"/>
-                   
-            <input type="hidden" id="token" name="token" class="form-control form-control-lg" value="<?php echo $token;?>"/>
+          
+          <input type="hidden" id="valor" name="valor" class="form-control form-control-lg" value="<?php echo $cantidad;?>"/>
+          <input type="hidden" id="token" name="token" class="form-control form-control-lg" value="<?php echo $token;?>"/>
           
 
           
@@ -83,6 +82,7 @@
               style="padding-left: 2.5rem; padding-right: 2.5rem;">
             
           </div>
+          
           <?php      }   ?>
         <?php      
           $ingreso = FormularioControlador::recargar();

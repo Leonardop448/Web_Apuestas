@@ -56,7 +56,7 @@ static public	function verificarRecargas( $datos ) {
 		$stmt = $stmt->conectar();
 		// prepare prepara la conexion, call registro llamamos el procedimiento almacenado en la base de datos
 		// los dos puntos antes de cada valor significa que estan protegidos.
-		$stmt = $stmt->prepare( 'CALL ValidarRecarga(:cedula, :cantidad)' );
+		$stmt = $stmt->prepare( 'CALL verificarRecargas(:cedula, :cantidad)' );
 
 		// bindParam desencapsula los datos llegados en el array $datos y evita inyeccion sql
 		$stmt->bindParam( ":cedula", $datos[ 0 ], PDO::PARAM_STR );
@@ -77,35 +77,31 @@ static public	function verificarRecargas( $datos ) {
 	}  
 
   //////////Funcion para hacer las recargas
-static public	function recargas( $datos ) {
+static public function recargas($datos)
+{
+    try {
+        $stmt = new Conexion();
+        $conexion = $stmt->conectar();
 
-		//stmt significa estamento hacemos la conexion a la base de datos clase Conexion, funcion conectar
+        $query = $conexion->prepare("CALL Recargar(:tokenUsuario, :cantidad, :gestor)");
+        $query->bindParam(":tokenUsuario", $datos["tokenUsuario"], PDO::PARAM_STR);
+        $query->bindParam(":cantidad", $datos["cantidad"], PDO::PARAM_INT);
+        $query->bindParam(":gestor", $datos["gestor"], PDO::PARAM_STR);
 
-		$stmt = new Conexion();
-		$stmt = $stmt->conectar();
-		// prepare prepara la conexion, call registro llamamos el procedimiento almacenado en la base de datos
-		// los dos puntos antes de cada valor significa que estan protegidos.
-		$stmt = $stmt->prepare( 'CALL Recargar(:token, :cantidad, :gestor)' );
-
-		// bindParam desencapsula los datos llegados en el array $datos y evita inyeccion sql
-		$stmt->bindParam( ":token", $datos[ 0 ], PDO::PARAM_STR );
-		$stmt->bindParam( ":cantidad", $datos[ 1 ], PDO::PARAM_INT );
-    $stmt->bindParam( ":gestor", $datos[ 2 ], PDO::PARAM_STR );
-
-
-
-		//$query->execute(array("nombre"=>$nombre,"pass"=>$pass));
-		$stmt->execute();
-
-		return $stmt->fetch();
-
-		/////////////////////////
-
-
-
-
-	}  
-
+        if ($query->execute()) {
+            // El procedimiento no devuelve resultados, solo hacemos un select para verificar saldo?
+            // Para que devuelva algo hacemos un select aquí si quieres.
+            return true;
+        } else {
+            $errorInfo = $query->errorInfo();
+            echo "Error en ejecución: " . $errorInfo[2];
+            return false;
+        }
+    } catch (PDOException $e) {
+        echo "Excepción: " . $e->getMessage();
+        return false;
+    }
+}
 
 	//////////Funcion para el balances
 	static public function balances($datos)

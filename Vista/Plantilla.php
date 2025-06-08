@@ -56,16 +56,19 @@ session_start();
 		<img src="/Imagenes/nombreinicio.png" alt="" width="50%" height="auto">
 	</div>
   <?php
-  if (isset($_SESSION['privilegios'])){
+if (isset($_SESSION['privilegios'])) {
     $balance = FormularioControlador::balance();
-    $saldo = number_format($balance['ingresos']- $balance['egresos']);
-  
-    ?>
-    
-      <h2>
-          <a  class = "nav-link text-white fw-bold"  align="right" href="?pagina=ApuMovi"> <strong class="text-warning"><i class="fa-solid fa-sack-dollar fa-bounce" style="color: #ffc107;"></i><?php echo "&nbsp;$saldo &nbsp;"; ?></strong></a>
-          </h2>
-  <?php } ?> 
+    $saldo = number_format($balance['saldo']);
+?>
+    <h2>
+        <a class="nav-link text-white fw-bold" align="right" href="?pagina=ApuMovi">
+            <strong class="text-warning">
+                <i class="fa-solid fa-sack-dollar fa-bounce" style="color: #ffc107;"></i>
+                <?php echo "&nbsp;$saldo&nbsp;"; ?>
+            </strong>
+        </a>
+    </h2>
+<?php } ?>
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
   <div class="container col-sm-4" align="center">
     <div class="collapse navbar-collapse" id="mynavbar">

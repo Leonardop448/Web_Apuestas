@@ -112,40 +112,56 @@ static public function ingreso()
 
     /// HACER RECARGA
     static public function recargar()
-    {
-        $limpiaVariablesPost = '<script>
-                if(window.history.replaceState){
-                    window.history.replaceState(null, null, window.location.href);
-                }
-            </script>';
-
-        if (isset($_POST['token'])) {
-            if (
-                preg_match('/^[0-9A-Z]+$/', $_POST["token"]) &&
-                preg_match('/^[0-9]+$/', $_POST["valor"])
-            ) {
-                $token = $_POST["token"];
-                $cantidad = $_POST["valor"];
-                $gestor = $_SESSION['tokenUsuario'];
-
-                $resultado = ModeloFormularios::recargas(array($token, $cantidad, $gestor));
-
-                if (isset($resultado["id_movimiento"])) {
-                    echo "<div class='alert alert-success alert-dismissible'>
-                        <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
-                        Su recarga por <strong>$$cantidad</strong> fue exitosa!!
-                    </div>";
-                    echo $limpiaVariablesPost;
-                    header("Location: ?pagina=ApuMovi");
-                    exit;
-                }
-            } else {
-                echo $limpiaVariablesPost;
-                echo '<div class="alert alert-danger">No se pudo realizar la recarga!!!</div>';
-            }
+{
+    $limpiaVariablesPost = '<script>
+        if(window.history.replaceState){
+            window.history.replaceState(null, null, window.location.href);
         }
-    }
+    </script>';
 
+    if (isset($_POST['token'], $_POST['valor'])) {
+    
+        if (
+    preg_match('/^[0-9A-Z]+$/', $_POST["token"]) &&
+    preg_match('/^[0-9]+$/', $_POST["valor"]) &&
+    isset($_SESSION['nombre'])
+) {
+    $token = $_POST["token"];
+    $cantidad = $_POST["valor"];
+    $gestor = $_SESSION['nombre'];
+
+    $resultado = ModeloFormularios::recargas(array(
+        "tokenUsuario" => $token,
+        "cantidad" => $cantidad,
+        "gestor" => $gestor
+    ));
+
+    if ($resultado === true) {
+    echo "<div class='alert alert-success alert-dismissible fade show' role='alert' id='alertaRecarga'>
+            Su recarga por <strong>$$cantidad</strong> fue exitosa!!
+            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+        </div>";
+    echo $limpiaVariablesPost;
+
+    // Agregamos script para recargar al cerrar el alert
+    echo "<script>
+            var alerta = document.getElementById('alertaRecarga');
+            alerta.addEventListener('closed.bs.alert', function () {
+                window.location.reload();
+            });
+        </script>";
+    
+    exit;
+} else {
+        echo $limpiaVariablesPost;
+        echo '<div class="alert alert-danger">No se pudo realizar la recarga!!!</div>';
+    }
+} else {
+    echo $limpiaVariablesPost;
+    echo '<div class="alert alert-danger">Datos no válidos o sesión sin nombre de usuario.</div>';
+}
+    }
+}
     /// BALANCE
     static public function balance()
     {
