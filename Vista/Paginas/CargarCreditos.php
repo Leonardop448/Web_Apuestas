@@ -31,7 +31,7 @@
             $token=$ingreso['token'];
             $nombre=$ingreso['nombre'];
             $telefono=$ingreso['telefono'];
-            $correo=$ingreso['correo'];
+            $correo=$ingreso['email'];
             $cantidad=$ingreso['cantidad'];
 
         ?>
@@ -86,7 +86,7 @@
           <?php      }   ?>
         <?php      
           $ingreso = FormularioControlador::recargar();
-         
+        
         
         ?>
 

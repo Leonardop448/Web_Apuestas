@@ -187,14 +187,16 @@ static public function ingreso()
             if (
                 preg_match('/^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nombre"]) &&
                 preg_match('/^[0-9]+$/', $_POST["telefono"]) &&
-                preg_match('/^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}$/', $_POST["correo"])
+                preg_match('/^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}$/', $_POST["email"])
             ) {
                 $nombre = ucwords($_POST["nombre"]);
                 $tel = $_POST["telefono"];
-                $email = mb_strtolower($_POST["correo"]);
+                $email = mb_strtolower($_POST["email"]);
                 $token = $_SESSION['tokenUsuario'];
 
                 $datos = array($nombre, $tel, $email, $token);
+
+				
 
                 return ModeloFormularios::actualizarUsuarios($datos);
             }

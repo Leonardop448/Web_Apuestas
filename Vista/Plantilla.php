@@ -57,10 +57,10 @@ session_start();
 	</div>
   <?php
   if (isset($_SESSION['privilegios'])){
-     $balance = FormularioControlador::balance();
-     $saldo = number_format($balance['ingresos']- $balance['egresos']);
+    $balance = FormularioControlador::balance();
+    $saldo = number_format($balance['ingresos']- $balance['egresos']);
   
-     ?>
+    ?>
     
       <h2>
           <a  class = "nav-link text-white fw-bold"  align="right" href="?pagina=ApuMovi"> <strong class="text-warning"><i class="fa-solid fa-sack-dollar fa-bounce" style="color: #ffc107;"></i><?php echo "&nbsp;$saldo &nbsp;"; ?></strong></a>

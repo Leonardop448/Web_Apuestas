@@ -1,11 +1,14 @@
 <?php
-$actualizarusuario= FormularioControlador::actualizarUsuario();
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
+$actualizarusuario = FormularioControlador::actualizarUsuario();
 ?>
+
 
 <div class="form-outline mb-4" align="center">
 <form method="POST">
- 
+
 <label class="form-label " for="documento">Documento: </label>
 <?php echo $_SESSION[ 'cedula' ]?><br>
 <label class="form-label " for="nombre">Nombre: </label>
@@ -27,7 +30,6 @@ if ($actualizarusuario>=1){
   header("location: index.php");
   }
 	
-
 
 ?>
 

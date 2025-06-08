@@ -1,11 +1,9 @@
 <?php
-require ("Controlador/Plantilla.Controlador.php");
-require ("Controlador/Formulario.Controlador.php");
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-//forma llamar funcion que es estatica
-//$plantilla= ControladorPlantilla::cargarPlantilla();
+require("Controlador/Plantilla.Controlador.php");
+require("Controlador/Formulario.Controlador.php");
 
-
-//Forma de llamar funcion publica no estatica
-$plantilla= new ControladorPlantilla();
+$plantilla = new ControladorPlantilla();
 $plantilla->cargarPlantilla();

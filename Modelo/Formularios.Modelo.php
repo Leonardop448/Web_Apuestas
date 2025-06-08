@@ -108,30 +108,18 @@ static public	function recargas( $datos ) {
 
 
 	//////////Funcion para el balances
-	static public	function balances( $datos ) {
+	static public function balances($datos)
+{
+    $stmt = new Conexion();
+    $conexion = $stmt->conectar();  // Obtenemos el objeto PDO
 
-		//stmt significa estamento hacemos la conexion a la base de datos clase Conexion, funcion conectar
+    $query = $conexion->prepare('CALL Balance(:token)');
+    $query->bindParam(':token', $datos[0], PDO::PARAM_STR);
 
-		$stmt = new Conexion();
-		$stmt = $stmt->conectar();
-		// prepare prepara la conexion, call registro llamamos el procedimiento almacenado en la base de datos
-		// los dos puntos antes de cada valor significa que estan protegidos.
-		$stmt = $stmt->prepare( 'CALL Balance(:token)' );
+    $query->execute();
 
-		// bindParam desencapsula los datos llegados en el array $datos y evita inyeccion sql
-		$stmt->bindParam( ":token", $datos[ 0 ], PDO::PARAM_STR );
-		
-		//$query->execute(array("nombre"=>$nombre,"pass"=>$pass));
-		$stmt->execute();
-
-		return $stmt->fetch();
-
-		/////////////////////////
-
-
-
-
-	}
+    return $query->fetch();
+}
 
 	//////////Funcion para movimientos
 	static public	function movimientos( $datos ) {
@@ -189,12 +177,12 @@ static public	function recargas( $datos ) {
 		$stmt = $stmt->conectar();
 		// prepare prepara la conexion, call registro llamamos el procedimiento almacenado en la base de datos
 		// los dos puntos antes de cada valor significa que estan protegidos.
-		$stmt = $stmt->prepare( 'CALL ActualizarUsuarios(:correo,:nombre,:telefono,:token)' );
+		$stmt = $stmt->prepare( 'CALL ActualizarUsuarios(:nombre,:telefono,:email,:token)' );
 	
 		// bindParam desencapsula los datos llegados en el array $datos y evita inyeccion sql
 		$stmt->bindParam( ":nombre", $datos[ 0 ], PDO::PARAM_STR );
 		$stmt->bindParam( ":telefono", $datos[ 1 ], PDO::PARAM_STR );
-		$stmt->bindParam( ":correo", $datos[ 2 ], PDO::PARAM_STR );
+		$stmt->bindParam( ":email", $datos[ 2 ], PDO::PARAM_STR );
 		$stmt->bindParam( ":token", $datos[ 3 ], PDO::PARAM_STR );
 	
 		//$query->execute(array("nombre"=>$nombre,"pass"=>$pass));
