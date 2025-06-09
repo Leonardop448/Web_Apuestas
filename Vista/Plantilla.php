@@ -70,7 +70,7 @@ if (isset($_SESSION['privilegios'])) {
     </h2>
 <?php } ?>
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-  <div class="container col-sm-4" align="center">
+  <div class="container col-sm-7" align="center">
     <div class="collapse navbar-collapse" id="mynavbar">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">

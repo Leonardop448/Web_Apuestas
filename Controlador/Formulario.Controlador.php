@@ -173,28 +173,20 @@ static public function ingreso()
         }
     }
 
-    /// MOVIMIENTOS
-    static public function movimiento()
-    {
-        $valor = isset($_GET['paginas']) ? (($_GET['paginas'] - 1) * 10) : 0;
-        if (isset($_SESSION['tokenUsuario'])) {
-            if (preg_match('/^[0-9A-Z ]+$/', $_SESSION['tokenUsuario'])) {
-                $token = $_SESSION['tokenUsuario'];
-                return ModeloFormularios::movimientos(array($token, $valor));
-            }
-        }
-    }
+    // MOVIMIENTOS - ahora recibe token, pagina y porPagina
+public static function movimiento($tokenUsuario, $pagina = 1, $porPagina = 3) {
+    // Preparamos los parámetros para el modelo
+    $datos = [$tokenUsuario, $pagina, $porPagina];
 
-    /// CONTAR MOVIMIENTOS
-    static public function contarMovimiento()
-    {
-        if (isset($_SESSION['tokenUsuario'])) {
-            if (preg_match('/^[0-9A-Z ]+$/', $_SESSION['tokenUsuario'])) {
-                $token = $_SESSION['tokenUsuario'];
-                return ModeloFormularios::contarMovimientos(array($token));
-            }
-        }
-    }
+    // Llamamos al modelo y devolvemos el resultado
+    return ModeloFormularios::movimientos($datos);
+}
+
+// CONTAR MOVIMIENTOS - recibe solo token
+public static function contarMovimiento($tokenUsuario) {
+    $datos = [$tokenUsuario];
+    return ModeloFormularios::contarMovimientos($datos);
+}
 
     /// ACTUALIZAR USUARIO
     static public function actualizarUsuario()

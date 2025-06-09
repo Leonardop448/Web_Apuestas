@@ -117,52 +117,38 @@ static public function recargas($datos)
     return $query->fetch();
 }
 
-	//////////Funcion para movimientos
-	static public	function movimientos( $datos ) {
+	// Función para obtener movimientos con paginación
+static public function movimientos($datos) {
+    $stmt = new Conexion();
+    $db = $stmt->conectar();
 
-		//stmt significa estamento hacemos la conexion a la base de datos clase Conexion, funcion conectar
+    // Llamamos al procedimiento almacenado que recibe token, pagina y porPagina
+    $stmt = $db->prepare('CALL Movimientos(:token, :paginas, :porPagina)');
 
-		$stmt = new Conexion();
-		$stmt = $stmt->conectar();
-		// prepare prepara la conexion, call registro llamamos el procedimiento almacenado en la base de datos
-		// los dos puntos antes de cada valor significa que estan protegidos.
-		$stmt = $stmt->prepare( 'CALL Movimientos(:token, :paginas)' );
+    $stmt->bindParam(":token", $datos[0], PDO::PARAM_STR);
+    $stmt->bindParam(":paginas", $datos[1], PDO::PARAM_INT);
+    $stmt->bindParam(":porPagina", $datos[2], PDO::PARAM_INT);
 
-		// bindParam desencapsula los datos llegados en el array $datos y evita inyeccion sql
-		$stmt->bindParam( ":token", $datos[ 0 ], PDO::PARAM_STR );
-		$stmt->bindParam( ":paginas", $datos[ 1 ], PDO::PARAM_INT );
-		
-		//$query->execute(array("nombre"=>$nombre,"pass"=>$pass));
-		$stmt->execute();
+    $stmt->execute();
 
-		return $stmt->fetchAll( PDO::FETCH_ASSOC);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 
-		/////////////////////////
+// Función para contar total de movimientos
+static public function contarMovimientos($datos) {
+    $stmt = new Conexion();
+    $db = $stmt->conectar();
 
-	}
+    $stmt = $db->prepare('CALL ContarMovimientos(:token)');
 
-	//////////Funcion para contar movimientos
-	static public	function contarMovimientos( $datos ) {
+    $stmt->bindParam(":token", $datos[0], PDO::PARAM_STR);
 
-		//stmt significa estamento hacemos la conexion a la base de datos clase Conexion, funcion conectar
+    $stmt->execute();
 
-		$stmt = new Conexion();
-		$stmt = $stmt->conectar();
-		// prepare prepara la conexion, call registro llamamos el procedimiento almacenado en la base de datos
-		// los dos puntos antes de cada valor significa que estan protegidos.
-		$stmt = $stmt->prepare( 'CALL ContarMovimientos(:token)' );
+    return $stmt->fetch();
+}
 
-		// bindParam desencapsula los datos llegados en el array $datos y evita inyeccion sql
-		$stmt->bindParam( ":token", $datos[ 0 ], PDO::PARAM_STR );
-		
-		//$query->execute(array("nombre"=>$nombre,"pass"=>$pass));
-		$stmt->execute();
 
-		return $stmt->fetch();
-
-		/////////////////////////
-
-	}
 
 	static public function actualizarUsuarios( $datos ) {
 
