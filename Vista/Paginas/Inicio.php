@@ -1,63 +1,104 @@
-<section class="vh-100">
-  <div class="container-fluid h-custom">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col-md-9 col-lg-6 col-xl-5">
-        <img src="/Imagenes/pngwing.com (5).png"
-          class="img-fluid" alt="Sample image">
-      </div>
-      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-        <form method="post" action="index.php?pagina=Inicio">
-          
-          <div class="divider d-flex align-items-center my-4 ">
-            <p class="mx-1 mb-0"><h4 class="text-center fw-bold">Inicia Sesión</h4></p>
-          </div>
-
-          <!-- Email input -->
-          <div class="form-outline mb-4">
-			  <label class="form-label " for="email"><h5 class=" fw-bold">Correo Electronico</h5></label>
-            <input type="email" id="email" name="email" class="form-control form-control-lg"
-              placeholder="Ingrese su correo electronico" />
-            
-          </div>
-
-          <!-- Password input -->
-          <div class="form-outline mb-3">
-			  <label class="form-label fw-bold" for="contrasena"><h5 class=" fw-bold">Contraseña</h5></label>
-            <input type="password" id="contrasena" name="contrasena" class="form-control form-control-lg"
-              placeholder="Ingrese su contraseña" />
-            
-          </div>
-
-          <div class="d-flex justify-content-between align-items-center">
-            <!-- Checkbox -->
-            <div class="form-check mb-0">
-              <input class="form-check-input me-2" type="checkbox" value="" id="recuerdame" />
-              <label class="form-check-label" for="recuerdame">
-                Recordarme
-              </label>
-            </div>
-            <a href="?location=RecuperarContrasena" class="text-body">Olvido su contraseña?</a>
-          </div>
-
-          <div class="text-center text-lg-start mt-4 pt-2">
-            <input type="submit" class="btn btn-primary btn-lg" name="ingresar" value="Ingresar"
-              style="padding-left: 2.5rem; padding-right: 2.5rem;">
-            <p class="small fw-bold mt-2 pt-1 mb-0">No tienes una cuenta? <a href="?pagina=Registro"
-                class="link-danger">Registrate</a></p>
-          </div>
-        <?php      
-          $ingreso = FormularioControlador::ingreso();
-        ?>
-        </form>
-          
-   
-
-
-      </div>
-    </div>
-  </div>
-  <div
-    class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inicio</title>
+  <link rel="icon" type="image/png" href="/Imagenes/favicon.png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://kit.fontawesome.com/b84470ec17.js" crossorigin="anonymous"></script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #1a1a1a, #1658A3);
+      color: #fff;
+      font-family: 'Arial', sans-serif;
+    }
     
-    </div>
-</section>
+    .btn-apuesta {
+      background-color: #ffcc00;
+      color: #000;
+      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 5px;
+    }
+    .btn-apuesta:hover {
+      background-color: #e6b800;
+    }
+    .navbar {
+      background-color: #000 !important;
+    }
+    .nav-link {
+      color: #fff !important;
+      font-weight: bold;
+    }
+    .event-card {
+      background: #2d2d2d;
+      border: 2px solid #ffcc00;
+      border-radius: 10px;
+      padding: 15px;
+      margin: 10px;
+      transition: transform 0.3s;
+    }
+    .event-card:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sección Hero -->
+  <div class="hero">
+    <h1>¡La emoción de las carreras<br> y las apuestas en un solo lugar!</h1>
+    <a href="?pagina=Apuestas" class="btn btn-apuesta">¡Apuesta Ahora!</a>
+  </div>
+
+  <!-- Contenido Principal -->
+  <div class="container mt-5">
+    <?php if ($paginaVerificada == "Inicio") { ?>
+      <h2 style="text-align: center; font-size: 2.5rem;
+      color:rgb(255, 217, 0);
+      text-shadow: 5px 5px 4px rgb(0, 0, 0);
+      /* Asegurar Pacifico para títulos */
+      font-family: 'Pacifico', sans-serif;
+      font-weight: 700; ">Próximas Carreras Destacadas</h2>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="event-card">
+            <h3>Valida Nacional de Cartago</h3>
+            <p><i class="fa-solid fa-calendar"></i> 15 de Junio, 2025</p>
+            <p><i class="fa-solid fa-location-dot"></i> Circuito de La Estacion</p>
+            <a href="?pagina=Apuestas" class="btn btn-apuesta">Apostar</a>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="event-card">
+            <h3>Carreras Roldanillo</h3>
+            <p><i class="fa-solid fa-calendar"></i> 22 de Junio, 2025</p>
+            <p><i class="fa-solid fa-location-dot"></i> Circuito Callejero Roldanillo</p>
+            <a href="?pagina=Apuestas" class="btn btn-apuesta">Apostar</a>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="event-card">
+            <h3>Carreras Dosquebradas</h3>
+            <p><i class="fa-solid fa-calendar"></i> 30 de Junio, 2025</p>
+            <p><i class="fa-solid fa-location-dot"></i> Pista Dosquebradas</p>
+            <a href="?pagina=Apuestas" class="btn btn-apuesta">Apostar</a>
+          </div>
+        </div>
+      </div>
+    <?php } else { ?>
+      <div class="container-fluid mt-3">
+        <?php include("Vista/Paginas/$paginaVerificada.php"); ?>
+      </div>
+    <?php } ?>
+  </div>
+
+  <!-- Pie de página -->
+  <footer class="bg-dark text-center text-white py-3 mt-5">
+    <p>&copy; Apuestas deportivas "Don Samuel". Todos los derechos reservados. 2025</p>
+    <p><a href="?pagina=Terminos" class="text-white">Términos y Condiciones</a> | <a href="?pagina=Contacto" class="text-white">Contacto</a></p>
+  </footer>
+</body>
+</html>
