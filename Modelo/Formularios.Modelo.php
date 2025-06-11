@@ -47,6 +47,11 @@ static public function verificarUsuarios($datos) {
     $stmt->execute();
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
+
+
+
+
+
 //////////Funcion para hacer las recargas
 static public	function verificarRecargas( $datos ) {
 
@@ -134,6 +139,9 @@ static public function movimientos($datos) {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+
+
+
 // Función para contar total de movimientos
 static public function contarMovimientos($datos) {
     $stmt = new Conexion();
@@ -150,7 +158,7 @@ static public function contarMovimientos($datos) {
 
 
 
-	static public function actualizarUsuarios( $datos ) {
+static public function actualizarUsuarios( $datos ) {
 
 
 		//stmt significa estamento hacemos la conexion a la base de datos clase Conexion, funcion conectar

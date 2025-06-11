@@ -1,5 +1,4 @@
 <?php
-//avisamos al navegador que se utilizaran variables de session.
 session_start();
 ?>
 
@@ -77,40 +76,36 @@ session_start();
 </head>
 <body>
 <?php
-	$listadoPaginasprivadas = array("CargarCreditos","Salir","Perfil","ApuMovi","Ajustes");
-  $listadopaginaspublicas = array ("ProximosEventos","Resultados","Inicio","Login","Registro","RecuperarContrasena","ActivarCuenta");
-	if (isset($_GET['pagina'])){
-		$pagina = $_GET['pagina'];
-    $paginaVerificada=$pagina;
-		
-    
-    if (in_array($pagina,$listadoPaginasprivadas)&& isset($_SESSION['privilegios'])) {
-				$paginaVerificada=$pagina;
-			
-			}
-    
-    
-      elseif(in_array($pagina,$listadopaginaspublicas)){
-				$paginaVerificada=$pagina;
-      if ($paginaVerificada== 'Inicio' && isset($_SESSION['privilegios']) == 'Cliente'){
-          $paginaVerificada='Perfil';
+$listadoPaginasPrivadas = array("CargarCreditos", "Salir", "Perfil", "ApuMovi", "Ajustes");
+$listadoPaginasPublicas = array("ProximosEventos", "Resultados", "Inicio", "Login", "Registro", "RecuperarContrasena", "ActivarCuenta");
+
+if (isset($_GET['pagina'])) {
+    $pagina = $_GET['pagina'];
+
+    if (in_array($pagina, $listadoPaginasPrivadas)) {
+        // Requiere privilegios
+        if (isset($_SESSION['privilegios']) && in_array($_SESSION['privilegios'], ['usuario', 'admin'])) {
+            $paginaVerificada = $pagina;
+        } else {
+            // Redirigir si no tiene sesión
+            header("Location: index.php?pagina=Login");
+            exit;
         }
-      }
-      
-		
-    
-      else{
-				$paginaVerificada= "404";
-			}
-	
-	}
-
-
-
-  else {
-    $paginaVerificada = "ProximosEventos";
-  }
+    }
+    elseif (in_array($pagina, $listadoPaginasPublicas)) {
+        // Acceso libre, no requiere sesión
+        $paginaVerificada = $pagina;
+    }
+    else {
+        // Página no reconocida
+        $paginaVerificada = "404";
+    }
+} else {
+    // Página por defecto
+    $paginaVerificada = "Inicio";
+}
 ?>
+
 	<div style="display: flex; align-items: center; justify-content: center; ">
     <img src="/Imagenes/pngwing.com (5).png" alt="" width="10%" height="auto" style="margin-right: 15px;">
     <h1 style="font-size: 4.5rem; text-shadow: 2px 2px 4px #000; font-family: 'WDXL Lubrifont TC',
@@ -130,67 +125,46 @@ if (isset($_SESSION['privilegios'])) {
         </a>
     </h2>
 <?php } ?>
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-  <div class="container col-sm-7" align="center">
-    <div class="collapse navbar-collapse" id="mynavbar">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <a class="nav-link text-white fw-bold" href="?pagina=Inicio">Inicio</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white fw-bold" href="?pagina=ProximosEventos">Proximos Eventos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white fw-bold" href="?pagina=Resultados">Resultados</a>
-        </li>
-        <?php
-    // Esto es para oculta el menu de Cuenta solo para cuando ya inicio session
-  if (isset($_SESSION['privilegios'])){
-     
-    ?>
-        <li class="nav-item">
-          <a class="nav-link text-white fw-bold" href="?pagina=CargarCreditos">Cargar Creditos</a>
-        </li>
-        <?php
-  }
-  ?>    
-      </ul>
-		</div>
-	  </div>
+<nav class="navbar navbar-expand-lg bg-dark">
+  <div class="container-fluid">
     
-    <?php
-    // Esto es para oculta el menu de Cuenta solo para cuando ya inicio session
-  if (isset($_SESSION['privilegios'])){
-     
-    
-    ?>
-          <li class="nav-item dropdown col-sm-1.5" align="left">
-          <a class="nav-link dropdown-toggle text-white fw-bold " href="" role="button" data-bs-toggle="dropdown"><?php echo $_SESSION['nombre']; ?> </a>
-          <ul class="dropdown-menu ">
-            <li><a class="dropdown-item" href="?pagina=Perfil">Perfil</a></li>
-            <li><a class="dropdown-item" href="?pagina=ApuMovi">Apuestas y Movimientos</a></li>
-            <li><a class="dropdown-item" href="?pagina=Ajustes">Ajustes</a></li>
-            <li><a class="dropdown-item" href="?pagina=Salir">Salir</a></li>
-		  </ul>
-        </li>
-    
-  <?php
-  }
-  else {
+    <!-- Aquí iría tu logo o menú izquierdo -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link text-white fw-bold small" href="?pagina=Inicio">Inicio</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white fw-bold small" href="?pagina=Eventos">Próximos Eventos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white fw-bold small" href="?pagina=Resultados">Resultados</a>
+      </li>
+    </ul>
 
-  
-  ?>
-<ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="?pagina=Registro">Registrarte &nbsp; / &nbsp;</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="?pagina=Login">Login&nbsp;&nbsp;&nbsp;&nbsp;</a>
-            </li>
+    <!-- Menú derecho -->
+    <ul class="navbar-nav ms-auto me-0">
+      <?php if (isset($_SESSION['privilegios'])): ?>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white fw-bold small" href="#" role="button" data-bs-toggle="dropdown">
+            <?php echo trim($_SESSION['nombre']); ?>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item small" href="?pagina=Perfil">Perfil</a></li>
+            <li><a class="dropdown-item small" href="?pagina=ApuMovi">Apuestas y Movimientos</a></li>
+            <li><a class="dropdown-item small" href="?pagina=Ajustes">Ajustes</a></li>
+            <li><a class="dropdown-item small" href="?pagina=Salir">Salir</a></li>
           </ul>
-<?php
-  }
-  ?>
+        </li>
+      <?php else: ?>
+        <li class="nav-item">
+          <a class="nav-link text-white fw-bold small" href="?pagina=Registro">Registrarte</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white fw-bold small" href="?pagina=Login">Iniciar Sesión</a>
+        </li>
+      <?php endif; ?>
+    </ul>
+  </div>
 </nav>
 
 <div class="container-fluid mt-3">

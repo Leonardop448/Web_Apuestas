@@ -33,46 +33,42 @@ class FormularioControlador
     /// LOGIN DE USUARIO
 static public function ingreso()
 {
-    $limpiaVariablesPost = '<script>
-        if(window.history.replaceState){
-            window.history.replaceState(null, null, window.location.href);
-        }
-    </script>';
-
+    
     if (isset($_POST['email'])) {
         // Validar campos
         if (
-            preg_match('/^[0-9a-zA-Z@#\-_$%^&+=§!? ]{6,50}+$/', $_POST["contrasena"]) &&
+            preg_match('/^[0-9a-zA-Z@#\-_$%^&+=§!? ]{6,50}$/', $_POST["contrasena"]) &&
             preg_match('/^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}$/', $_POST["email"])
         ) {
             $email = mb_strtolower($_POST["email"]);
 
-            // Verificar usuario en la base de datos (solo por email)
-            $resultado = ModeloFormularios::verificarUsuarios([$email]);
 
-            if ($resultado && isset($resultado["email"])) {
-                // Normalizar correo en minúsculas para comparación
-                if (
-                    strtolower($resultado["email"]) === $email &&
-                    password_verify($_POST["contrasena"], $resultado["contrasena"])
-                ) {
-                    $_SESSION['cedula'] = $resultado["cedula"];
-                    $_SESSION['nombre'] = $resultado["nombre"];
-                    $_SESSION['privilegios'] = $resultado["privilegios"];
-                    $_SESSION['tokenUsuario'] = $resultado["tokenUsuario"];
-                    $_SESSION['email'] = $resultado["email"];
-                    $_SESSION['telefono'] = $resultado["telefono"];
+     // Verificar usuario en la base de datos (solo por email)
+    $resultado = ModeloFormularios::verificarUsuarios([$email]);
+    if ($resultado && isset($resultado["email"])) {
+        
+        if (
+            strtolower($resultado["email"]) === $email && // Normalizar correo en minúsculas para comparación
+            password_verify($_POST["contrasena"], $resultado["contrasena"])
+        ) {
+            $_SESSION['cedula'] = $resultado["cedula"];
+            $_SESSION['nombre'] = $resultado["nombre"];
+            $_SESSION['privilegios'] = $resultado["privilegios"];
+            $_SESSION['tokenUsuario'] = $resultado["tokenUsuario"];
+            $_SESSION['email'] = $resultado["email"];
+            $_SESSION['telefono'] = $resultado["telefono"];
+            
 
-                    echo $limpiaVariablesPost;
-                    echo "<script>window.location.replace('index.php?pagina=Perfil');</script>";
-                    exit;
-                }
-            }
 
-            echo $limpiaVariablesPost;
-            echo '<div class="alert alert-danger">Error al ingresar, usuario o contraseña incorrecto</div>';
-        } else {
-            echo $limpiaVariablesPost;
+            echo $_POST = array();
+            echo "<script>window.location.replace('index.php?pagina=Perfil');</script>";
+            exit;
+        }
+    }
+
+            
+} else {
+            echo $_POST = array();
             echo '<div class="alert alert-danger">Error al ingresar, usuario o contraseña incorrecto</div>';
         }
     }
@@ -82,11 +78,13 @@ static public function ingreso()
     /// VERIFICAR RECARGA
     static public function verificarRecargar()
     {
-        $limpiaVariablesPost = '<script>
-                if(window.history.replaceState){
-                    window.history.replaceState(null, null, window.location.href);
-                }
-            </script>';
+        $_POST = array();
+
+echo '<script>
+    if(window.history.replaceState){
+        window.history.replaceState(null, null, window.location.href);
+    }
+</script>';
 
         if (isset($_POST['cedula'])) {
             if (
@@ -100,11 +98,11 @@ static public function ingreso()
 
                 if (isset($resultado["token"])) {
                     $token = $resultado["token"];
-                    echo $limpiaVariablesPost;
+                    echo $_POST = array();
                     return $resultado;
                 }
             } else {
-                echo $limpiaVariablesPost;
+                echo $_POST = array();
                 echo '<div class="alert alert-danger">Usuario no existe!!!!</div>';
             }
         }
@@ -113,7 +111,8 @@ static public function ingreso()
     /// HACER RECARGA
     static public function recargar()
 {
-    $limpiaVariablesPost = '<script>
+    $_POST = array(); 
+    echo '<script>
         if(window.history.replaceState){
             window.history.replaceState(null, null, window.location.href);
         }
@@ -141,7 +140,7 @@ static public function ingreso()
             Su recarga por <strong>$$cantidad</strong> fue exitosa!!
             <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
         </div>";
-    echo $limpiaVariablesPost;
+    echo $_POST = array();
 
     // Agregamos script para recargar al cerrar el alert
     echo "<script>
@@ -153,11 +152,11 @@ static public function ingreso()
     
     exit;
 } else {
-        echo $limpiaVariablesPost;
+        echo $_POST = array();
         echo '<div class="alert alert-danger">No se pudo realizar la recarga!!!</div>';
     }
 } else {
-    echo $limpiaVariablesPost;
+    echo $_POST = array();
     echo '<div class="alert alert-danger">Datos no válidos o sesión sin nombre de usuario.</div>';
 }
     }

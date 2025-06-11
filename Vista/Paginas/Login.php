@@ -6,7 +6,7 @@
           class="img-fluid" alt="Sample image">
       </div>
       <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-        <form method="post" action="index.php?pagina=Inicio">
+        <form method="post" action="index.php?pagina=Login">
           
           <div class="divider d-flex align-items-center my-4 ">
             <p class="mx-1 mb-0"><h4 class="text-center fw-bold">Inicia Sesión</h4></p>

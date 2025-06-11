@@ -17,16 +17,13 @@ $actualizarusuario = FormularioControlador::actualizarUsuario();
 <input type="submit" value= "Actualizar">
 
 <?php
-if ($actualizarusuario>=1){
-  ?><script>
-  window.confirm("Se han actualizado los datos, Inicia sesion nuevamente");
-  </script>
-	<?php
-  
-  session_destroy();
-  header("location: index.php");
-  }
-	
+if ($actualizarusuario >= 1) {
+    echo "<script>
+        if (window.confirm('Se han actualizado los datos, inicia sesión nuevamente')) {
+            window.location.replace('index.php?pagina=Salir');
+        }
+    </script>";
+}
 
 ?>
 
