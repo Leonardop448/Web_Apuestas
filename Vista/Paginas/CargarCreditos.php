@@ -1,3 +1,10 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cargar Creditos</title>
+
 <form class="container col-sm-4" align="center" method="post">
           
           <div class="" >

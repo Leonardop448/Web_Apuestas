@@ -95,10 +95,6 @@
     <?php } ?>
   </div>
 
-  <!-- Pie de página -->
-  <footer class="bg-dark text-center text-white py-3 mt-5">
-    <p>&copy; Apuestas deportivas "Don Samuel". Todos los derechos reservados. 2025</p>
-    <p><a href="?pagina=Terminos" class="text-white">Términos y Condiciones</a> | <a href="?pagina=Contacto" class="text-white">Contacto</a></p>
-  </footer>
+  
 </body>
 </html>
