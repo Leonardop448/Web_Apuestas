@@ -150,6 +150,13 @@ if (isset($_SESSION['privilegios'])) {
                 <li class="nav-item">
                     <a class="nav-link text-white fw-bold small" href="?pagina=Resultados">Resultados</a>
                 </li>
+                </li>
+        <?php if (isset($_SESSION['privilegios'])): ?>
+          <li class="nav-item">
+            <a class="nav-link text-white fw-bold" href="?pagina=CargarCreditos">Cargar Creditos</a>
+          </li>
+        <?php endif; ?>
+      </ul>
             </ul>
 
             <!-- Menú derecho -->
