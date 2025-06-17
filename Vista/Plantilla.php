@@ -13,7 +13,8 @@ session_start();
     <script src="https://kit.fontawesome.com/b84470ec17.js" crossorigin="anonymous"></script>
     <link rel="icon" type="image/x-icon" href="/Imagenes/icono.png">
     <!-- Agregar Google Fonts:-->
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=WDXL+Lubrifont+TC&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=WDXL+Lubrifont+TC&display=swap"
+        rel="stylesheet">
     <style>
         body {
             background: linear-gradient(135deg, #1a1a1a, #1658A3);
@@ -88,10 +89,10 @@ session_start();
     <?php
     $listadoPaginasPrivadas = ['CargarCreditos', 'Salir', 'Perfil', 'ApuMovi', 'Ajustes'];
     $listadoPaginasPublicas = ['ProximosEventos', 'Terminos', 'Contacto', 'Resultados', 'Inicio', 'Login', 'Registro', 'RecuperarContrasena', 'ActivarCuenta', 'Politicas', '404', 'Contacto'];
-    
+
     if (isset($_GET['pagina'])) {
         $pagina = $_GET['pagina'];
-    
+
         if (in_array($pagina, $listadoPaginasPrivadas)) {
             // Requiere privilegios
             if (isset($_SESSION['privilegios']) && in_array($_SESSION['privilegios'], ['usuario', 'admin'])) {
@@ -115,26 +116,24 @@ session_start();
     ?>
 
     <div style="display: flex; align-items: center; justify-content: center; ">
-        <img src="/Imagenes/pngwing.com (5).png" alt="" width="10%" height="auto"
-            style="margin-right: 15px;">
-        <h1
-            style="font-size: 4.5rem; text-shadow: 2px 2px 4px #000; font-family: 'WDXL Lubrifont TC',
+        <img src="/Imagenes/pngwing.com (5).png" alt="" width="10%" height="auto" style="margin-right: 15px;">
+        <h1 style="font-size: 4.5rem; text-shadow: 2px 2px 4px #000; font-family: 'WDXL Lubrifont TC',
     sans-serif; font-weight: 700; white-space: nowrap;">
             ¡RaceStake Pro</h1>
     </div>
     <?php
-if (isset($_SESSION['privilegios'])) {
-    $balance = FormularioControlador::balance();
-    $saldo = number_format($balance['saldo']);
-?>
-    <h2>
-        <a class="nav-link text-white fw-bold" align="right" href="?pagina=ApuMovi">
-            <strong class="text-warning">
-                <i class="fa-solid fa-sack-dollar fa-bounce" style="color: #ffc107;"></i>
-                <?php echo "&nbsp;$saldo&nbsp;"; ?>
-            </strong>
-        </a>
-    </h2>
+    if (isset($_SESSION['privilegios'])) {
+        $balance = FormularioControlador::balance();
+        $saldo = number_format($balance['saldo']);
+        ?>
+        <h2>
+            <a class="nav-link text-white fw-bold" align="right" href="?pagina=ApuMovi">
+                <strong class="text-warning">
+                    <i class="fa-solid fa-sack-dollar fa-bounce" style="color: #ffc107;"></i>
+                    <?php echo "&nbsp;$saldo&nbsp;"; ?>
+                </strong>
+            </a>
+        </h2>
     <?php } ?>
     <nav class="navbar navbar-expand-lg bg-dark">
         <div class="container-fluid">
@@ -151,36 +150,36 @@ if (isset($_SESSION['privilegios'])) {
                     <a class="nav-link text-white fw-bold small" href="?pagina=Resultados">Resultados</a>
                 </li>
                 </li>
-        <?php if (isset($_SESSION['privilegios'])): ?>
-          <li class="nav-item">
-            <a class="nav-link text-white fw-bold" href="?pagina=CargarCreditos">Cargar Creditos</a>
-          </li>
-        <?php endif; ?>
-      </ul>
+                <?php if (isset($_SESSION['privilegios'])): ?>
+                    <li class="nav-item">
+                        <a class="nav-link text-white fw-bold" href="?pagina=CargarCreditos">Cargar Creditos</a>
+                    </li>
+                <?php endif; ?>
+            </ul>
             </ul>
 
             <!-- Menú derecho -->
             <ul class="navbar-nav ms-auto me-0">
                 <?php if (isset($_SESSION['privilegios'])): ?>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-white fw-bold small" href="#" role="button"
-                        data-bs-toggle="dropdown">
-                        <?php echo trim($_SESSION['nombre']); ?>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item small" href="?pagina=Perfil">Perfil</a></li>
-                        <li><a class="dropdown-item small" href="?pagina=ApuMovi">Apuestas y Movimientos</a></li>
-                        <li><a class="dropdown-item small" href="?pagina=Ajustes">Ajustes</a></li>
-                        <li><a class="dropdown-item small" href="?pagina=Salir">Salir</a></li>
-                    </ul>
-                </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white fw-bold small" href="#" role="button"
+                            data-bs-toggle="dropdown">
+                            <?php echo trim($_SESSION['nombre']); ?>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item small" href="?pagina=Perfil">Perfil</a></li>
+                            <li><a class="dropdown-item small" href="?pagina=ApuMovi">Apuestas y Movimientos</a></li>
+                            <li><a class="dropdown-item small" href="?pagina=Ajustes">Ajustes</a></li>
+                            <li><a class="dropdown-item small" href="?pagina=Salir">Salir</a></li>
+                        </ul>
+                    </li>
                 <?php else: ?>
-                <li class="nav-item">
-                    <a class="nav-link text-white fw-bold small" href="?pagina=Registro">Registrarte</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white fw-bold small" href="?pagina=Login">Iniciar Sesión</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white fw-bold small" href="?pagina=Registro">Registrarte</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white fw-bold small" href="?pagina=Login">Iniciar Sesión</a>
+                    </li>
                 <?php endif; ?>
             </ul>
         </div>
