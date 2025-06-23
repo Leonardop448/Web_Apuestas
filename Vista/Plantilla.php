@@ -155,15 +155,15 @@ session_start();
                     </li>
                 <?php endif; ?>
             </ul>
-            </ul>
+
 
             <!-- Menú derecho -->
             <ul class="navbar-nav ms-auto me-0">
                 <?php if (isset($_SESSION['privilegios'])): ?>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-white fw-bold small" href="#" role="button"
-                            data-bs-toggle="dropdown">
-                            <?php echo trim($_SESSION['nombre']); ?>
+                        <a class="nav-link dropdown-toggle text-white fw-bold" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <?php echo $_SESSION['nombre']; ?>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item small" href="?pagina=Perfil">Perfil</a></li>

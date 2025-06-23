@@ -1,14 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inicio</title>
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Inicio</title>
-  <link rel="icon" type="image/png" href="/Imagenes/favicon.png">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://kit.fontawesome.com/b84470ec17.js" crossorigin="anonymous"></script>
   <style>
     body {
       background: linear-gradient(135deg, #1a1a1a, #1658A3);
