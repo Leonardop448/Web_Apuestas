@@ -149,10 +149,9 @@ session_start();
                 <li class="nav-item">
                     <a class="nav-link text-white fw-bold small" href="?pagina=Resultados">Resultados</a>
                 </li>
-                </li>
-                <?php if (isset($_SESSION['privilegios'])): ?>
+                <?php if (isset($_SESSION['privilegios']) && $_SESSION['privilegios'] === 'admin'): ?>
                     <li class="nav-item">
-                        <a class="nav-link text-white fw-bold" href="?pagina=CargarCreditos">Cargar Creditos</a>
+                        <a class="nav-link text-white fw-bold" href="?pagina=CargarCreditos">Cargar Créditos</a>
                     </li>
                 <?php endif; ?>
             </ul>
