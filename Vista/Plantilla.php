@@ -187,7 +187,12 @@ session_start();
 
     <div class="container-fluid mt-3">
         <?php
-        include "Vista/Paginas/$paginaVerificada.php";
+        if ($paginaVerificada === 'Salir') {
+            header('Location: Vista/Paginas/Salir.php');
+            exit;
+        } else {
+            include "Vista/Paginas/$paginaVerificada.php";
+        }
         ?>
     </div>
     <!-- Pie de página -->

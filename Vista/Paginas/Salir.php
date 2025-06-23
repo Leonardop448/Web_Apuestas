@@ -1,5 +1,9 @@
 <?php
+session_start();
+session_unset();
 session_destroy();
-header("Location: index.php?pagina=Login");
+echo "<script>
+  alert('Sesión cerrada correctamente');
+  window.location.href = 'index.php?pagina=Inicio';
+</script>";
 exit;
-?>

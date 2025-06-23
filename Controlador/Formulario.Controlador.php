@@ -57,6 +57,8 @@ class FormularioControlador
                         $_SESSION['tokenUsuario'] = $resultado["tokenUsuario"];
                         $_SESSION['email'] = $resultado["email"];
                         $_SESSION['telefono'] = $resultado["telefono"];
+                        $_SESSION['fecha_registro'] = $resultado["fecha_registro"];
+                        $_SESSION['saldo'] = $resultado["saldo"];
 
 
 
