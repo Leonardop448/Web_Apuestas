@@ -5,37 +5,77 @@ class ModeloFormularios
 
     static public function registroUsuarios($datos)
     {
+        $conexion = new Conexion();
+        $pdo = $conexion->conectar();
 
-
-        //stmt significa estamento hacemos la conexion a la base de datos clase Conexion, funcion conectar
-
-        $stmt = new Conexion();
-        $stmt = $stmt->conectar();
-        // prepare prepara la conexion, call registro llamamos el procedimiento almacenado en la base de datos
-        // los dos puntos antes de cada valor significa que estan protegidos.
-        $stmt = $stmt->prepare('CALL RegistrarUsuario(:nombre,:contrasena,:cedula,:telefono,:email)');
-
-        // bindParam desencapsula los datos llegados en el array $datos y evita inyeccion sql
+        $stmt = $pdo->prepare("CALL RegistrarUsuario(:nombre,:contrasena,:cedula,:telefono,:email)");
         $stmt->bindParam(":nombre", $datos[0], PDO::PARAM_STR);
         $stmt->bindParam(":contrasena", $datos[1], PDO::PARAM_STR);
         $stmt->bindParam(":cedula", $datos[2], PDO::PARAM_STR);
         $stmt->bindParam(":telefono", $datos[3], PDO::PARAM_STR);
         $stmt->bindParam(":email", $datos[4], PDO::PARAM_STR);
 
-        //$query->execute(array("nombre"=>$nombre,"pass"=>$pass));
-        //$stmt->execute();
-        try {
-            $stmt->execute();
-            return $stmt->fetch();
-            // do other things if successfully inserted
-        } catch (PDOException $e) {
-            if ($e->errorInfo[1] == 1062) {
-                return 1;
+        if ($stmt->execute()) {
+            $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+            $stmt->closeCursor(); // ✅ CIERRA el resultado del procedimiento
+
+            if ($usuario && isset($usuario['id'])) {
+                // Obtener el token del usuario recién insertado
+                $query = $pdo->prepare("SELECT tokenUsuario FROM usuarios WHERE id = :id");
+                $query->bindParam(":id", $usuario['id'], PDO::PARAM_INT);
+                $query->execute();
+                $token = $query->fetchColumn();
+
+                $usuario['tokenUsuario'] = $token;
+
+
+
+                return $usuario;
             }
         }
 
+        return null;
+    }
 
+    static public function activarCuenta($token)
+    {
+        $stmt = new Conexion();
+        $stmt = $stmt->conectar();
 
+        // Buscar el usuario por token
+        $query = $stmt->prepare("SELECT activo FROM usuarios WHERE tokenUsuario = :token");
+        $query->bindParam(":token", $token, PDO::PARAM_STR);
+        $query->execute();
+        $usuario = $query->fetch(PDO::FETCH_ASSOC);
+
+        if (!$usuario) {
+            return 'invalido'; // Token no encontrado
+        }
+
+        if ($usuario['activo'] == 1) {
+            return 'ya_activado'; // Ya estaba activado
+        }
+
+        // Activar la cuenta (sin eliminar el token)
+        $update = $stmt->prepare("UPDATE usuarios SET activo = 1 WHERE tokenUsuario = :token");
+        $update->bindParam(":token", $token, PDO::PARAM_STR);
+        if ($update->execute()) {
+            return 'activado';
+        }
+
+        return 'error';
+    }
+
+    static public function buscarUsuarioPorToken($token)
+    {
+        $stmt = new Conexion();
+        $stmt = $stmt->conectar();
+
+        $stmt = $stmt->prepare("SELECT * FROM usuarios WHERE tokenUsuario = :token");
+        $stmt->bindParam(":token", $token, PDO::PARAM_STR);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     ////Verificacion de usuarios

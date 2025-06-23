@@ -1,6 +1,7 @@
 <?php
 
 include("Modelo/Formularios.Modelo.php");
+require_once 'Vista/Paginas/EnviarCorreo.php'; // Ruta al nuevo archivo
 
 class FormularioControlador
 {
@@ -24,6 +25,11 @@ class FormularioControlador
                 $datos = array($nombre, $pass, $cedula, $tel, $email);
 
                 $respuesta = ModeloFormularios::registroUsuarios($datos);
+
+                if ($respuesta && isset($respuesta["id"]) && isset($respuesta["tokenUsuario"])) {
+                    // ✅ Enviar correo con token
+                    EnviarCorreo::enviarActivacion($nombre, $email, $respuesta["tokenUsuario"]);
+                }
 
                 return $respuesta;
             }

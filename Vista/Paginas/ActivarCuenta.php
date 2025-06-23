@@ -1,59 +1,72 @@
+<?php
+require_once(__DIR__ . '/../../Modelo/Formularios.Modelo.php');
+?>
+
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Activar Cuenta</title>
-<?php
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
- 
-require 'Exception.php';
-require 'PHPMailer.php';
-require 'SMTP.php';
+<body style="background: linear-gradient(135deg, #1a1a1a, #1658A3); color: white; font-family: Arial, sans-serif;">
 
-$fecha_actual = date("d-m-Y h:i:s");
- 
-$mail = new PHPMailer(true);                              
-try {
-   // $mail->SMTPDebug = 4;                               // Habilitar el debug
- 
-    $mail->isSMTP();                                      // Usar SMTP
-    $mail->Host = 'mail.bealri.com';  // Especificar el servidor SMTP reemplazando por el nombre del servidor donde esta alojada su cuenta
-    $mail->SMTPAuth = true;                               // Habilitar autenticacion SMTP
-    $mail->Username = 'correoenvio@correo.com';                 // Nombre de usuario SMTP donde debe ir la cuenta de correo a utilizar para el envio
-    $mail->Password = 'contraseña';                           // Clave SMTP donde debe ir la clave de la cuenta de correo a utilizar para el envio
-    $mail->SMTPSecure = 'ssl';                            // Habilitar encriptacion
-    $mail->Port = 465;                                    // Puerto SMTP                     
-    $mail->Timeout       =   30;
-    $mail->AuthType = 'LOGIN';
- 
-    //Recipients   
- 
-    $mail->setFrom('contacto@bealri.com','Beimar Alarcon');     //Direccion de correo remitente (DEBE SER EL MISMO "Username")
-    $mail->addAddress('alarconbeimar@gmail.com');     // Agregar el destinatario
-    $mail->addReplyTo('contacto@bealri.com');     //Direccion de correo para respuestas     
- 
-    //Content
-    $mail->isHTML(true);                                  
-    $mail->Subject = 'hola '.$nombre." ". $fecha_actual;
-    $mail->Body    = 'Mensaje enviado con el pdf '.$fecha_actual;
-	
-	// Adjuntar el archivo PDF
-   
-    $mail->addAttachment($pdfFile); // Adjunta el PDF
-	
-	
-     
-    $mail->send();
-    echo 'El mensaje ha sido enviado'.'<br>';
-	// eliminar el archivo del servidor pdf 
-	if (file_exists($pdfFile)) {
-    unlink($pdfFile);
-    echo "El archivo PDF se ha eliminado del servidor.";
-}
- 
-} catch (Exception $e) {
-    echo 'El mensaje no pudo ser enviado. Mailer Error: ', $mail->ErrorInfo;
-}
+  <div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="text-center">
+      <?php
+      if (isset($_GET['token'])) {
+        $token = $_GET['token'];
+        $estado = ModeloFormularios::activarCuenta($token);
+
+        if ($estado === 'activado') {
+          echo '
+                    <div class="alert alert-success shadow-lg" role="alert">
+                        <h4 class="alert-heading">¡Cuenta activada con éxito!</h4>
+                        <p>Ahora puedes iniciar sesión con tu cuenta. 🎉</p>
+                        <hr>
+                        <a href="?pagina=Login" class="btn btn-success fw-bold">Iniciar sesión</a>
+                    </div>';
+        } elseif ($estado === 'ya_activado') {
+          echo '
+                    <div class="alert alert-info shadow-lg" role="alert">
+                        <h4 class="alert-heading">Cuenta ya activada</h4>
+                        <p>Tu cuenta ya fue activada anteriormente.</p>
+                        <hr>
+                        <a href="?pagina=Login" class="btn btn-secondary fw-bold">Ir al Login</a>
+                    </div>';
+        } elseif ($estado === 'invalido') {
+          echo '
+                    <div class="alert alert-danger shadow-lg" role="alert">
+                        <h4 class="alert-heading">Token inválido</h4>
+                        <p>Este enlace no es válido o no existe.</p>
+                        <hr>
+                        <a href="?pagina=Registro" class="btn btn-warning fw-bold">Registrarse</a>
+                    </div>';
+        } else {
+          echo '
+                    <div class="alert alert-danger shadow-lg" role="alert">
+                        <h4 class="alert-heading">Error inesperado</h4>
+                        <p>No se pudo activar la cuenta. Inténtalo más tarde.</p>
+                        <hr>
+                        <a href="?pagina=Inicio" class="btn btn-light fw-bold">Volver al inicio</a>
+                    </div>';
+        }
+      } else {
+        echo '
+                <div class="alert alert-warning shadow-lg" role="alert">
+                    <h4 class="alert-heading">Token no proporcionado</h4>
+                    <p>No se ha proporcionado un token de activación.</p>
+                    <hr>
+                    <a href="?pagina=Inicio" class="btn btn-light fw-bold">Volver al inicio</a>
+                </div>';
+      }
+      ?>
+    </div>
+  </div>
+
+</body>
+
+</html>
