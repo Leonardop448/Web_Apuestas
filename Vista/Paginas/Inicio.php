@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,7 +15,7 @@
       color: #fff;
       font-family: 'Arial', sans-serif;
     }
-    
+
     .btn-apuesta {
       background-color: #ffcc00;
       color: #000;
@@ -22,16 +23,20 @@
       padding: 10px 20px;
       border-radius: 5px;
     }
+
     .btn-apuesta:hover {
       background-color: #e6b800;
     }
+
     .navbar {
       background-color: #000 !important;
     }
+
     .nav-link {
       color: #fff !important;
       font-weight: bold;
     }
+
     .event-card {
       background: #2d2d2d;
       border: 2px solid #ffcc00;
@@ -40,11 +45,13 @@
       margin: 10px;
       transition: transform 0.3s;
     }
+
     .event-card:hover {
       transform: scale(1.05);
     }
   </style>
 </head>
+
 <body>
 
   <!-- Sección Hero -->
@@ -66,15 +73,15 @@
         <div class="col-md-4">
           <div class="event-card">
             <h3>Valida Nacional de Cartago</h3>
-            <p><i class="fa-solid fa-calendar"></i> 15 de Junio, 2025</p>
-            <p><i class="fa-solid fa-location-dot"></i> Circuito de La Estacion</p>
+            <p><i class="fa-solid fa-calendar"></i> 15 de Diciembre, 2025</p>
+            <p><i class="fa-solid fa-location-dot"></i> Circuito Callejero La Estacion</p>
             <a href="?pagina=Apuestas" class="btn btn-apuesta">Apostar</a>
           </div>
         </div>
         <div class="col-md-4">
           <div class="event-card">
             <h3>Carreras Roldanillo</h3>
-            <p><i class="fa-solid fa-calendar"></i> 22 de Junio, 2025</p>
+            <p><i class="fa-solid fa-calendar"></i> 22 de Diciembre, 2025</p>
             <p><i class="fa-solid fa-location-dot"></i> Circuito Callejero Roldanillo</p>
             <a href="?pagina=Apuestas" class="btn btn-apuesta">Apostar</a>
           </div>
@@ -82,7 +89,7 @@
         <div class="col-md-4">
           <div class="event-card">
             <h3>Carreras Dosquebradas</h3>
-            <p><i class="fa-solid fa-calendar"></i> 30 de Junio, 2025</p>
+            <p><i class="fa-solid fa-calendar"></i> 30 de Diciembre, 2025</p>
             <p><i class="fa-solid fa-location-dot"></i> Pista Dosquebradas</p>
             <a href="?pagina=Apuestas" class="btn btn-apuesta">Apostar</a>
           </div>
@@ -95,6 +102,7 @@
     <?php } ?>
   </div>
 
-  
+
 </body>
+
 </html>
