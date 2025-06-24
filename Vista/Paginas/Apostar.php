@@ -120,11 +120,6 @@ if (isset($_POST['monto'], $_POST['tipo_apuesta'], $_POST['id_piloto'], $_POST['
 </div>
 
 
-
-
-
-
-
 </body>
 
 </html>
