@@ -1,7 +1,3 @@
-<!DOCTYPE html>
-<html lang="es">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Inicio</title>
 
 <head>
@@ -53,7 +49,7 @@
   <!-- Sección Hero -->
   <div class="hero">
     <h1>¡La emoción de las carreras<br> y las apuestas en un solo lugar!</h1>
-    <a href="?pagina=Apuestas" class="btn btn-apuesta">¡Apuesta Ahora!</a>
+    <a href="?pagina=Apostar" class="btn btn-apuesta">¡Apuesta Ahora!</a>
   </div>
 
   <!-- Contenido Principal -->
@@ -71,7 +67,7 @@
             <h3>Valida Nacional de Cartago</h3>
             <p><i class="fa-solid fa-calendar"></i> 15 de Diciembre, 2025</p>
             <p><i class="fa-solid fa-location-dot"></i> Circuito Callejero La Estacion</p>
-            <a href="?pagina=Apuestas" class="btn btn-apuesta">Apostar</a>
+
           </div>
         </div>
         <div class="col-md-4">
@@ -79,7 +75,7 @@
             <h3>Carreras Roldanillo</h3>
             <p><i class="fa-solid fa-calendar"></i> 22 de Diciembre, 2025</p>
             <p><i class="fa-solid fa-location-dot"></i> Circuito Callejero Roldanillo</p>
-            <a href="?pagina=Apuestas" class="btn btn-apuesta">Apostar</a>
+
           </div>
         </div>
         <div class="col-md-4">
@@ -87,10 +83,36 @@
             <h3>Carreras Dosquebradas</h3>
             <p><i class="fa-solid fa-calendar"></i> 30 de Diciembre, 2025</p>
             <p><i class="fa-solid fa-location-dot"></i> Pista Dosquebradas</p>
-            <a href="?pagina=Apuestas" class="btn btn-apuesta">Apostar</a>
+
           </div>
         </div>
       </div>
+      <!-- Carrusel de imágenes -->
+      <div id="carouselInicio" class="carousel slide mb-5" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="imagenes/carrera1.jpg" class="d-block w-100" alt="Carrera 1">
+          </div>
+          <div class="carousel-item">
+            <img src="imagenes/carrera2.jpg" class="d-block w-100" alt="Carrera 2">
+          </div>
+          <div class="carousel-item">
+            <img src="imagenes/carrera3.jpg" class="d-block w-100" alt="Carrera 3">
+          </div>
+          <div class="carousel-item">
+            <img src="imagenes/carrera4.jpg" class="d-block w-100" alt="Carrera 4">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselInicio" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselInicio" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Siguiente</span>
+        </button>
+      </div>
+
     <?php } else { ?>
       <div class="container-fluid mt-3">
         <?php include("Vista/Paginas/$paginaVerificada.php"); ?>

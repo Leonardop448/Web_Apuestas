@@ -1,0 +1,120 @@
+<?php
+
+
+if (!isset($_SESSION['privilegios']) || $_SESSION['privilegios'] !== 'admin') {
+    header("Location: index.php?pagina=Login");
+    exit();
+}
+
+require_once "Modelo/Conexion.php";
+require_once "Modelo/Formularios.Modelo.php";
+
+$mensaje = "";
+$tipoMensaje = "success";
+$carreras = ModeloFormularios::carrerasPorEstado('pendiente');
+$pilotos = [];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id_carrera = $_POST['id_carrera'] ?? null;
+    $accion = $_POST['accion'] ?? '';
+
+    if ($accion === 'registrar_resultados') {
+        $pilotosSeleccionados = $_POST['pilotos'] ?? [];
+
+        if (count($pilotosSeleccionados) !== 3 || count(array_unique($pilotosSeleccionados)) !== 3) {
+            $mensaje = "Error: Los 3 pilotos deben ser diferentes.";
+            $tipoMensaje = "danger";
+        } else {
+            ModeloFormularios::procesarResultados($id_carrera, $pilotosSeleccionados);
+            $mensaje = "Resultados registrados correctamente.";
+        }
+    }
+
+    if ($id_carrera) {
+        $pilotos = ModeloFormularios::pilotosDeCarrera($id_carrera);
+    }
+}
+?>
+
+<title>Registrar Resultados</title>
+
+<div class="container mt-3">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card bg-dark text-white shadow-lg rounded-4">
+                <div class="card-header bg-warning text-dark text-center">
+                    <h2 class="fw-bold">Registrar Resultados de Carrera</h2>
+                </div>
+                <div class="card-body">
+                    <?php if ($mensaje): ?>
+                        <div class="alert alert-<?= $tipoMensaje ?>"><?= htmlspecialchars($mensaje) ?></div>
+                    <?php endif; ?>
+
+                    <form method="post" id="formResultados">
+                        <input type="hidden" name="accion" id="accion" value="">
+
+                        <div class="mb-3">
+                            <label for="id_carrera" class="form-label">Selecciona Carrera</label>
+                            <select name="id_carrera" id="id_carrera" class="form-select"
+                                onchange="document.getElementById('accion').value='cambiar_carrera'; this.form.submit();"
+                                required>
+                                <option value="">-- Elige --</option>
+                                <?php foreach ($carreras as $carrera): ?>
+                                    <option value="<?= $carrera['id'] ?>" <?= isset($id_carrera) && $id_carrera == $carrera['id'] ? 'selected' : '' ?>>
+                                        <?= htmlspecialchars($carrera['nombre']) ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+
+                        <?php if (!empty($pilotos)): ?>
+                            <h4>Orden de llegada (solo los 3 primeros puestos)</h4>
+                            <?php for ($i = 0; $i < 3; $i++): ?>
+                                <div class="mb-2">
+                                    <label class="form-label">Posición <?= $i + 1 ?></label>
+                                    <select name="pilotos[]" class="form-select seleccion-piloto" required>
+                                        <option value="">-- Selecciona piloto --</option>
+                                        <?php foreach ($pilotos as $opcion): ?>
+                                            <option value="<?= htmlspecialchars($opcion['id']) ?>">
+                                                <?= htmlspecialchars($opcion['nombre']) ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            <?php endfor; ?>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary mt-3"
+                                    onclick="document.getElementById('accion').value='registrar_resultados'">
+                                    Registrar Resultados
+                                </button>
+                            </div>
+                        <?php endif; ?>
+                    </form>
+                </div>
+
+                <script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                        const selects = document.querySelectorAll(".seleccion-piloto");
+
+                        function actualizarOpciones() {
+                            const seleccionados = Array.from(selects)
+                                .map(sel => sel.value)
+                                .filter(val => val !== "");
+
+                            selects.forEach(select => {
+                                Array.from(select.options).forEach(opt => {
+                                    if (opt.value === "") return;
+                                    opt.disabled = seleccionados.includes(opt.value) && select.value !== opt.value;
+                                });
+                            });
+                        }
+
+                        selects.forEach(select => {
+                            select.addEventListener("change", actualizarOpciones);
+                        });
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+</div>

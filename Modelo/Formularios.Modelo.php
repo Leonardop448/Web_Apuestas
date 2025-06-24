@@ -66,17 +66,6 @@ class ModeloFormularios
         return 'error';
     }
 
-    static public function buscarUsuarioPorToken($token)
-    {
-        $stmt = new Conexion();
-        $stmt = $stmt->conectar();
-
-        $stmt = $stmt->prepare("SELECT * FROM usuarios WHERE tokenUsuario = :token");
-        $stmt->bindParam(":token", $token, PDO::PARAM_STR);
-        $stmt->execute();
-
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
 
     ////Verificacion de usuarios
 
@@ -228,4 +217,263 @@ class ModeloFormularios
         return $stmt->rowCount();
 
     }
+
+
+    static public function crearCarrera($nombre, $fecha)
+    {
+        $stmt = new Conexion();
+        $pdo = $stmt->conectar();
+
+        $query = $pdo->prepare("INSERT INTO carreras (nombre, fecha) VALUES (:nombre, :fecha)");
+        $query->bindParam(":nombre", $nombre, PDO::PARAM_STR);
+        $query->bindParam(":fecha", $fecha, PDO::PARAM_STR);
+
+        if ($query->execute()) {
+            return "ok";
+        }
+
+        return "error";
+    }
+
+
+    static public function registrarPiloto($nombre)
+    {
+        $stmt = new Conexion();
+        $pdo = $stmt->conectar();
+
+        $query = $pdo->prepare("INSERT INTO pilotos (nombre) VALUES (:nombre)");
+        $query->bindParam(":nombre", $nombre, PDO::PARAM_STR);
+
+        if ($query->execute()) {
+            return "ok";
+        }
+
+        return "error";
+    }
+
+
+    static public function obtenerCarreras()
+    {
+        $stmt = new Conexion();
+        $pdo = $stmt->conectar();
+
+        $query = $pdo->prepare("SELECT * FROM carreras ORDER BY fecha DESC");
+        $query->execute();
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    static public function obtenerPilotos()
+    {
+        $stmt = new Conexion();
+        $pdo = $stmt->conectar();
+
+        $query = $pdo->prepare("SELECT * FROM pilotos ORDER BY nombre ASC");
+        $query->execute();
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+
+
+    static public function asignarPilotos($idCarrera, $pilotos)
+    {
+        $conexion = new Conexion();
+        $pdo = $conexion->conectar();
+
+        $yaAsignados = [];
+        $asignados = [];
+
+        foreach ($pilotos as $idPiloto) {
+            // Verificar si ya está asignado
+            $verificar = $pdo->prepare("SELECT COUNT(*) FROM carrera_pilotos WHERE id_carrera = :id_carrera AND id_piloto = :id_piloto");
+            $verificar->bindParam(":id_carrera", $idCarrera, PDO::PARAM_INT);
+            $verificar->bindParam(":id_piloto", $idPiloto, PDO::PARAM_INT);
+            $verificar->execute();
+
+            if ($verificar->fetchColumn() > 0) {
+                // Obtener nombre del piloto para mostrar en el mensaje
+                $query = $pdo->prepare("SELECT nombre FROM pilotos WHERE id = :id_piloto");
+                $query->bindParam(":id_piloto", $idPiloto, PDO::PARAM_INT);
+                $query->execute();
+                $nombrePiloto = $query->fetchColumn();
+                $yaAsignados[] = $nombrePiloto;
+                continue;
+            }
+
+            // Insertar piloto si no está asignado
+            $stmt = $pdo->prepare("INSERT INTO carrera_pilotos (id_carrera, id_piloto) VALUES (:id_carrera, :id_piloto)");
+            $stmt->bindParam(":id_carrera", $idCarrera, PDO::PARAM_INT);
+            $stmt->bindParam(":id_piloto", $idPiloto, PDO::PARAM_INT);
+
+            if ($stmt->execute()) {
+                $asignados[] = $idPiloto;
+            }
+        }
+
+        return [
+            'exito' => !empty($asignados),
+            'yaAsignados' => $yaAsignados
+        ];
+    }
+
+
+
+
+    static public function registrarApuesta($usuarioId, $carreraId, $pilotoId, $tipo, $monto, $ganancia)
+    {
+        $stmt = new Conexion();
+        $pdo = $stmt->conectar();
+        $query = $pdo->prepare("INSERT INTO apuestas (id_usuario, id_carrera, id_piloto, tipo_apuesta, monto, ganancia_esperada)
+                            VALUES (:id_usuario, :id_carrera, :id_piloto, :tipo, :monto, :ganancia)");
+
+        $query->bindParam(":id_usuario", $usuarioId, PDO::PARAM_INT);
+        $query->bindParam(":id_carrera", $carreraId, PDO::PARAM_INT);
+        $query->bindParam(":id_piloto", $pilotoId, PDO::PARAM_INT);
+        $query->bindParam(":tipo", $tipo, PDO::PARAM_STR);
+        $query->bindParam(":monto", $monto, PDO::PARAM_INT);
+        $query->bindParam(":ganancia", $ganancia, PDO::PARAM_INT);
+
+        if ($query->execute())
+            return "ok";
+        return "error";
+    }
+
+    public static function obtenerSaldo($id_usuario)
+    {
+        $conexion = new Conexion();
+        $pdo = $conexion->conectar();
+
+        $stmt = $pdo->prepare("SELECT saldo FROM usuarios WHERE id = :id");
+        $stmt->bindParam(":id", $id_usuario, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $resultado ? $resultado['saldo'] : 0;
+    }
+
+    static public function procesarResultados($id_carrera, $ordenLlegada)
+    {
+        $db = (new Conexion())->conectar();
+
+        foreach ($ordenLlegada as $posicion => $id_piloto) {
+            $posicionReal = $posicion + 1;
+            $ganador = ($posicionReal === 1);
+            $enPodio = ($posicionReal <= 3);
+
+            $stmt = $db->prepare("SELECT * FROM apuestas WHERE id_carrera = :id_carrera AND id_piloto = :id_piloto");
+            $stmt->execute([
+                ":id_carrera" => $id_carrera,
+                ":id_piloto" => $id_piloto
+            ]);
+
+            $apuestas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach ($apuestas as $apuesta) {
+                $estado = 'perdida';
+                $ganancia = 0;
+
+                if ($apuesta['tipo_apuesta'] === 'ganador' && $ganador) {
+                    $estado = 'ganada';
+                    $ganancia = $apuesta['ganancia_esperada'];
+                } elseif ($apuesta['tipo_apuesta'] === 'podio' && $enPodio) {
+                    $estado = 'ganada';
+                    $ganancia = $apuesta['ganancia_esperada'];
+                }
+
+                $stmtUpdate = $db->prepare("UPDATE apuestas SET resultado = :resultado  WHERE id = :id");
+                $stmtUpdate->execute([
+                    ":resultado" => $estado,
+                    ":id" => $apuesta['id']
+                ]);
+
+                if ($estado === 'ganada') {
+                    $stmtSaldo = $db->prepare("UPDATE usuarios SET saldo = saldo + :ganancia WHERE id = :id_usuario");
+                    $stmtSaldo->execute([
+                        ":ganancia" => $ganancia,
+                        ":id_usuario" => $apuesta['id_usuario']
+                    ]);
+                } else {
+                    $stmtSaldo = $db->prepare("UPDATE usuarios SET saldo = saldo - :monto WHERE id = :id_usuario");
+                    $stmtSaldo->execute([
+                        ":monto" => $apuesta['monto'],
+                        ":id_usuario" => $apuesta['id_usuario']
+                    ]);
+                }
+            }
+        }
+
+        // Insertar resultados en tabla resultados_carrera
+        foreach ($ordenLlegada as $posicion => $id_piloto) {
+            $stmtInsert = $db->prepare("INSERT INTO resultados_carrera (id_carrera, id_piloto, posicion) VALUES (:id_carrera, :id_piloto, :posicion)");
+            $stmtInsert->execute([
+                ':id_carrera' => $id_carrera,
+                ':id_piloto' => $id_piloto,
+                ':posicion' => $posicion + 1
+            ]);
+        }
+
+        // Marcar carrera como finalizada
+        $stmtCarrera = $db->prepare("UPDATE carreras SET estado = 'finalizada' WHERE id = :id");
+        $stmtCarrera->bindParam(":id", $id_carrera, PDO::PARAM_INT);
+        $stmtCarrera->execute();
+    }
+
+
+
+
+    static public function carrerasPorEstado($estado)
+    {
+        $conexion = new Conexion();
+        $pdo = $conexion->conectar();
+
+        $stmt = $pdo->prepare("SELECT * FROM carreras WHERE estado = :estado ORDER BY fecha ASC");
+        $stmt->bindParam(":estado", $estado, PDO::PARAM_STR);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    static public function pilotosDeCarrera($idCarrera)
+    {
+        $conexion = new Conexion();
+        $pdo = $conexion->conectar();
+
+        $stmt = $pdo->prepare("
+        SELECT pilotos.id, pilotos.nombre 
+        FROM carrera_pilotos 
+        INNER JOIN pilotos ON carrera_pilotos.id_piloto = pilotos.id 
+        WHERE carrera_pilotos.id_carrera = :idCarrera
+    ");
+        $stmt->bindParam(":idCarrera", $idCarrera, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function actualizarSaldo($id_usuario, $nuevoSaldo)
+    {
+        $conexion = new Conexion();
+        $pdo = $conexion->conectar();
+
+        $stmt = $pdo->prepare("UPDATE usuarios SET saldo = :saldo WHERE id = :id");
+        $stmt->bindParam(":saldo", $nuevoSaldo, PDO::PARAM_INT);
+        $stmt->bindParam(":id", $id_usuario, PDO::PARAM_INT);
+
+        return $stmt->execute() ? "ok" : "error";
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

@@ -57,6 +57,7 @@ class FormularioControlador
                         strtolower($resultado["email"]) === $email && // Normalizar correo en minúsculas para comparación
                         password_verify($_POST["contrasena"], $resultado["contrasena"])
                     ) {
+                        $_SESSION['id'] = $resultado['id'];
                         $_SESSION['cedula'] = $resultado["cedula"];
                         $_SESSION['nombre'] = $resultado["nombre"];
                         $_SESSION['privilegios'] = $resultado["privilegios"];
@@ -65,6 +66,7 @@ class FormularioControlador
                         $_SESSION['telefono'] = $resultado["telefono"];
                         $_SESSION['fecha_registro'] = $resultado["fecha_registro"];
                         $_SESSION['saldo'] = $resultado["saldo"];
+
 
 
 
@@ -86,7 +88,7 @@ class FormularioControlador
     /// VERIFICAR RECARGA
     static public function verificarRecargar()
     {
-        $_POST = array();
+
 
         echo '<script>
     if(window.history.replaceState){
@@ -119,7 +121,7 @@ class FormularioControlador
     /// HACER RECARGA
     static public function recargar()
     {
-        $_POST = array();
+
         echo '<script>
         if(window.history.replaceState){
             window.history.replaceState(null, null, window.location.href);
@@ -150,13 +152,12 @@ class FormularioControlador
         </div>";
 
 
-                    // Agregamos script para recargar al cerrar el alert
+                    // Cambiado: recarga automática después de 1 segundo
                     echo "<script>
-            var alerta = document.getElementById('alertaRecarga');
-            alerta.addEventListener('closed.bs.alert', function () {
-                window.location.reload();
-            });
-        </script>";
+        setTimeout(function() {
+            window.location.reload();
+        }, 1000);
+    </script>";
 
                     exit;
                 } else {
@@ -169,6 +170,11 @@ class FormularioControlador
             }
         }
     }
+
+
+
+
+
     /// BALANCE
     static public function balance()
     {
@@ -219,4 +225,115 @@ class FormularioControlador
             }
         }
     }
+
+
+
+
+    static public function crearCarrera($nombre, $fecha)
+    {
+        return ModeloFormularios::crearCarrera($nombre, $fecha);
+    }
+
+
+
+
+    static public function registrarPiloto($nombre)
+    {
+        return ModeloFormularios::registrarPiloto($nombre);
+    }
+
+
+
+
+
+    static public function obtenerCarreras()
+    {
+        return ModeloFormularios::obtenerCarreras();
+    }
+
+
+
+
+    static public function obtenerPilotos()
+    {
+        return ModeloFormularios::obtenerPilotos();
+    }
+
+
+
+
+    static public function asignarPilotos($carreraId, $pilotos)
+    {
+        return ModeloFormularios::asignarPilotos($carreraId, $pilotos);
+    }
+
+
+
+
+    static public function obtenerCarrerasProgramadas()
+    {
+        return ModeloFormularios::carrerasPorEstado('pendiente');
+    }
+
+
+
+
+    static public function obtenerPilotosPorCarrera($idCarrera)
+    {
+        return ModeloFormularios::pilotosDeCarrera($idCarrera);
+    }
+
+
+
+
+    static public function registrarApuesta($usuarioId, $carreraId, $pilotoId, $tipo, $monto, $ganancia)
+    {
+        return ModeloFormularios::registrarApuesta($usuarioId, $carreraId, $pilotoId, $tipo, $monto, $ganancia);
+    }
+
+
+    static public function obtenerCarrerasFinalizadas()
+    {
+        $stmt = (new Conexion())->conectar()->prepare("SELECT * FROM carreras WHERE estado = 'finalizada' ORDER BY fecha DESC");
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    static public function obtenerGanadoresCarrera($idCarrera)
+    {
+        $stmt = (new Conexion())->conectar()->prepare("
+        SELECT p.nombre, r.posicion
+        FROM resultados_carrera r
+        JOIN pilotos p ON p.id = r.id_piloto
+        WHERE r.id_carrera = :id
+        ORDER BY r.posicion ASC
+    ");
+        $stmt->bindParam(":id", $idCarrera, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+
+    public static function obtenerSaldoUsuario($id_usuario)
+    {
+        return ModeloFormularios::obtenerSaldo($id_usuario);
+    }
+
+    public static function actualizarSaldoUsuario($id_usuario, $nuevoSaldo)
+    {
+        return ModeloFormularios::actualizarSaldo($id_usuario, $nuevoSaldo);
+    }
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
