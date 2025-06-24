@@ -22,7 +22,7 @@ $apuestas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <title>Historial de Apuestas</title>
 <div class="container m-5">
     <div class="row justify-content-center">
-        <div class="col-8 col-md-8 col-lg-8"> <!-- Limita el ancho en pantallas grandes -->
+        <div class="col-12 col-md-10 col-lg-10"> <!-- Ancho un poco más amplio -->
 
             <div class="card bg-dark text-white shadow-lg rounded-4">
                 <div class="card-header bg-warning text-dark text-center">
@@ -32,6 +32,7 @@ $apuestas = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <table class="table table-striped table-bordered text-center align-middle">
                         <thead class="table-dark">
                             <tr>
+                                <th>Fecha</th>
                                 <th>Carrera</th>
                                 <th>Piloto</th>
                                 <th>Tipo de Apuesta</th>
@@ -40,29 +41,33 @@ $apuestas = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <th>Estado</th>
                             </tr>
                         </thead>
-                        <tbody class="text-center align-middle">
+                        <tbody>
                             <?php foreach ($apuestas as $apuesta): ?>
                                 <tr>
+                                    <td><?= date('d/m/Y h:i:a', strtotime($apuesta['creada_en'])) ?></td>
                                     <td><?= htmlspecialchars($apuesta['carrera_nombre']) ?></td>
                                     <td><?= htmlspecialchars($apuesta['piloto_nombre']) ?></td>
                                     <td><?= ucfirst($apuesta['tipo_apuesta']) ?></td>
                                     <td>$<?= number_format($apuesta['monto']) ?></td>
                                     <td>$<?= number_format($apuesta['ganancia_esperada']) ?></td>
-                                    <td><span class="badge 
-                        <?php
-                        switch ($apuesta['resultado']) {
-                            case 'ganada':
-                                echo 'bg-success';
-                                break;
-                            case 'perdida':
-                                echo 'bg-danger';
-                                break;
-                            default:
-                                echo 'bg-secondary';
-                                break;
-                        }
-                        ?>
-                    "><?= ucfirst($apuesta['resultado']) ?></span></td>
+                                    <td>
+                                        <span class="badge 
+                                            <?php
+                                            switch ($apuesta['resultado']) {
+                                                case 'ganada':
+                                                    echo 'bg-success';
+                                                    break;
+                                                case 'perdida':
+                                                    echo 'bg-danger';
+                                                    break;
+                                                default:
+                                                    echo 'bg-secondary';
+                                                    break;
+                                            }
+                                            ?>">
+                                            <?= ucfirst($apuesta['resultado']) ?>
+                                        </span>
+                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>

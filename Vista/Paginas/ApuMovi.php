@@ -44,6 +44,7 @@ if (isset($_SESSION['privilegios'])) {
             <thead>
                 <tr>
                     <th>Fecha</th>
+                    <th>Descripción</th>
                     <th>Tipo</th>
                     <th>Valor</th>
                 </tr>
@@ -55,7 +56,14 @@ if (isset($_SESSION['privilegios'])) {
                     $tipo = $fila['ingresos'] > 0 ? 'Ingreso' : 'Egreso';
 
                     $fechaObj = new DateTime($fila['fecha']);
-                    $formatter = new IntlDateFormatter('es_ES', IntlDateFormatter::LONG, IntlDateFormatter::NONE);
+                    $formatter = new IntlDateFormatter(
+                        'es_ES',
+                        IntlDateFormatter::LONG,
+                        IntlDateFormatter::NONE,
+                        'America/Bogota',
+                        IntlDateFormatter::GREGORIAN,
+                        'd \'de\' MMMM \'de\' yyyy, h:mm a'
+                    );
                     $fecha = $formatter->format($fechaObj);
 
                     $color = $tipo === 'Ingreso' ? "table-success" : "table-danger";
@@ -63,6 +71,7 @@ if (isset($_SESSION['privilegios'])) {
                     ?>
                     <tr class="<?php echo $color; ?>">
                         <td><?php echo $fecha; ?></td>
+                        <td><?php echo htmlspecialchars($fila['descripcion']); ?></td>
                         <td><?php echo $tipo; ?></td>
                         <td><?php echo $signo . number_format($valor); ?></td>
                     </tr>

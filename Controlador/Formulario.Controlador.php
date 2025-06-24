@@ -288,7 +288,37 @@ class FormularioControlador
 
     static public function registrarApuesta($usuarioId, $carreraId, $pilotoId, $tipo, $monto, $ganancia)
     {
-        return ModeloFormularios::registrarApuesta($usuarioId, $carreraId, $pilotoId, $tipo, $monto, $ganancia);
+        $resultado = ModeloFormularios::registrarApuesta($usuarioId, $carreraId, $pilotoId, $tipo, $monto, $ganancia);
+
+        if ($resultado === "ok") {
+            // Traer datos del usuario
+            $db = (new Conexion())->conectar();
+            $stmtUser = $db->prepare("SELECT tokenUsuario, nombre FROM usuarios WHERE id = :id");
+            $stmtUser->bindParam(":id", $usuarioId, PDO::PARAM_INT);
+            $stmtUser->execute();
+            $usuario = $stmtUser->fetch(PDO::FETCH_ASSOC);
+
+            // Traer nombre de la carrera
+            $stmtCarrera = $db->prepare("SELECT nombre FROM carreras WHERE id = :id");
+            $stmtCarrera->bindParam(":id", $carreraId, PDO::PARAM_INT);
+            $stmtCarrera->execute();
+            $carrera = $stmtCarrera->fetch(PDO::FETCH_ASSOC);
+
+            $descripcion = "Apuesta en " . ($carrera['nombre'] ?? "Carrera");
+            $fecha = date("Y-m-d H:i:s"); // Fecha actual
+
+            // Insertar en movimientos
+            ModeloFormularios::insertarMovimiento(
+                $descripcion,
+                $fecha,
+                $monto, // egreso
+                0,      // ingreso
+                $usuario['tokenUsuario'],
+                $usuario['nombre']
+            );
+        }
+
+        return $resultado;
     }
 
 
@@ -324,7 +354,11 @@ class FormularioControlador
         return ModeloFormularios::actualizarSaldo($id_usuario, $nuevoSaldo);
     }
 
-
+    // Registrar movimiento de apuestas en Movimientos
+    static public function registrarMovimiento($descripcion, $fecha, $egreso, $token, $gestor)
+    {
+        return ModeloFormularios::insertarMovimiento($descripcion, $fecha, $egreso, 0, $token, $gestor);
+    }
 
 
 

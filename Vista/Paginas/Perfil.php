@@ -43,7 +43,12 @@ if (!isset($_SESSION['email'])) {
                 <div class="col-sm-4 fw-bold">Saldo Actual:</div>
                 <div class="col-sm-8">
                     <strong class="text-success">
-                        $<?php echo number_format($_SESSION['saldo'] ?? 0); ?>
+                        $
+                        <?php
+                        $id_usuario = $_SESSION['id'];
+                        $saldoActual = FormularioControlador::obtenerSaldoUsuario($id_usuario);
+                        echo "$" . number_format($saldoActual);
+                        ?>
                     </strong>
                 </div>
             </div>

@@ -178,8 +178,11 @@ session_start();
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white fw-bold small" href="?pagina=Resultados">Resultados</a>
-
-                    <?php if (isset($_SESSION['privilegios']) && $_SESSION['privilegios'] === 'admin'): ?>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white fw-bold small" href="?pagina=Apostar">Apostar</a>
+                </li>
+                <?php if (isset($_SESSION['privilegios']) && $_SESSION['privilegios'] === 'admin'): ?>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle fw-bold text-white" href="#" role="button"
                             data-bs-toggle="dropdown">Administrar</a>

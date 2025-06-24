@@ -11,6 +11,9 @@ require_once "Modelo/Formularios.Modelo.php";
 
 $mensaje = "";
 $tipoMensaje = "success";
+if (isset($_GET['exito']) && $_GET['exito'] == 1) {
+    $mensaje = "Resultados registrados correctamente.";
+}
 $carreras = ModeloFormularios::carrerasPorEstado('pendiente');
 $pilotos = [];
 
@@ -26,7 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $tipoMensaje = "danger";
         } else {
             ModeloFormularios::procesarResultados($id_carrera, $pilotosSeleccionados);
-            $mensaje = "Resultados registrados correctamente.";
+            echo "<script>window.location.href='index.php?pagina=RegistrarResultados&mensaje=ok';</script>";
+            exit;
         }
     }
 
@@ -83,10 +87,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 </div>
                             <?php endfor; ?>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary mt-3"
-                                    onclick="document.getElementById('accion').value='registrar_resultados'">
+                                <button type="button" class="btn btn-primary mt-3" onclick="enviarResultados()">
                                     Registrar Resultados
                                 </button>
+
+                                <script>
+                                    function enviarResultados() {
+                                        document.getElementById('accion').value = 'registrar_resultados';
+                                        document.getElementById('formResultados').submit();
+                                    }
+                                </script>
                             </div>
                         <?php endif; ?>
                     </form>

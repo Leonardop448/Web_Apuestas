@@ -9,6 +9,42 @@ if (isset($_GET['apuesta']) && $_GET['apuesta'] === 'ok') {
     $tipoMensaje = 'success';
 }
 ?>
+<?php
+if (isset($_POST['monto'], $_POST['tipo_apuesta'], $_POST['id_piloto'], $_POST['id_carrera'])) {
+    $id_usuario = $_SESSION['id'];
+    $monto = intval($_POST['monto']);
+    $tipo = $_POST['tipo_apuesta'];
+
+    $saldoActual = FormularioControlador::obtenerSaldoUsuario($id_usuario);
+
+    if ($monto > $saldoActual) {
+        echo '<div class="alert alert-danger mt-3">No tienes suficiente saldo para realizar esta apuesta. Tu saldo es de $' . number_format($saldoActual, 0, ',', '.') . '.</div>';
+    } else {
+        $ganancia = ($tipo == 'ganador') ? $monto * 2 : $monto * 1.4;
+
+        $resp = FormularioControlador::registrarApuesta($id_usuario, $_POST['id_carrera'], $_POST['id_piloto'], $tipo, $monto, intval($ganancia));
+
+        if ($resp === "ok") {
+            // Descontar saldo
+            $nuevoSaldo = $saldoActual - $monto;
+            $resultadoSaldo = FormularioControlador::actualizarSaldoUsuario($id_usuario, $nuevoSaldo);
+
+
+
+
+            if ($resultadoSaldo === "ok") {
+                echo '<script>window.location.href = "index.php?pagina=Apostar&apuesta=ok";</script>';
+                exit();
+            } else {
+                echo '<div class="alert alert-warning mt-3">Apuesta registrada, pero no se pudo actualizar el saldo.</div>';
+            }
+        } else {
+            echo '<div class="alert alert-danger mt-3">Error al registrar la apuesta.</div>';
+        }
+    }
+}
+?>
+</div>
 
 <title>Apostar</title>
 <div class="container m-5">
@@ -88,39 +124,7 @@ if (isset($_GET['apuesta']) && $_GET['apuesta'] === 'ok') {
 
 
 
-<?php
-if (isset($_POST['monto'], $_POST['tipo_apuesta'], $_POST['id_piloto'], $_POST['id_carrera'])) {
-    $id_usuario = $_SESSION['id'];
-    $monto = intval($_POST['monto']);
-    $tipo = $_POST['tipo_apuesta'];
 
-    $saldoActual = FormularioControlador::obtenerSaldoUsuario($id_usuario);
-
-    if ($monto > $saldoActual) {
-        echo '<div class="alert alert-danger mt-3">No tienes suficiente saldo para realizar esta apuesta. Tu saldo es de $' . number_format($saldoActual, 0, ',', '.') . '.</div>';
-    } else {
-        $ganancia = ($tipo == 'ganador') ? $monto * 2 : $monto * 1.4;
-
-        $resp = FormularioControlador::registrarApuesta($id_usuario, $_POST['id_carrera'], $_POST['id_piloto'], $tipo, $monto, intval($ganancia));
-
-        if ($resp === "ok") {
-            // Descontar saldo
-            $nuevoSaldo = $saldoActual - $monto;
-            $resultadoSaldo = FormularioControlador::actualizarSaldoUsuario($id_usuario, $nuevoSaldo);
-
-            if ($resultadoSaldo === "ok") {
-                echo '<script>window.location.href = "index.php?pagina=Apostar&apuesta=ok";</script>';
-                exit();
-            } else {
-                echo '<div class="alert alert-warning mt-3">Apuesta registrada, pero no se pudo actualizar el saldo.</div>';
-            }
-        } else {
-            echo '<div class="alert alert-danger mt-3">Error al registrar la apuesta.</div>';
-        }
-    }
-}
-?>
-</div>
 </body>
 
 </html>

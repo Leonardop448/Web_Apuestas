@@ -351,58 +351,22 @@ class ModeloFormularios
         return $resultado ? $resultado['saldo'] : 0;
     }
 
+
+
+
+
     static public function procesarResultados($id_carrera, $ordenLlegada)
     {
         $db = (new Conexion())->conectar();
 
-        foreach ($ordenLlegada as $posicion => $id_piloto) {
-            $posicionReal = $posicion + 1;
-            $ganador = ($posicionReal === 1);
-            $enPodio = ($posicionReal <= 3);
-
-            $stmt = $db->prepare("SELECT * FROM apuestas WHERE id_carrera = :id_carrera AND id_piloto = :id_piloto");
-            $stmt->execute([
-                ":id_carrera" => $id_carrera,
-                ":id_piloto" => $id_piloto
-            ]);
-
-            $apuestas = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            foreach ($apuestas as $apuesta) {
-                $estado = 'perdida';
-                $ganancia = 0;
-
-                if ($apuesta['tipo_apuesta'] === 'ganador' && $ganador) {
-                    $estado = 'ganada';
-                    $ganancia = $apuesta['ganancia_esperada'];
-                } elseif ($apuesta['tipo_apuesta'] === 'podio' && $enPodio) {
-                    $estado = 'ganada';
-                    $ganancia = $apuesta['ganancia_esperada'];
-                }
-
-                $stmtUpdate = $db->prepare("UPDATE apuestas SET resultado = :resultado  WHERE id = :id");
-                $stmtUpdate->execute([
-                    ":resultado" => $estado,
-                    ":id" => $apuesta['id']
-                ]);
-
-                if ($estado === 'ganada') {
-                    $stmtSaldo = $db->prepare("UPDATE usuarios SET saldo = saldo + :ganancia WHERE id = :id_usuario");
-                    $stmtSaldo->execute([
-                        ":ganancia" => $ganancia,
-                        ":id_usuario" => $apuesta['id_usuario']
-                    ]);
-                } else {
-                    $stmtSaldo = $db->prepare("UPDATE usuarios SET saldo = saldo - :monto WHERE id = :id_usuario");
-                    $stmtSaldo->execute([
-                        ":monto" => $apuesta['monto'],
-                        ":id_usuario" => $apuesta['id_usuario']
-                    ]);
-                }
-            }
+        // Verificar si ya se guardaron resultados para esta carrera
+        $stmtCheck = $db->prepare("SELECT COUNT(*) FROM resultados_carrera WHERE id_carrera = :id_carrera");
+        $stmtCheck->execute([':id_carrera' => $id_carrera]);
+        if ($stmtCheck->fetchColumn() > 0) {
+            return false;
         }
 
-        // Insertar resultados en tabla resultados_carrera
+        // Guardar resultados una vez
         foreach ($ordenLlegada as $posicion => $id_piloto) {
             $stmtInsert = $db->prepare("INSERT INTO resultados_carrera (id_carrera, id_piloto, posicion) VALUES (:id_carrera, :id_piloto, :posicion)");
             $stmtInsert->execute([
@@ -412,10 +376,63 @@ class ModeloFormularios
             ]);
         }
 
+        // Obtener todas las apuestas de esta carrera
+        $stmtApuestas = $db->prepare("SELECT * FROM apuestas WHERE id_carrera = :id_carrera");
+        $stmtApuestas->execute([':id_carrera' => $id_carrera]);
+        $apuestas = $stmtApuestas->fetchAll(PDO::FETCH_ASSOC);
+
+        $id_ganador = $ordenLlegada[0] ?? null;
+        $id_podio = array_slice($ordenLlegada, 0, 3);
+
+        foreach ($apuestas as $apuesta) {
+            $estado = 'perdida';
+            $ganancia = 0;
+
+            if ($apuesta['tipo_apuesta'] === 'ganador' && $apuesta['id_piloto'] == $id_ganador) {
+                $estado = 'ganada';
+                $ganancia = $apuesta['ganancia_esperada'];
+            } elseif ($apuesta['tipo_apuesta'] === 'podio' && in_array($apuesta['id_piloto'], $id_podio)) {
+                $estado = 'ganada';
+                $ganancia = $apuesta['ganancia_esperada'];
+            }
+
+            // Siempre actualiza el resultado, ya sea ganada o perdida
+            $stmtUpdate = $db->prepare("UPDATE apuestas SET resultado = :resultado WHERE id = :id");
+            $stmtUpdate->execute([
+                ':resultado' => $estado,
+                ':id' => $apuesta['id']
+            ]);
+
+            if ($estado === 'ganada') {
+                // Sumar saldo
+                $stmtSaldo = $db->prepare("UPDATE usuarios SET saldo = saldo + :ganancia WHERE id = :id_usuario");
+                $stmtSaldo->execute([
+                    ":ganancia" => $ganancia,
+                    ":id_usuario" => $apuesta['id_usuario']
+                ]);
+
+                // Insertar movimiento
+                $stmtUsuario = $db->prepare("SELECT tokenUsuario, nombre FROM usuarios WHERE id = :id");
+                $stmtUsuario->execute([':id' => $apuesta['id_usuario']]);
+                $usuario = $stmtUsuario->fetch(PDO::FETCH_ASSOC);
+
+                $stmtMov = $db->prepare("INSERT INTO movimientos (descripcion, ingresos, egresos, fecha, token, gestor)
+                                     VALUES (:descripcion, :ingresos, 0, :fecha, :token, :gestor)");
+                $stmtMov->execute([
+                    ':descripcion' => 'Ganancia por apuesta en carrera ID ' . $id_carrera,
+                    ':ingresos' => $ganancia,
+                    ':fecha' => date('Y-m-d H:i:s'),
+                    ':token' => $usuario['tokenUsuario'],
+                    ':gestor' => $usuario['nombre']
+                ]);
+            }
+        }
+
         // Marcar carrera como finalizada
-        $stmtCarrera = $db->prepare("UPDATE carreras SET estado = 'finalizada' WHERE id = :id");
-        $stmtCarrera->bindParam(":id", $id_carrera, PDO::PARAM_INT);
-        $stmtCarrera->execute();
+        $stmtEstado = $db->prepare("UPDATE carreras SET estado = 'finalizada' WHERE id = :id");
+        $stmtEstado->execute([':id' => $id_carrera]);
+
+        return true;
     }
 
 
@@ -462,7 +479,20 @@ class ModeloFormularios
         return $stmt->execute() ? "ok" : "error";
     }
 
-
+    // En Formularios.Modelo.php
+    static public function insertarMovimiento($descripcion, $fecha, $egreso, $ingreso, $token, $gestor)
+    {
+        $db = (new Conexion())->conectar();
+        $stmt = $db->prepare("INSERT INTO movimientos (descripcion, fecha, egresos, ingresos, token, gestor) VALUES (:descripcion, :fecha, :egresos, :ingresos, :token, :gestor)");
+        return $stmt->execute([
+            ":descripcion" => $descripcion,
+            ":fecha" => $fecha,
+            ":egresos" => $egreso,
+            ":ingresos" => $ingreso,
+            ":token" => $token,
+            ":gestor" => $gestor
+        ]);
+    }
 
 
 
