@@ -253,19 +253,40 @@ session_start();
 </body>
 </div>
 <!-- Pie de página -->
-<footer class="bg-dark text-center text-white py-3">
-    <h5 class="m-2">Métodos de Pago</h5>
-    <div class="d-flex flex-wrap justify-content-center align-items-center gap-3">
-        <img src="imagenes/bancolombia.png" alt="Bancolombia" height="40">
-        <img src="imagenes/nequi.png" alt="Nequi" height="40">
-        <img src="imagenes/efecty.svg" alt="Efecty" height="40">
-        <img src="imagenes/PSE.png" alt="PSE" height="40">
+<footer class="bg-dark text-white text-center py-4 mt-5">
+    <div class="container">
+        <h5 class="mb-3">Métodos de Pago</h5>
+
+        <!-- Logos de pago -->
+        <div class="row justify-content-center g-3">
+            <div class="col-6 col-sm-3 col-md-2">
+                <img src="imagenes/bancolombia.png" alt="Bancolombia" class="img-fluid">
+            </div>
+            <div class="col-6 col-sm-3 col-md-2">
+                <img src="imagenes/nequi.png" alt="Nequi" class="img-fluid">
+            </div>
+            <div class="col-6 col-sm-3 col-md-2">
+                <img src="imagenes/efecty.svg" alt="Efecty" class="img-fluid">
+            </div>
+            <div class="col-6 col-sm-3 col-md-2">
+                <img src="imagenes/PSE.png" alt="PSE" class="img-fluid">
+            </div>
+        </div>
+
+        <!-- Texto legal -->
+        <p class="mt-4 mb-2">&copy; RaceStake Pro. Todos los derechos reservados. 2025</p>
+
+        <!-- Enlaces legales -->
+        <div class="d-flex flex-column flex-sm-row justify-content-center gap-2">
+            <a href="?pagina=Terminos" class="text-white text-decoration-none">Términos y Condiciones</a>
+            <span class="text-white d-none d-sm-inline">|</span>
+            <a href="?pagina=Politicas" class="text-white text-decoration-none">Políticas de Privacidad</a>
+            <span class="text-white d-none d-sm-inline">|</span>
+            <a href="?pagina=Contacto" class="text-white text-decoration-none">Contacto</a>
+        </div>
     </div>
-    <p class="mt-3">&copy; RaceStake Pro. Todos los derechos reservados. 2025</p>
-    <p><a href="?pagina=Terminos" class="text-white">Términos y Condiciones</a> | <a href="?pagina=Politicas"
-            class="text-white">Politicas de Privacidad</a></p><a href="?pagina=Contacto" class="text-white">Contacto</a>
-    </p>
 </footer>
+
 
 
 
