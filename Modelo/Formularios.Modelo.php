@@ -366,6 +366,12 @@ class ModeloFormularios
             return false;
         }
 
+        // Obtener el nombre de la carrera
+        $stmtNombre = $db->prepare("SELECT nombre FROM carreras WHERE id = :id_carrera");
+        $stmtNombre->execute([':id_carrera' => $id_carrera]);
+        $carrera = $stmtNombre->fetch(PDO::FETCH_ASSOC);
+        $nombreCarrera = $carrera ? $carrera['nombre'] : 'Carrera desconocida';
+
         // Guardar resultados una vez
         foreach ($ordenLlegada as $posicion => $id_piloto) {
             $stmtInsert = $db->prepare("INSERT INTO resultados_carrera (id_carrera, id_piloto, posicion) VALUES (:id_carrera, :id_piloto, :posicion)");
@@ -396,7 +402,7 @@ class ModeloFormularios
                 $ganancia = $apuesta['ganancia_esperada'];
             }
 
-            // Siempre actualiza el resultado, ya sea ganada o perdida
+            // Siempre actualiza el resultado
             $stmtUpdate = $db->prepare("UPDATE apuestas SET resultado = :resultado WHERE id = :id");
             $stmtUpdate->execute([
                 ':resultado' => $estado,
@@ -419,7 +425,7 @@ class ModeloFormularios
                 $stmtMov = $db->prepare("INSERT INTO movimientos (descripcion, ingresos, egresos, fecha, token, gestor)
                                      VALUES (:descripcion, :ingresos, 0, :fecha, :token, :gestor)");
                 $stmtMov->execute([
-                    ':descripcion' => 'Ganancia por apuesta en carrera ID ' . $id_carrera,
+                    ':descripcion' => 'Ganancia en carrera "' . $nombreCarrera . '"',
                     ':ingresos' => $ganancia,
                     ':fecha' => date('Y-m-d H:i:s'),
                     ':token' => $usuario['tokenUsuario'],
