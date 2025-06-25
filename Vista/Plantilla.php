@@ -12,9 +12,10 @@ session_start();
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/b84470ec17.js" crossorigin="anonymous"></script>
     <link rel="icon" type="image/x-icon" href="/Imagenes/icono.png">
-    <!-- Agregar Google Fonts:-->
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=WDXL+Lubrifont+TC&display=swap"
         rel="stylesheet">
+
     <style>
         body {
             background: linear-gradient(135deg, #1a1a1a, #1658A3);
@@ -22,27 +23,17 @@ session_start();
             font-family: 'Arial', sans-serif;
         }
 
-        .hero {
-            background: url('/Imagenes/Motovelocidad4.png') no-repeat center center;
-            background-size: cover;
-            padding: 100px 0;
-            text-align: center;
-            border-bottom: 5px solid #ffcc00;
+        .navbar {
+            background-color: #000 !important;
         }
 
-        .hero h1 {
-            font-size: 4.5rem;
-            color: rgb(255, 217, 0);
-            text-shadow: 5px 5px 4px rgb(0, 0, 0);
-            /* Asegurar Pacifico para títulos */
-            font-family: 'Pacifico', sans-serif;
-            font-weight: 700;
-
+        .nav-link {
+            color: #fff !important;
+            font-weight: bold;
         }
 
-        .hero p {
-            font-size: 1.5rem;
-            text-shadow: 1px 1px 3px #000;
+        .nav-link:hover {
+            color: #ffcc00 !important;
         }
 
         .btn-apuesta {
@@ -57,17 +48,39 @@ session_start();
             background-color: #e6b800;
         }
 
-        .navbar {
-            background-color: #000 !important;
+        .hero {
+            background: url('/Imagenes/Motovelocidad4.png') no-repeat center center;
+            background-size: cover;
+            padding: 100px 0;
+            text-align: center;
+            border-bottom: 5px solid #ffcc00;
+            border-radius: 30px 30px 30px 30px;
+            /* ← Aquí se agregan los bordes redondeados abajo */
         }
 
-        .nav-link {
-            color: #fff !important;
-            font-weight: bold;
+        .hero h1 {
+            font-size: 2rem;
+            color: rgb(255, 217, 0);
+            text-shadow: 2px 2px 5px #000;
+            font-family: 'Pacifico', cursive;
+            font-weight: 700;
         }
 
-        .nav-link:hover {
-            color: #ffcc00 !important;
+        @media (min-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .hero {
+                padding: 100px 60px;
+                min-height: 400px;
+            }
+
+            .hero h1 {
+                font-size: 3.5rem;
+            }
         }
 
         .event-card {
