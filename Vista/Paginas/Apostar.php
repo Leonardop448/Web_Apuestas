@@ -8,8 +8,7 @@ if (isset($_GET['apuesta']) && $_GET['apuesta'] === 'ok') {
     $mensajeApuesta = '¡Apuesta registrada exitosamente!';
     $tipoMensaje = 'success';
 }
-?>
-<?php
+
 if (isset($_POST['monto'], $_POST['tipo_apuesta'], $_POST['id_piloto'], $_POST['id_carrera'])) {
     $id_usuario = $_SESSION['id'];
     $monto = intval($_POST['monto']);
@@ -29,9 +28,6 @@ if (isset($_POST['monto'], $_POST['tipo_apuesta'], $_POST['id_piloto'], $_POST['
             $nuevoSaldo = $saldoActual - $monto;
             $resultadoSaldo = FormularioControlador::actualizarSaldoUsuario($id_usuario, $nuevoSaldo);
 
-
-
-
             if ($resultadoSaldo === "ok") {
                 echo '<script>window.location.href = "index.php?pagina=Apostar&apuesta=ok";</script>';
                 exit();
@@ -44,7 +40,6 @@ if (isset($_POST['monto'], $_POST['tipo_apuesta'], $_POST['id_piloto'], $_POST['
     }
 }
 ?>
-</div>
 
 <title>Apostar</title>
 <div class="container m-5">
@@ -57,7 +52,11 @@ if (isset($_POST['monto'], $_POST['tipo_apuesta'], $_POST['id_piloto'], $_POST['
                 </div>
                 <div class="card-body p-4">
                     <?php if (isset($mensajeApuesta)): ?>
-                        <div class="alert alert-<?php echo $tipoMensaje ?? 'info'; ?> mt-3"><?php echo $mensajeApuesta; ?>
+                        <div id="alertaApuesta"
+                            class="alert alert-<?php echo $tipoMensaje ?? 'info'; ?> alert-dismissible fade show mt-3"
+                            role="alert">
+                            <?php echo $mensajeApuesta; ?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
                         </div>
                     <?php endif; ?>
 
@@ -119,7 +118,30 @@ if (isset($_POST['monto'], $_POST['tipo_apuesta'], $_POST['id_piloto'], $_POST['
     </div>
 </div>
 
+<!-- Script para eliminar ?apuesta=ok de la URL y ocultar mensaje automáticamente -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const alerta = document.getElementById("alertaApuesta");
 
-</body>
+        // Si existe el mensaje y el parámetro
+        if (alerta && window.location.search.includes("apuesta=ok")) {
+            // Ocultar el mensaje después de 4 segundos (desvanecido)
+            setTimeout(() => {
+                alerta.classList.remove("show");
+                alerta.classList.add("fade");
+                alerta.style.opacity = "0";
 
-</html>
+                // Eliminar el elemento del DOM después de la animación
+                setTimeout(() => {
+                    alerta.remove();
+                }, 500);
+
+                // Limpiar la URL
+                const url = new URL(window.location.href);
+                url.searchParams.delete("apuesta");
+                window.history.replaceState({}, document.title, url.toString());
+
+            }, 3000); // Espera 3 segundos antes de ocultar
+        }
+    });
+</script>

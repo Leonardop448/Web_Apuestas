@@ -422,10 +422,12 @@ class ModeloFormularios
                 $stmtUsuario->execute([':id' => $apuesta['id_usuario']]);
                 $usuario = $stmtUsuario->fetch(PDO::FETCH_ASSOC);
 
+                $descripcion = 'Ganancia en carrera ' . $nombreCarrera . ' (' . ucfirst($apuesta['tipo_apuesta']) . ')';
+
                 $stmtMov = $db->prepare("INSERT INTO movimientos (descripcion, ingresos, egresos, fecha, token, gestor)
-                                     VALUES (:descripcion, :ingresos, 0, :fecha, :token, :gestor)");
+                         VALUES (:descripcion, :ingresos, 0, :fecha, :token, :gestor)");
                 $stmtMov->execute([
-                    ':descripcion' => 'Ganancia en carrera "' . $nombreCarrera . '"',
+                    ':descripcion' => $descripcion,
                     ':ingresos' => $ganancia,
                     ':fecha' => date('Y-m-d H:i:s'),
                     ':token' => $usuario['tokenUsuario'],
