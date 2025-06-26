@@ -1,72 +1,63 @@
-<!DOCTYPE html>
-<html lang="es">
+<title>Inicia Sesión</title>
+<section class="vh-100 d-flex align-items-center">
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Inicia Sesión</title>
-    <section class="vh-100">
-        <div class="container-fluid h-custom">
-            <div class="row d-flex justify-content-center align-items-center h-100">
-                <div class="col-md-9 col-lg-6 col-xl-5">
-                    <img src="/Imagenes/pngwing.com (6).png" class="img-fluid" alt="Sample image">
-                </div>
-                <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                    <form method="post" action="index.php?pagina=Login">
+            <!-- Imagen -->
+            <div class="col-md-6 col-lg-5 mb-4 mb-md-0 text-center">
+                <img src="/Imagenes/pngwing.com (6).png" class="img-fluid" alt="Login image" style="max-height: 300px;">
+            </div>
 
-                        <div class="divider d-flex align-items-center my-4 ">
-                            <p class="mx-1 mb-0">
-                            <h4 class="text-center fw-bold">Inicia Sesión</h4>
-                            </p>
-                        </div>
+            <!-- Formulario -->
+            <div class="col-md-6 col-lg-5">
+                <div class="card bg-dark border-warning text-white shadow-lg rounded-4">
+                    <div class="card-header bg-warning text-dark text-center">
+                        <h4 class="fw-bold m-0">Inicia Sesión</h4>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="index.php?pagina=Login">
 
-                        <!-- Email input -->
-                        <div class="form-outline mb-4">
-                            <label class="form-label " for="email">
-                                <h5 class=" fw-bold">Correo Electronico</h5>
-                            </label>
-                            <input type="email" id="email" name="email" class="form-control form-control-lg"
-                                placeholder="Ingrese su correo electronico" />
-
-                        </div>
-
-                        <!-- Password input -->
-                        <div class="form-outline mb-3">
-                            <label class="form-label fw-bold" for="contrasena">
-                                <h5 class=" fw-bold">Contraseña</h5>
-                            </label>
-                            <input type="password" id="contrasena" name="contrasena"
-                                class="form-control form-control-lg" placeholder="Ingrese su contraseña" />
-
-                        </div>
-
-                        <div class="d-flex justify-content-between align-items-center">
-                            <!-- Checkbox -->
-                            <div class="form-check mb-0">
-                                <input class="form-check-input me-2" type="checkbox" value="" id="recuerdame" />
-                                <label class="form-check-label" for="recuerdame">
-                                    Recordarme
-                                </label>
+                            <div class="mb-4">
+                                <label for="email" class="form-label fw-bold">Correo Electrónico</label>
+                                <input type="email" id="email" name="email" class="form-control form-control-lg"
+                                    placeholder="correo@ejemplo.com" required>
                             </div>
-                            <a href="?location=RecuperarContrasena" class="text-body">Olvido su contraseña?</a>
-                        </div>
 
-                        <div class="text-center text-lg-start mt-4 pt-2">
-                            <input type="submit" class="btn btn-primary btn-lg" name="ingresar" value="Ingresar"
-                                style="padding-left: 2.5rem; padding-right: 2.5rem;">
-                            <p class="small fw-bold mt-2 pt-1 mb-0">No tienes una cuenta? <a href="?pagina=Registro"
-                                    class="link-danger">Registrate</a></p>
-                        </div>
-                        <?php
-                        $ingreso = FormularioControlador::ingreso();
-                        ?>
-                    </form>
+                            <div class="mb-3">
+                                <label for="contrasena" class="form-label fw-bold">Contraseña</label>
+                                <input type="password" id="contrasena" name="contrasena"
+                                    class="form-control form-control-lg" placeholder="******" required>
+                            </div>
 
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="recuerdame">
+                                    <label class="form-check-label" for="recuerdame">Recordarme</label>
+                                </div>
+                                <a href="?pagina=RecuperarContrasena" class="text-white small">¿Olvidaste tu
+                                    contraseña?</a>
+                            </div>
 
+                            <div class="d-grid">
+                                <button type="submit" name="ingresar" class="btn btn-warning fw-bold btn-lg">
+                                    Ingresar
+                                </button>
+                            </div>
 
+                            <p class="text-center small fw-bold mt-3 mb-0">
+                                ¿No tienes una cuenta?
+                                <a href="?pagina=Registro" class="link-danger">Regístrate</a>
+                            </p>
 
+                            <?php
+                            $ingreso = FormularioControlador::ingreso();
+                            ?>
+
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
 
-    </section>
+        </div>
+    </div>
+</section>
