@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html lang="es">
-<meta charset="UTF-8">
 <title>Crear Carrera</title>
 
 
@@ -21,7 +18,7 @@
             <input type="datetime-local" class="form-control" id="fecha" name="fecha" required>
           </div>
           <div class="text-center">
-            <button type="submit" class="btn btn-primary fw-bold px-5">Crear Carrera</button>
+            <button type="submit" class="btn btn-warning text-dark fw-bold px-5">Crear Carrera</button>
           </div>
         </form>
       </div>

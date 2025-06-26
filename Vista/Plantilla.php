@@ -109,6 +109,24 @@ session_start();
             object-fit: cover;
             border-radius: 20px;
         }
+
+        .navbar-dark .navbar-nav .nav-link {
+            color: #fff;
+            transition: 0.3s ease-in-out;
+        }
+
+        .navbar-dark .navbar-nav .nav-link:hover {
+            color: #ffc107;
+        }
+
+        .dropdown-menu {
+            background-color: #1a1a1a;
+        }
+
+        .dropdown-item:hover {
+            background-color: #ffc107;
+            color: #000;
+        }
     </style>
 </head>
 
@@ -187,68 +205,102 @@ session_start();
             </a>
         </h2>
     <?php } ?>
-    <nav class="navbar navbar-expand-lg bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
         <div class="container-fluid">
+            <!-- Logo / Nombre del sitio -->
+            <a class="navbar-brand fw-bold text-warning" href="?pagina=Inicio">
+                <i class="fas fa-flag-checkered me-1"></i>RaceStake Pro
+            </a>
 
-            <!-- Aquí iría tu logo o menú izquierdo -->
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link text-white fw-bold small" href="?pagina=Inicio">Inicio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white fw-bold small" href="?pagina=ProximosEventos">Próximos Eventos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white fw-bold small" href="?pagina=Resultados">Resultados</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white fw-bold small" href="?pagina=Apostar">Apostar</a>
-                </li>
-                <?php if (isset($_SESSION['privilegios']) && $_SESSION['privilegios'] === 'admin'): ?>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle fw-bold text-white" href="#" role="button"
-                            data-bs-toggle="dropdown">Administrar</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="?pagina=CargarCreditos">Cargar Créditos</a></li>
-                            <li><a class="dropdown-item" href="?pagina=CrearCarrera">Crear Carreras</a></li>
-                            <li><a class="dropdown-item" href="?pagina=RegistrarPiloto">Registrar Pilotos</a></li>
-                            <li><a class="dropdown-item" href="?pagina=AsignarPilotos">Asignar Pilotos a Carreras</a></li>
-                            <li><a class="dropdown-item" href="?pagina=RegistrarResultados">Registrar Resultados</a></li>
-                        </ul>
-                    </li>
-                <?php endif; ?>
+            <!-- Botón hamburguesa -->
+            <button class="navbar-toggler border-warning" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-            </ul>
-
-
-            <!-- Menú derecho -->
-            <ul class="navbar-nav ms-auto me-0">
-                <?php if (isset($_SESSION['privilegios'])): ?>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-white fw-bold" href="#" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <?php echo $_SESSION['nombre']; ?>
+            <!-- Contenido colapsable -->
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <!-- Menú izquierdo -->
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link fw-bold" href="?pagina=ProximosEventos">
+                            <i class="fas fa-calendar-alt me-1"></i>Próximos Eventos
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item small" href="?pagina=Perfil">Perfil</a></li>
-                            <li><a class="dropdown-item small" href="?pagina=historial_apuestas">Historial de Apuestas</a>
-                            </li>
-                            <li><a class="dropdown-item small" href="?pagina=ApuMovi">Movimientos</a></li>
-                            <li><a class="dropdown-item small" href="?pagina=Ajustes">Ajustes</a></li>
-                            <li><a class="dropdown-item small" href="?pagina=Salir">Salir</a></li>
-                        </ul>
-                    </li>
-                <?php else: ?>
-                    <li class="nav-item">
-                        <a class="nav-link text-white fw-bold small" href="?pagina=Registro">Registrarte</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white fw-bold small" href="?pagina=Login">Iniciar Sesión</a>
+                        <a class="nav-link fw-bold" href="?pagina=Resultados">
+                            <i class="fas fa-trophy me-1"></i>Resultados
+                        </a>
                     </li>
-                <?php endif; ?>
-            </ul>
+                    <li class="nav-item">
+                        <a class="nav-link fw-bold" href="?pagina=Apostar">
+                            <i class="fas fa-coins me-1"></i>Apostar
+                        </a>
+                    </li>
+
+                    <?php if (isset($_SESSION['privilegios']) && $_SESSION['privilegios'] === 'admin'): ?>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle fw-bold" href="#" id="adminDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-tools me-1"></i>Administrar
+                            </a>
+                            <ul class="dropdown-menu bg-dark border-warning" aria-labelledby="adminDropdown">
+                                <li><a class="dropdown-item text-white" href="?pagina=CargarCreditos"><i
+                                            class="fas fa-wallet me-1"></i>Cargar Créditos</a></li>
+                                <li><a class="dropdown-item text-white" href="?pagina=CrearCarrera"><i
+                                            class="fas fa-plus me-1"></i>Crear Carreras</a></li>
+                                <li><a class="dropdown-item text-white" href="?pagina=RegistrarPiloto"><i
+                                            class="fas fa-user-plus me-1"></i>Registrar Pilotos</a></li>
+                                <li><a class="dropdown-item text-white" href="?pagina=AsignarPilotos"><i
+                                            class="fas fa-users-cog me-1"></i>Asignar Pilotos</a></li>
+                                <li><a class="dropdown-item text-white" href="?pagina=RegistrarResultados"><i
+                                            class="fas fa-clipboard-check me-1"></i>Registrar Resultados</a></li>
+                            </ul>
+                        </li>
+                    <?php endif; ?>
+                </ul>
+
+                <!-- Menú derecho -->
+                <ul class="navbar-nav ms-auto">
+                    <?php if (isset($_SESSION['privilegios'])): ?>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle fw-bold" href="#" id="userDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-user-circle me-1"></i><?= $_SESSION['nombre']; ?>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end bg-dark border-warning"
+                                aria-labelledby="userDropdown">
+                                <li><a class="dropdown-item text-white" href="?pagina=Perfil"><i
+                                            class="fas fa-id-badge me-1"></i>Perfil</a></li>
+                                <li><a class="dropdown-item text-white" href="?pagina=historial_apuestas"><i
+                                            class="fas fa-history me-1"></i>Historial de Apuestas</a></li>
+                                <li><a class="dropdown-item text-white" href="?pagina=ApuMovi"><i
+                                            class="fas fa-file-invoice-dollar me-1"></i>Movimientos</a></li>
+                                <li><a class="dropdown-item text-white" href="?pagina=Ajustes"><i
+                                            class="fas fa-cogs me-1"></i>Ajustes</a></li>
+                                <li><a class="dropdown-item text-white" href="?pagina=Salir"><i
+                                            class="fas fa-sign-out-alt me-1"></i>Salir</a></li>
+                            </ul>
+                        </li>
+                    <?php else: ?>
+                        <li class="nav-item">
+                            <a class="nav-link fw-bold" href="?pagina=Registro">
+                                <i class="fas fa-user-plus me-1"></i>Registrarte
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-bold" href="?pagina=Login">
+                                <i class="fas fa-sign-in-alt me-1"></i>Iniciar Sesión
+                            </a>
+                        </li>
+                    <?php endif; ?>
+                </ul>
+            </div>
         </div>
     </nav>
+
+
 
     <div class="container">
         <?php
@@ -259,7 +311,10 @@ session_start();
             include "Vista/Paginas/$paginaVerificada.php";
         }
         ?>
+
+
 </body>
+
 </div>
 <!-- Pie de página -->
 <footer class="bg-dark text-white text-center py-4 mt-5">

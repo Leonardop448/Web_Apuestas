@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html lang="es">
+<title>Registrar Piloto</title>
 
-<head>
-    <meta charset="UTF-8">
-    <title>Registrar Piloto</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
 
 <div class="container mt-3">
     <div class="row justify-content-center">
@@ -22,7 +16,7 @@
                         </div>
                         <!-- Centrado del botón -->
                         <div class="text-center">
-                            <button type="submit" class="btn btn-primary fw-bold px-5">Registrar</button>
+                            <button type="submit" class="btn btn-warning text-dark fw-bold px-5">Registrar</button>
                         </div>
                     </form>
 

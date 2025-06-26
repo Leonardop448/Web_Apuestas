@@ -2,15 +2,8 @@
 require_once(__DIR__ . '/../../Modelo/Formularios.Modelo.php');
 ?>
 
-<!DOCTYPE html>
-<html lang="es">
+<title>Activar Cuenta</title>
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Activar Cuenta</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
 
 <body style="background: linear-gradient(135deg, #1a1a1a, #1658A3); color: white; font-family: Arial, sans-serif;">
 

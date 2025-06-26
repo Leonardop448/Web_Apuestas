@@ -87,7 +87,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 </div>
                             <?php endfor; ?>
                             <div class="text-center">
-                                <button type="button" class="btn btn-primary mt-3" onclick="enviarResultados()">
+                                <button type="button" class="btn btn-warning text-dark fw-bold mt-3 px-5"
+                                    onclick="enviarResultados()">
                                     Registrar Resultados
                                 </button>
 
