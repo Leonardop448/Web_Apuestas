@@ -188,7 +188,7 @@ session_start();
         </h2>
     <?php } ?>
     <nav class="navbar navbar-expand-lg bg-dark">
-        <div class="container">
+        <div class="container-fluid">
 
             <!-- Aquí iría tu logo o menú izquierdo -->
             <ul class="navbar-nav">
@@ -250,7 +250,7 @@ session_start();
         </div>
     </nav>
 
-    <div class="container mt-3">
+    <div class="container">
         <?php
         if ($paginaVerificada === 'Salir') {
             header('Location: Vista/Paginas/Salir.php');
@@ -263,7 +263,7 @@ session_start();
 </div>
 <!-- Pie de página -->
 <footer class="bg-dark text-white text-center py-4 mt-5">
-    <div class="container">
+    <div class="container-fluid">
         <h5 class="mb-3">Métodos de Pago</h5>
 
         <!-- Logos de pago -->
