@@ -182,7 +182,7 @@ session_start();
             <a class="nav-link text-white fw-bold" align="right" href="?pagina=ApuMovi">
                 <strong class="text-warning">
                     <i class="fa-solid fa-sack-dollar fa-bounce" style="color: #ffc107;"></i>
-                    <?php echo "&nbsp;$saldo&nbsp;"; ?>
+                    <?php echo "$saldo&nbsp;"; ?>
                 </strong>
             </a>
         </h2>
