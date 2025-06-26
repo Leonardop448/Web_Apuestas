@@ -1,7 +1,7 @@
 <title>Proximos Eventos</title>
 
 <body>
-  <div class="container-fluid mt-5">
+  <div class="container mt-5">
     <div class="card bg-dark text-white shadow-lg rounded-4">
       <div class="card-header bg-warning text-dark text-center">
         <h2 class="fw-bold">Próximas Carreras Pendientes</h2>
