@@ -1,69 +1,27 @@
-<?php
-if (!isset($_SESSION['privilegios']) || !in_array($_SESSION['privilegios'], ['usuario', 'admin'])) {
-    header("Location: index.php?pagina=Login");
-    exit();
-}
-
-if (isset($_GET['apuesta']) && $_GET['apuesta'] === 'ok') {
-    $mensajeApuesta = '¡Apuesta registrada exitosamente!';
-    $tipoMensaje = 'success';
-}
-
-if (isset($_POST['monto'], $_POST['tipo_apuesta'], $_POST['id_piloto'], $_POST['id_carrera'])) {
-    $id_usuario = $_SESSION['id'];
-    $monto = intval($_POST['monto']);
-    $tipo = $_POST['tipo_apuesta'];
-
-    $saldoActual = FormularioControlador::obtenerSaldoUsuario($id_usuario);
-
-    if ($monto > $saldoActual) {
-        echo '<div class="alert alert-danger mt-3">No tienes suficiente saldo para realizar esta apuesta. Tu saldo es de $' . number_format($saldoActual, 0, ',', '.') . '.</div>';
-    } else {
-        $ganancia = ($tipo == 'ganador') ? $monto * 2 : $monto * 1.4;
-
-        $resp = FormularioControlador::registrarApuesta($id_usuario, $_POST['id_carrera'], $_POST['id_piloto'], $tipo, $monto, intval($ganancia));
-
-        if ($resp === "ok") {
-            // Descontar saldo
-            $nuevoSaldo = $saldoActual - $monto;
-            $resultadoSaldo = FormularioControlador::actualizarSaldoUsuario($id_usuario, $nuevoSaldo);
-
-            if ($resultadoSaldo === "ok") {
-                echo '<script>window.location.href = "index.php?pagina=Apostar&apuesta=ok";</script>';
-                exit();
-            } else {
-                echo '<div class="alert alert-warning mt-3">Apuesta registrada, pero no se pudo actualizar el saldo.</div>';
-            }
-        } else {
-            echo '<div class="alert alert-danger mt-3">Error al registrar la apuesta.</div>';
-        }
-    }
-}
-?>
-
 <title>Apostar</title>
-<div class="container m-5">
-    <div class="row justify-content-center">
-        <div class="col-8 col-md-8 col-lg-8"> <!-- Limita el ancho en pantallas grandes -->
 
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8">
             <div class="card bg-dark text-white shadow-lg rounded-4">
                 <div class="card-header bg-warning text-dark text-center">
                     <h2 class="fw-bold">Realiza tu apuesta</h2>
                 </div>
                 <div class="card-body p-4">
+
                     <?php if (isset($mensajeApuesta)): ?>
                         <div id="alertaApuesta"
-                            class="alert alert-<?php echo $tipoMensaje ?? 'info'; ?> alert-dismissible fade show mt-3"
-                            role="alert">
-                            <?php echo $mensajeApuesta; ?>
+                            class="alert alert-<?= $tipoMensaje ?? 'info' ?> alert-dismissible fade show" role="alert">
+                            <?= $mensajeApuesta ?>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
                         </div>
                     <?php endif; ?>
 
+                    <!-- FORMULARIO DE CARRERAS -->
                     <form method="post">
                         <div class="mb-3">
                             <label for="id_carrera" class="form-label">Selecciona una carrera:</label>
-                            <select name="id_carrera" class="form-select" onchange="this.form.submit()">
+                            <select name="id_carrera" class="form-select" onchange="this.form.submit()" required>
                                 <option value="">-- Elige una carrera --</option>
                                 <?php
                                 $carreras = FormularioControlador::obtenerCarrerasProgramadas();
@@ -77,8 +35,9 @@ if (isset($_POST['monto'], $_POST['tipo_apuesta'], $_POST['id_piloto'], $_POST['
                     </form>
 
                     <?php if (isset($_POST['id_carrera'])): ?>
+                        <!-- FORMULARIO DE APUESTA -->
                         <form method="post">
-                            <input type="hidden" name="id_carrera" value="<?php echo $_POST['id_carrera']; ?>">
+                            <input type="hidden" name="id_carrera" value="<?= $_POST['id_carrera'] ?>">
 
                             <div class="mb-3">
                                 <label class="form-label">Selecciona piloto:</label>
@@ -102,46 +61,42 @@ if (isset($_POST['monto'], $_POST['tipo_apuesta'], $_POST['id_piloto'], $_POST['
                                 </select>
                             </div>
 
-                            <div>
+                            <div class="mb-3">
                                 <label class="form-label">Monto a apostar:</label>
                                 <input type="number" class="form-control" name="monto" min="100" required>
                             </div>
-                            <div class="text-center mt-3">
-                                <button type="submit" class="btn btn-primary fw-bold mb-3">Realizar Apuesta</button>
+
+                            <div class="text-center mt-4">
+                                <button type="submit" class="btn btn-primary fw-bold">Realizar Apuesta</button>
                             </div>
                         </form>
                     <?php endif; ?>
+
                 </div>
             </div>
-
         </div>
     </div>
 </div>
 
-<!-- Script para eliminar ?apuesta=ok de la URL y ocultar mensaje automáticamente -->
+<!-- Script para quitar ?apuesta=ok de la URL y desaparecer alerta -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const alerta = document.getElementById("alertaApuesta");
 
-        // Si existe el mensaje y el parámetro
         if (alerta && window.location.search.includes("apuesta=ok")) {
-            // Ocultar el mensaje después de 4 segundos (desvanecido)
             setTimeout(() => {
                 alerta.classList.remove("show");
                 alerta.classList.add("fade");
                 alerta.style.opacity = "0";
 
-                // Eliminar el elemento del DOM después de la animación
                 setTimeout(() => {
                     alerta.remove();
                 }, 500);
 
-                // Limpiar la URL
                 const url = new URL(window.location.href);
                 url.searchParams.delete("apuesta");
                 window.history.replaceState({}, document.title, url.toString());
-
-            }, 3000); // Espera 3 segundos antes de ocultar
+            }, 3000);
         }
     });
 </script>
