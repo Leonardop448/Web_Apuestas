@@ -1,4 +1,4 @@
-<title>Inicia Sesión</title>
+<title>Iniciar Sesion</title>
 <section class="vh-100 d-flex align-items-center">
     <div class="container">
         <div class="row justify-content-center align-items-center">

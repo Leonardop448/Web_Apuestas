@@ -1,4 +1,4 @@
-<title>Registro</title>
+<title>Registrate</title>
 <div align="center">
   <!-- MENSAJE -->
   <?php
