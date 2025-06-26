@@ -3,7 +3,7 @@
 <body>
 
   <!-- Hero principal -->
-  <div class="container">
+  <div class="container mt-3">
     <div class="hero d-flex flex-column align-items-center justify-content-center text-center py-5 px-3">
       <h1 class="display-4 fw-bold mb-4">
         ¡La emoción de las carreras<br> y las apuestas en un solo lugar!
