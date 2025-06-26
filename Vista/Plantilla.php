@@ -40,7 +40,8 @@ session_start();
             background-color: #ffcc00;
             color: #000;
             font-weight: bold;
-            padding: 10px 20px;
+            padding: .5rem 1rem;
+            font-size: 1rem;
             border-radius: 5px;
         }
 
@@ -51,7 +52,7 @@ session_start();
         .hero {
             background: url('/Imagenes/Motovelocidad4.png') no-repeat center center;
             background-size: cover;
-            padding: 100px 0;
+            padding: 3rem 1rem;
             text-align: center;
             border-bottom: 5px solid #ffcc00;
             border-radius: 30px 30px 30px 30px;
@@ -67,14 +68,19 @@ session_start();
         }
 
         @media (min-width: 768px) {
+            .hero {
+                padding: 6rem 3rem;
+            }
+
             .hero h1 {
                 font-size: 2.5rem;
             }
+
         }
 
         @media (min-width: 1200px) {
             .hero {
-                padding: 100px 60px;
+                padding: 6rem 4rem;
                 min-height: 400px;
             }
 
@@ -97,7 +103,9 @@ session_start();
         }
 
         .carousel-item img {
-            height: 400px;
+            width: 100%;
+            height: auto;
+            max-height: 400px;
             object-fit: cover;
             border-radius: 20px;
         }
@@ -158,11 +166,12 @@ session_start();
     }
     ?>
 
-    <div style="display: flex; align-items: center; justify-content: center; ">
-        <img src="/Imagenes/pngwing.com (5).png" alt="" width="10%" height="auto" style="margin-right: 15px;">
-        <h1 style="font-size: 4.5rem; text-shadow: 2px 2px 4px #000; font-family: 'WDXL Lubrifont TC',
-    sans-serif; font-weight: 700; white-space: nowrap;">
-            ¡RaceStake Pro</h1>
+    <div class="d-flex flex-md-row align-items-center justify-content-center text-center text-md-start">
+        <img src="/Imagenes/pngwing.com (5).png" alt="" class="img-fluid" style="max-width: 100px; margin-right: 15px;">
+        <h1 class="display-4 mt-3 mt-md-0"
+            style="font-family: 'WDXL Lubrifont TC', sans-serif; font-weight: 700; text-shadow: 2px 2px 4px #000;">
+            ¡RaceStake Pro
+        </h1>
     </div>
     <?php
     if (isset($_SESSION['id'])) {
@@ -179,7 +188,7 @@ session_start();
         </h2>
     <?php } ?>
     <nav class="navbar navbar-expand-lg bg-dark">
-        <div class="container-fluid">
+        <div class="container">
 
             <!-- Aquí iría tu logo o menú izquierdo -->
             <ul class="navbar-nav">
@@ -241,7 +250,7 @@ session_start();
         </div>
     </nav>
 
-    <div class="container-fluid mt-3">
+    <div class="container mt-3">
         <?php
         if ($paginaVerificada === 'Salir') {
             header('Location: Vista/Paginas/Salir.php');

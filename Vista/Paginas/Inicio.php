@@ -3,7 +3,7 @@
 <body>
 
   <!-- Hero principal -->
-  <div class="container-fluid">
+  <div class="container">
     <div class="hero d-flex flex-column align-items-center justify-content-center text-center py-5 px-3">
       <h1 class="display-4 fw-bold mb-4">
         ¡La emoción de las carreras<br> y las apuestas en un solo lugar!
@@ -71,7 +71,7 @@
       </div>
 
     <?php } else { ?>
-      <div class="container-fluid mt-3">
+      <div class="container mt-3">
         <?php include("Vista/Paginas/$paginaVerificada.php"); ?>
       </div>
     <?php } ?>
