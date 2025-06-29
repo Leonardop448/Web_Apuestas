@@ -7,8 +7,8 @@ class Conexion
 	//declaramos los valores
 	private $nombreHost = "localhost";
 	private $nombreDB = "pulcastc_bd_apuestas";
-	private $usuarioDB = "root";
-	private $contrasenaUsuario = "";
+	private $usuarioDB = "pulcastc_leonardop448";
+	private $contrasenaUsuario = "Isabella1812";
 	// private $nombreDB = "vaucher";
 	//private $usuarioDB = "root";
 	//private $contrasenaUsuario = "";
