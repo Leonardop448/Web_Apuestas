@@ -219,14 +219,15 @@ class ModeloFormularios
     }
 
 
-    static public function crearCarrera($nombre, $fecha)
+    public static function crearCarrera($nombre, $fecha, $categorias)
     {
         $stmt = new Conexion();
         $pdo = $stmt->conectar();
 
-        $query = $pdo->prepare("INSERT INTO carreras (nombre, fecha) VALUES (:nombre, :fecha)");
+        $query = $pdo->prepare("INSERT INTO carreras (nombre, fecha, categorias) VALUES (:nombre, :fecha, :categorias)");
         $query->bindParam(":nombre", $nombre, PDO::PARAM_STR);
         $query->bindParam(":fecha", $fecha, PDO::PARAM_STR);
+        $query->bindParam(":categorias", $categorias, PDO::PARAM_STR);
 
         if ($query->execute()) {
             return "ok";
@@ -234,6 +235,7 @@ class ModeloFormularios
 
         return "error";
     }
+
 
 
     static public function registrarPiloto($nombre)
@@ -319,24 +321,80 @@ class ModeloFormularios
 
 
 
-    static public function registrarApuesta($usuarioId, $carreraId, $pilotoId, $tipo, $monto, $ganancia)
+    public static function registrarApuesta($id_usuario, $id_carrera, $id_piloto, $tipo_apuesta, $monto, $categoria, $ganancia_esperada)
     {
         $stmt = new Conexion();
         $pdo = $stmt->conectar();
-        $query = $pdo->prepare("INSERT INTO apuestas (id_usuario, id_carrera, id_piloto, tipo_apuesta, monto, ganancia_esperada)
-                            VALUES (:id_usuario, :id_carrera, :id_piloto, :tipo, :monto, :ganancia)");
 
-        $query->bindParam(":id_usuario", $usuarioId, PDO::PARAM_INT);
-        $query->bindParam(":id_carrera", $carreraId, PDO::PARAM_INT);
-        $query->bindParam(":id_piloto", $pilotoId, PDO::PARAM_INT);
-        $query->bindParam(":tipo", $tipo, PDO::PARAM_STR);
-        $query->bindParam(":monto", $monto, PDO::PARAM_INT);
-        $query->bindParam(":ganancia", $ganancia, PDO::PARAM_INT);
+        try {
+            // Iniciar transacción
+            $pdo->beginTransaction();
 
-        if ($query->execute())
+            // Verificar saldo
+            $querySaldo = $pdo->prepare("SELECT saldo, tokenUsuario, nombre FROM usuarios WHERE id = :id");
+            $querySaldo->bindParam(":id", $id_usuario, PDO::PARAM_INT);
+            $querySaldo->execute();
+            $usuario = $querySaldo->fetch(PDO::FETCH_ASSOC);
+
+            if (!$usuario) {
+                return "Usuario no encontrado.";
+            }
+
+            if ($usuario['saldo'] < $monto) {
+                return "Saldo insuficiente para realizar la apuesta.";
+            }
+
+            // Descontar saldo
+            $stmtDescontar = $pdo->prepare("UPDATE usuarios SET saldo = saldo - :monto WHERE id = :id");
+            $stmtDescontar->bindParam(":monto", $monto, PDO::PARAM_INT);
+            $stmtDescontar->bindParam(":id", $id_usuario, PDO::PARAM_INT);
+            $stmtDescontar->execute();
+
+            // Insertar apuesta
+            $stmtApuesta = $pdo->prepare("
+            INSERT INTO apuestas (id_usuario, id_carrera, id_piloto, tipo_apuesta, monto, categoria, ganancia_esperada, creada_en)
+            VALUES (:id_usuario, :id_carrera, :id_piloto, :tipo_apuesta, :monto, :categoria, :ganancia_esperada, NOW())
+        ");
+            $stmtApuesta->execute([
+                ":id_usuario" => $id_usuario,
+                ":id_carrera" => $id_carrera,
+                ":id_piloto" => $id_piloto,
+                ":tipo_apuesta" => $tipo_apuesta,
+                ":monto" => $monto,
+                ":categoria" => $categoria,
+                ":ganancia_esperada" => $ganancia_esperada
+            ]);
+
+            // Insertar movimiento
+            // Obtener nombre de la carrera
+            $queryCarrera = $pdo->prepare("SELECT nombre FROM carreras WHERE id = :id_carrera");
+            $queryCarrera->bindParam(":id_carrera", $id_carrera, PDO::PARAM_INT);
+            $queryCarrera->execute();
+            $carrera = $queryCarrera->fetch(PDO::FETCH_ASSOC);
+            $nombreCarrera = $carrera ? $carrera['nombre'] : "Carrera desconocida";
+
+            $descripcion = "Apuesta en $nombreCarrera ($tipo_apuesta)";
+            $stmtMov = $pdo->prepare("
+            INSERT INTO movimientos (descripcion, ingresos, egresos, fecha, token, gestor)
+            VALUES (:descripcion, 0, :egreso, NOW(), :token, :gestor)
+        ");
+            $stmtMov->execute([
+                ":descripcion" => $descripcion,
+                ":egreso" => $monto,
+                ":token" => $usuario['tokenUsuario'],
+                ":gestor" => $usuario['nombre']
+            ]);
+
+            $pdo->commit();
             return "ok";
-        return "error";
+
+        } catch (PDOException $e) {
+            $pdo->rollBack();
+            return "Error al registrar apuesta: " . $e->getMessage();
+        }
     }
+
+
 
     public static function obtenerSaldo($id_usuario)
     {
@@ -566,6 +624,18 @@ class ModeloFormularios
         return $stmt->fetchAll();
     }
 
+
+    public static function obtenerCarreraPorId($id)
+    {
+        $stmt = new Conexion();
+        $pdo = $stmt->conectar();
+
+        $query = $pdo->prepare("SELECT * FROM carreras WHERE id = :id");
+        $query->bindParam(":id", $id, PDO::PARAM_INT);
+        $query->execute();
+
+        return $query->fetch(PDO::FETCH_ASSOC);
+    }
 
 
 

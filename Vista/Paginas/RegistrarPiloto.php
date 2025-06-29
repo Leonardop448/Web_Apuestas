@@ -12,7 +12,8 @@
                     <form method="post">
                         <div class="mb-3">
                             <label for="nombre" class="form-label">Nombre del piloto</label>
-                            <input type="text" class="form-control" id="nombre" name="nombre" required>
+                            <input type="text" class="form-control" id="nombre" name="nombre"
+                                placeholder="Ejemplo: Juan Carlos Gomez # 745" required>
                         </div>
                         <!-- Centrado del botón -->
                         <div class="text-center">

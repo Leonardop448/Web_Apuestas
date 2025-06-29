@@ -70,20 +70,19 @@
         const targetId = boton.getAttribute('data-bs-target');
         const target = document.querySelector(targetId);
 
-        const collapse = new bootstrap.Collapse(target, { toggle: false });
+        // Evento cuando se muestra el colapso
+        target.addEventListener('show.bs.collapse', function () {
+          boton.innerHTML = '❌ Ocultar Pilotos';
+        });
 
-        boton.addEventListener('click', function () {
-          if (target.classList.contains('show')) {
-            collapse.hide();
-            boton.innerHTML = '👁️ Mostrar Pilotos';
-          } else {
-            collapse.show();
-            boton.innerHTML = '❌ Ocultar Pilotos';
-          }
+        // Evento cuando se oculta el colapso
+        target.addEventListener('hide.bs.collapse', function () {
+          boton.innerHTML = '👁️ Mostrar Pilotos';
         });
       });
     });
   </script>
+
 </body>
 
 </html>

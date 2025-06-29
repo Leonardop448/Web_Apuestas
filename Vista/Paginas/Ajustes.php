@@ -35,7 +35,7 @@ $actualizarusuario = FormularioControlador::actualizarUsuario();
 						value="<?= $_SESSION['telefono'] ?>" required>
 				</div>
 				<label class="form-label" for="">* Documento o cedula no esta permitido
-					cambiarse</label>
+					cambiarse</label><br>
 				<button type="submit" class="btn btn-warning fw-bold px-4">Actualizar</button>
 
 				<?php

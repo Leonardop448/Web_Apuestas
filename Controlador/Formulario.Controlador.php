@@ -229,9 +229,9 @@ class FormularioControlador
 
 
 
-    static public function crearCarrera($nombre, $fecha)
+    public static function crearCarrera($nombre, $fecha, $categorias)
     {
-        return ModeloFormularios::crearCarrera($nombre, $fecha);
+        return ModeloFormularios::crearCarrera($nombre, $fecha, $categorias);
     }
 
 
@@ -286,39 +286,9 @@ class FormularioControlador
 
 
 
-    static public function registrarApuesta($usuarioId, $carreraId, $pilotoId, $tipo, $monto, $ganancia)
+    public static function registrarApuesta($id_usuario, $id_carrera, $id_piloto, $tipo_apuesta, $monto, $categoria, $ganancia_esperada)
     {
-        $resultado = ModeloFormularios::registrarApuesta($usuarioId, $carreraId, $pilotoId, $tipo, $monto, $ganancia);
-
-        if ($resultado === "ok") {
-            // Traer datos del usuario
-            $db = (new Conexion())->conectar();
-            $stmtUser = $db->prepare("SELECT tokenUsuario, nombre FROM usuarios WHERE id = :id");
-            $stmtUser->bindParam(":id", $usuarioId, PDO::PARAM_INT);
-            $stmtUser->execute();
-            $usuario = $stmtUser->fetch(PDO::FETCH_ASSOC);
-
-            // Traer nombre de la carrera
-            $stmtCarrera = $db->prepare("SELECT nombre FROM carreras WHERE id = :id");
-            $stmtCarrera->bindParam(":id", $carreraId, PDO::PARAM_INT);
-            $stmtCarrera->execute();
-            $carrera = $stmtCarrera->fetch(PDO::FETCH_ASSOC);
-
-            $descripcion = "Apuesta en " . ($carrera['nombre'] ?? "Carrera");
-            $fecha = date("Y-m-d H:i:s"); // Fecha actual
-
-            // Insertar en movimientos
-            ModeloFormularios::insertarMovimiento(
-                $descripcion,
-                $fecha,
-                $monto, // egreso
-                0,      // ingreso
-                $usuario['tokenUsuario'],
-                $usuario['nombre']
-            );
-        }
-
-        return $resultado;
+        return ModeloFormularios::registrarApuesta($id_usuario, $id_carrera, $id_piloto, $tipo_apuesta, $monto, $categoria, $ganancia_esperada);
     }
 
 
@@ -361,13 +331,25 @@ class FormularioControlador
     }
 
 
+    public static function obtenerCarreraPorId($id)
+    {
+        return ModeloFormularios::obtenerCarreraPorId($id);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 
 }
-
-
-
-
-
