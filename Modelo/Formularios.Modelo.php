@@ -503,6 +503,70 @@ class ModeloFormularios
     }
 
 
+    // Obtener estado de una carrera específica
+    public static function obtenerEstadoCarrera($idCarrera)
+    {
+        $conexion = new Conexion();
+        $db = $conexion->conectar();
+
+        $stmt = $db->prepare("SELECT estado FROM carreras WHERE id = ?");
+        $stmt->execute([$idCarrera]);
+        return $stmt->fetchColumn();
+    }
+
+    // Calcular ganancias por carrera
+    public static function calcularGananciaPorCarrera($idCarrera)
+    {
+        $conexion = new Conexion();
+        $db = $conexion->conectar();
+
+        $apostado = $db->prepare("SELECT SUM(monto) FROM apuestas WHERE id_carrera = ?");
+        $apostado->execute([$idCarrera]);
+        $total_apostado = $apostado->fetchColumn() ?? 0;
+
+        $pagado = $db->prepare("SELECT SUM(ganancia_esperada) FROM apuestas WHERE id_carrera = ? AND resultado = 'ganada'");
+        $pagado->execute([$idCarrera]);
+        $total_pagado = $pagado->fetchColumn() ?? 0;
+
+        return [
+            'total_apostado' => (float) $total_apostado,
+            'total_pagado' => (float) $total_pagado,
+            'ganancia' => (float) $total_apostado - (float) $total_pagado
+        ];
+    }
+
+    // Calcular ganancias por mes (formato $mes = '2024-06')
+    public static function calcularGananciaPorMes($mes)
+    {
+        $conexion = new Conexion();
+        $db = $conexion->conectar();
+
+        $inicio = "$mes-01 00:00:00";
+        $fin = date("Y-m-t 23:59:59", strtotime($inicio));
+
+        $apostado = $db->prepare("SELECT SUM(monto) FROM apuestas WHERE creada_en BETWEEN ? AND ?");
+        $apostado->execute([$inicio, $fin]);
+        $total_apostado = $apostado->fetchColumn() ?? 0;
+
+        $pagado = $db->prepare("SELECT SUM(ganancia_esperada) FROM apuestas WHERE resultado = 'ganada' AND creada_en BETWEEN ? AND ?");
+        $pagado->execute([$inicio, $fin]);
+        $total_pagado = $pagado->fetchColumn() ?? 0;
+
+        return [
+            'total_apostado' => (float) $total_apostado,
+            'total_pagado' => (float) $total_pagado,
+            'ganancia' => (float) $total_apostado - (float) $total_pagado
+        ];
+    }
+
+    static public function obtenerCarrerasFinalizadas()
+    {
+        $stmt = (new Conexion())->conectar()->prepare("SELECT * FROM carreras WHERE estado = 'finalizada' ORDER BY fecha DESC");
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+
 
 
 

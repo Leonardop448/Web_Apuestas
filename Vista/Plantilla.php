@@ -19,7 +19,7 @@ session_start();
     <style>
         body {
             background: linear-gradient(135deg, #1a1a1a, #1658A3);
-            color: #fff;
+            color: #ffffff;
             font-family: 'Arial', sans-serif;
         }
 
@@ -28,7 +28,7 @@ session_start();
         }
 
         .nav-link {
-            color: #fff !important;
+            color: #ffcc00 !important;
             font-weight: bold;
         }
 
@@ -55,8 +55,7 @@ session_start();
             padding: 3rem 1rem;
             text-align: center;
             border-bottom: 5px solid #ffcc00;
-            border-radius: 30px 30px 30px 30px;
-            /* ← Aquí se agregan los bordes redondeados abajo */
+            border-radius: 30px;
         }
 
         .hero h1 {
@@ -75,7 +74,6 @@ session_start();
             .hero h1 {
                 font-size: 2.5rem;
             }
-
         }
 
         @media (min-width: 1200px) {
@@ -123,11 +121,36 @@ session_start();
             background-color: #1a1a1a;
         }
 
-        .dropdown-item:hover {
-            background-color: #ffc107;
-            color: #000;
+        /* NAV-TABS PERSONALIZADO */
+        .nav-tabs {
+            border-bottom: none;
+        }
+
+        .nav-tabs .nav-link {
+            background-color: #ffc107 !important;
+            color: #000 !important;
+            border: none;
+            margin-right: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            border-radius: 20px;
+            /* Bordes redondeados */
+        }
+
+        .nav-tabs .nav-link:hover,
+        .nav-tabs .nav-link:focus {
+            background-color: #ffc107 !important;
+            color: #000 !important;
+        }
+
+        .nav-tabs .nav-link.active {
+            background-color: #ffc107 !important;
+            color: #000 !important;
+            border: 2px solid #000 !important;
+            border-radius: 20px;
         }
     </style>
+
 </head>
 
 <body>
@@ -138,12 +161,13 @@ session_start();
         'Perfil',
         'ApuMovi',
         'Ajustes',
-        'RegistrarResultados',     // Nuevo: para registrar resultados de carrera (solo admin)
-        'CrearCarrera',            // Nuevo: para crear carreras
-        'RegistrarPiloto',         // Nuevo: para registrar pilotos
-        'AsignarPilotos',          // Nuevo: para asignar pilotos a carreras
-        'Apostar',                 // Nuevo: para que usuarios registrados hagan apuestas
-        'historial_apuestas'        // Nuevo: para ver el historial de apuestas del usuario
+        'RegistrarResultados',
+        'CrearCarrera',
+        'RegistrarPiloto',
+        'AsignarPilotos',
+        'Apostar',
+        'Ganancias',
+        'historial_apuestas'
     ];
     $listadoPaginasPublicas = [
         'Inicio',
@@ -156,7 +180,8 @@ session_start();
         'Contacto',
         'ProximosEventos',
         'Resultados',
-        '404'
+        '404',
+        'exportar_ganancia_pdf'
     ];
 
     if (isset($_GET['pagina'])) {
@@ -256,6 +281,9 @@ session_start();
                                             class="fas fa-users-cog me-1"></i>Asignar Pilotos</a></li>
                                 <li><a class="dropdown-item text-white" href="?pagina=RegistrarResultados"><i
                                             class="fas fa-clipboard-check me-1"></i>Registrar Resultados</a></li>
+                                <li><a class="dropdown-item text-white" href="?pagina=Ganancias"><i
+                                            class="fas fa-clipboard-check me-1"></i>Ganancias</a>
+                                </li>
                             </ul>
                         </li>
                     <?php endif; ?>
