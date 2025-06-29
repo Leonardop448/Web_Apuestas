@@ -337,6 +337,18 @@ class FormularioControlador
     }
 
 
+    public static function obtenerCarrerasConResultados()
+    {
+        return ModeloFormularios::obtenerCarrerasConResultados();
+    }
+
+
+    public static function obtenerResultadosPorCarreraYCategorias($id_carrera)
+    {
+        return ModeloFormularios::obtenerResultadosPorCarreraYCategorias($id_carrera);
+    }
+
+
 
 
 

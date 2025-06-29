@@ -1,6 +1,6 @@
 <?php
 if (!isset($_SESSION['privilegios']) || !in_array($_SESSION['privilegios'], ['usuario', 'admin'])) {
-    header('Location: index.php?pagina=Login');
+    echo "<script>window.location.href = 'index.php?pagina=Login';</script>";
     exit();
 }
 
@@ -40,6 +40,7 @@ $apuestas = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                         <th>Fecha</th>
                                         <th>Carrera</th>
                                         <th>Piloto</th>
+                                        <th>Categoría</th>
                                         <th>Tipo de Apuesta</th>
                                         <th>Monto Apostado</th>
                                         <th>Ganancia Esperada</th>
@@ -48,10 +49,27 @@ $apuestas = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 </thead>
                                 <tbody>
                                     <?php foreach ($apuestas as $apuesta): ?>
+                                        <?php
+                                        $cat = $apuesta['categoria'];
+                                        $badgeCategoria = match ($cat) {
+                                            '50cc Racer' => 'bg-info text-dark',
+                                            'Infantil' => 'bg-primary',
+                                            'Novatos' => 'bg-success',
+                                            'Élite' => 'bg-warning text-dark',
+                                            '150 cc' => 'bg-danger',
+                                            'Master' => 'bg-dark',
+                                            '200cc 2T' => 'bg-secondary',
+                                            'Supermoto' => 'bg-light text-dark',
+                                            'Expertos' => 'bg-primary text-white',
+                                            default => 'bg-secondary',
+                                        };
+                                        ?>
                                         <tr>
                                             <td><?= date('d/m/Y h:i A', strtotime($apuesta['creada_en'])) ?></td>
                                             <td><?= htmlspecialchars($apuesta['carrera_nombre']) ?></td>
                                             <td><?= htmlspecialchars($apuesta['piloto_nombre']) ?></td>
+                                            <td><span class="badge <?= $badgeCategoria ?>"><?= htmlspecialchars($cat) ?></span>
+                                            </td>
                                             <td><span
                                                     class="badge bg-info text-dark"><?= ucfirst($apuesta['tipo_apuesta']) ?></span>
                                             </td>

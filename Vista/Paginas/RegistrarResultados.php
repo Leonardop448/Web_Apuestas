@@ -1,6 +1,4 @@
 <?php
-
-
 if (!isset($_SESSION['privilegios']) || $_SESSION['privilegios'] !== 'admin') {
     echo "<script>window.location.href = 'index.php?pagina=Login';</script>";
     exit();
@@ -11,15 +9,19 @@ require_once "Modelo/Formularios.Modelo.php";
 
 $mensaje = "";
 $tipoMensaje = "success";
-if (isset($_GET['exito']) && $_GET['exito'] == 1) {
+$categoriasCarrera = [];
+
+if (isset($_GET['mensaje']) && $_GET['mensaje'] == 'ok') {
     $mensaje = "Resultados registrados correctamente.";
 }
+
 $carreras = ModeloFormularios::carrerasPorEstado('pendiente');
 $pilotos = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id_carrera = $_POST['id_carrera'] ?? null;
     $accion = $_POST['accion'] ?? '';
+    $categoriaSeleccionada = $_POST['categoria'] ?? null;
 
     if ($accion === 'registrar_resultados') {
         $pilotosSeleccionados = $_POST['pilotos'] ?? [];
@@ -27,8 +29,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (count($pilotosSeleccionados) !== 3 || count(array_unique($pilotosSeleccionados)) !== 3) {
             $mensaje = "Error: Los 3 pilotos deben ser diferentes.";
             $tipoMensaje = "danger";
+        } elseif (!$categoriaSeleccionada) {
+            $mensaje = "Debe seleccionar una categoría.";
+            $tipoMensaje = "danger";
         } else {
-            ModeloFormularios::procesarResultados($id_carrera, $pilotosSeleccionados);
+            ModeloFormularios::procesarResultados($id_carrera, $pilotosSeleccionados, $categoriaSeleccionada);
             echo "<script>window.location.href='index.php?pagina=RegistrarResultados&mensaje=ok';</script>";
             exit;
         }
@@ -36,6 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($id_carrera) {
         $pilotos = ModeloFormularios::pilotosDeCarrera($id_carrera);
+        $categoriasCarrera = ModeloFormularios::obtenerCategoriasConApuestas($id_carrera);
     }
 }
 ?>
@@ -57,6 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <form method="post" id="formResultados">
                         <input type="hidden" name="accion" id="accion" value="">
 
+                        <!-- Selección de carrera -->
                         <div class="mb-3">
                             <label for="id_carrera" class="form-label">Selecciona Carrera</label>
                             <select name="id_carrera" id="id_carrera" class="form-select"
@@ -71,6 +78,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </select>
                         </div>
 
+                        <!-- Mostrar categorías como checkbox -->
+                        <?php if (!empty($categoriasCarrera)): ?>
+                            <div class="mb-3">
+                                <label class="form-label">Selecciona una categoría para procesar:</label>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <?php foreach ($categoriasCarrera as $cat): ?>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="categoria"
+                                                value="<?= htmlspecialchars($cat) ?>" id="cat_<?= md5($cat) ?>">
+                                            <label class="form-check-label" for="cat_<?= md5($cat) ?>">
+                                                <?= htmlspecialchars($cat) ?>
+                                            </label>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+
+                        <!-- Mostrar selectores de piloto -->
                         <?php if (!empty($pilotos)): ?>
                             <h4>Orden de llegada (solo los 3 primeros puestos)</h4>
                             <?php for ($i = 0; $i < 3; $i++): ?>
@@ -86,12 +112,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     </select>
                                 </div>
                             <?php endfor; ?>
+
                             <div class="text-center">
                                 <button type="button" class="btn btn-warning text-dark fw-bold mt-3 px-5"
                                     onclick="enviarResultados()">
                                     Registrar Resultados
                                 </button>
-
                                 <script>
                                     function enviarResultados() {
                                         document.getElementById('accion').value = 'registrar_resultados';

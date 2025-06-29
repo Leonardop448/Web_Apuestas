@@ -373,7 +373,7 @@ class ModeloFormularios
             $carrera = $queryCarrera->fetch(PDO::FETCH_ASSOC);
             $nombreCarrera = $carrera ? $carrera['nombre'] : "Carrera desconocida";
 
-            $descripcion = "Apuesta en $nombreCarrera ($tipo_apuesta)";
+            $descripcion = "Apuesta en $nombreCarrera ($tipo_apuesta) ($categoria)";
             $stmtMov = $pdo->prepare("
             INSERT INTO movimientos (descripcion, ingresos, egresos, fecha, token, gestor)
             VALUES (:descripcion, 0, :egreso, NOW(), :token, :gestor)
@@ -413,13 +413,16 @@ class ModeloFormularios
 
 
 
-    static public function procesarResultados($id_carrera, $ordenLlegada)
+    static public function procesarResultados($id_carrera, $ordenLlegada, $categoria)
     {
         $db = (new Conexion())->conectar();
 
-        // Verificar si ya se guardaron resultados para esta carrera
-        $stmtCheck = $db->prepare("SELECT COUNT(*) FROM resultados_carrera WHERE id_carrera = :id_carrera");
-        $stmtCheck->execute([':id_carrera' => $id_carrera]);
+        // Verificar si ya se guardaron resultados para esta carrera y categoría
+        $stmtCheck = $db->prepare("SELECT COUNT(*) FROM resultados_carrera WHERE id_carrera = :id_carrera AND categoria = :categoria");
+        $stmtCheck->execute([
+            ':id_carrera' => $id_carrera,
+            ':categoria' => $categoria
+        ]);
         if ($stmtCheck->fetchColumn() > 0) {
             return false;
         }
@@ -430,19 +433,24 @@ class ModeloFormularios
         $carrera = $stmtNombre->fetch(PDO::FETCH_ASSOC);
         $nombreCarrera = $carrera ? $carrera['nombre'] : 'Carrera desconocida';
 
-        // Guardar resultados una vez
+        // Guardar resultados
         foreach ($ordenLlegada as $posicion => $id_piloto) {
-            $stmtInsert = $db->prepare("INSERT INTO resultados_carrera (id_carrera, id_piloto, posicion) VALUES (:id_carrera, :id_piloto, :posicion)");
+            $stmtInsert = $db->prepare("INSERT INTO resultados_carrera (id_carrera, id_piloto, posicion, categoria) 
+                                    VALUES (:id_carrera, :id_piloto, :posicion, :categoria)");
             $stmtInsert->execute([
                 ':id_carrera' => $id_carrera,
                 ':id_piloto' => $id_piloto,
-                ':posicion' => $posicion + 1
+                ':posicion' => $posicion + 1,
+                ':categoria' => $categoria
             ]);
         }
 
-        // Obtener todas las apuestas de esta carrera
-        $stmtApuestas = $db->prepare("SELECT * FROM apuestas WHERE id_carrera = :id_carrera");
-        $stmtApuestas->execute([':id_carrera' => $id_carrera]);
+        // Obtener apuestas de esa carrera y categoría
+        $stmtApuestas = $db->prepare("SELECT * FROM apuestas WHERE id_carrera = :id_carrera AND categoria = :categoria");
+        $stmtApuestas->execute([
+            ':id_carrera' => $id_carrera,
+            ':categoria' => $categoria
+        ]);
         $apuestas = $stmtApuestas->fetchAll(PDO::FETCH_ASSOC);
 
         $id_ganador = $ordenLlegada[0] ?? null;
@@ -460,22 +468,21 @@ class ModeloFormularios
                 $ganancia = $apuesta['ganancia_esperada'];
             }
 
-            // Siempre actualiza el resultado
+            // Actualizar apuesta
             $stmtUpdate = $db->prepare("UPDATE apuestas SET resultado = :resultado WHERE id = :id");
             $stmtUpdate->execute([
                 ':resultado' => $estado,
                 ':id' => $apuesta['id']
             ]);
 
+            // Si ganó, sumar saldo e insertar movimiento
             if ($estado === 'ganada') {
-                // Sumar saldo
                 $stmtSaldo = $db->prepare("UPDATE usuarios SET saldo = saldo + :ganancia WHERE id = :id_usuario");
                 $stmtSaldo->execute([
                     ":ganancia" => $ganancia,
                     ":id_usuario" => $apuesta['id_usuario']
                 ]);
 
-                // Insertar movimiento
                 $stmtUsuario = $db->prepare("SELECT tokenUsuario, nombre FROM usuarios WHERE id = :id");
                 $stmtUsuario->execute([':id' => $apuesta['id_usuario']]);
                 $usuario = $stmtUsuario->fetch(PDO::FETCH_ASSOC);
@@ -483,7 +490,7 @@ class ModeloFormularios
                 $descripcion = 'Ganancia en carrera ' . $nombreCarrera . ' (' . ucfirst($apuesta['tipo_apuesta']) . ')';
 
                 $stmtMov = $db->prepare("INSERT INTO movimientos (descripcion, ingresos, egresos, fecha, token, gestor)
-                         VALUES (:descripcion, :ingresos, 0, :fecha, :token, :gestor)");
+                                     VALUES (:descripcion, :ingresos, 0, :fecha, :token, :gestor)");
                 $stmtMov->execute([
                     ':descripcion' => $descripcion,
                     ':ingresos' => $ganancia,
@@ -494,12 +501,21 @@ class ModeloFormularios
             }
         }
 
-        // Marcar carrera como finalizada
-        $stmtEstado = $db->prepare("UPDATE carreras SET estado = 'finalizada' WHERE id = :id");
-        $stmtEstado->execute([':id' => $id_carrera]);
+        // Verificar si aún quedan apuestas pendientes en la carrera
+        $stmtPendientes = $db->prepare("SELECT COUNT(*) FROM apuestas WHERE id_carrera = :id AND resultado = 'pendiente'");
+        $stmtPendientes->execute([':id' => $id_carrera]);
+        $quedanPendientes = $stmtPendientes->fetchColumn();
+
+        if ($quedanPendientes == 0) {
+            $stmtEstado = $db->prepare("UPDATE carreras SET estado = 'finalizada' WHERE id = :id");
+            $stmtEstado->execute([':id' => $id_carrera]);
+        }
 
         return true;
     }
+
+
+
 
 
 
@@ -636,6 +652,78 @@ class ModeloFormularios
 
         return $query->fetch(PDO::FETCH_ASSOC);
     }
+
+
+    static public function obtenerCategoriasConApuestas($id_carrera)
+    {
+        $db = (new Conexion())->conectar();
+
+        // Lista de categorías válidas
+        $categoriasValidas = [
+            '50cc Racer',
+            'Infantil',
+            'Novatos',
+            'Élite',
+            '150 cc',
+            'Master',
+            '200cc 2T',
+            'Supermoto',
+            'Expertos'
+        ];
+
+        // Obtener categorías únicas que tengan apuestas pendientes
+        $stmt = $db->prepare("
+        SELECT DISTINCT categoria
+        FROM apuestas
+        WHERE id_carrera = :id_carrera AND resultado = 'pendiente'
+    ");
+        $stmt->execute([':id_carrera' => $id_carrera]);
+
+        $categorias = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+        // Filtrar solo las categorías válidas
+        $categoriasFiltradas = array_filter(array_map('trim', $categorias), function ($cat) use ($categoriasValidas) {
+            return in_array($cat, $categoriasValidas);
+        });
+
+        return array_unique($categoriasFiltradas);
+    }
+
+
+    public static function obtenerCarrerasConResultados()
+    {
+        $stmt = new Conexion();
+        $pdo = $stmt->conectar();
+
+        $query = "SELECT DISTINCT c.id, c.nombre, c.fecha
+              FROM carreras c
+              INNER JOIN resultados_carrera r ON c.id = r.id_carrera
+              ORDER BY c.fecha DESC";
+
+        $sql = $pdo->prepare($query);
+        $sql->execute();
+
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function obtenerResultadosPorCarreraYCategorias($id_carrera)
+    {
+        $stmt = new Conexion();
+        $pdo = $stmt->conectar();
+
+        $query = "SELECT r.posicion, p.nombre, r.categoria
+              FROM resultados_carrera r
+              INNER JOIN pilotos p ON r.id_piloto = p.id
+              WHERE r.id_carrera = :id_carrera
+              ORDER BY r.categoria, r.posicion ASC";
+
+        $sql = $pdo->prepare($query);
+        $sql->execute([':id_carrera' => $id_carrera]);
+
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
 
 
 
