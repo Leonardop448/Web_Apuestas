@@ -125,7 +125,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_piloto'])) {
                                     </div>
                                 <?php endforeach; ?>
                             </div>
-
                             <div class="mb-3">
                                 <label class="form-label">Selecciona piloto:</label>
                                 <select name="id_piloto" class="form-select" required>
