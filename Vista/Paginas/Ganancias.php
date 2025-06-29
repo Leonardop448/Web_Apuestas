@@ -1,7 +1,7 @@
 <title>Ganancias</title>
 <?php
 if (!isset($_SESSION['privilegios']) || $_SESSION['privilegios'] !== 'admin') {
-    header("Location: index.php?pagina=Login");
+    echo "<script>window.location.href = 'index.php?pagina=Login';</script>";
     exit();
 }
 

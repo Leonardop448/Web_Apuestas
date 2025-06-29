@@ -1,6 +1,6 @@
 <?php
 if (!isset($_SESSION['email'])) {
-    header("Location: index.php?pagina=Login");
+    echo "<script>window.location.href = 'index.php?pagina=Login';</script>";
     exit;
 }
 ?>
