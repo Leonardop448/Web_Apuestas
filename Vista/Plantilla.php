@@ -193,7 +193,7 @@ session_start();
                 $paginaVerificada = $pagina;
             } else {
                 // Redirigir si no tiene sesión
-                header('Location: index.php?pagina=Login');
+                echo "<script>window.location.href = 'index.php?pagina=Login';</script>";
                 exit();
             }
         } elseif (in_array($pagina, $listadoPaginasPublicas)) {
