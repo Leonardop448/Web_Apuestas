@@ -21,7 +21,7 @@ class EnviarCorreo
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587;
 
-            $mail->setFrom('racestakepro@gmail.com', 'RaceStake Pro');
+            $mail->setFrom('contacto@pulcast.com', 'RaceStake Pro');
             $mail->addAddress($email, $nombre);
 
             $mail->isHTML(true);
