@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->Port = 587;
 
         // Remitente (de tu parte) y destinatario (admin del sitio)
-        $mail->setFrom('racestakepro@gmail.com', 'Formulario Web de Carreras');
+        $mail->setFrom('contacto@pulcast.com', 'Formulario Web de Carreras');
         $mail->addAddress('leonardop448@hotmail.com', 'Administrador del sitio'); // ✅ Correo del admin
         $mail->addReplyTo($email, $nombre); // Permite responderle al visitante
 

@@ -83,8 +83,8 @@
           <h4>10. Contacto</h4>
           <p>Para dudas o reclamos puedes contactarnos en:</p>
           <ul>
-            <li><strong>Correo:</strong> Contacto@racestakepro.com</li>
-            <li><strong>Teléfono:</strong> +57 312 268 8378</li>
+            <li><strong>Correo:</strong>contacto@pulcast.com</li>
+            <li><strong>Teléfono:</strong> +57 323 302 29 83</li>
           </ul>
         </section>
 
