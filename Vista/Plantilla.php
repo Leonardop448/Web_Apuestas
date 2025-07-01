@@ -342,6 +342,7 @@ session_start();
 
 
 </body>
+<br>
 </div>
 <!-- Pie de página -->
 <footer class="bg-dark text-white text-center mt-auto">
@@ -377,6 +378,7 @@ session_start();
         </div>
     </div>
     </div>
+
 </footer>
 
 
