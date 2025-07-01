@@ -11,7 +11,7 @@ session_start();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/b84470ec17.js" crossorigin="anonymous"></script>
-    <link rel="icon" type="image/x-icon" href="/Imagenes/icono.png">
+    <link rel="icon" type="image/x-icon" href="/imagenes/icono.png">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=WDXL+Lubrifont+TC&display=swap"
         rel="stylesheet">
@@ -50,7 +50,7 @@ session_start();
         }
 
         .hero {
-            background: url('/Imagenes/Motovelocidad4.png') no-repeat center center;
+            background: url('/imagenes/Motovelocidad4.png') no-repeat center center;
             background-size: cover;
             padding: 3rem 1rem;
             text-align: center;
@@ -210,7 +210,7 @@ session_start();
     ?>
 
     <div class="d-flex flex-md-row align-items-center justify-content-center text-center text-md-start">
-        <img src="/Imagenes/pngwing.com (5).png" alt="" class="img-fluid" style="max-width: 100px; margin-right: 15px;">
+        <img src="/imagenes/pngwing.com (5).png" alt="" class="img-fluid" style="max-width: 100px; margin-right: 15px;">
         <h1 class="display-4 mt-3 mt-md-0"
             style="font-family: 'WDXL Lubrifont TC', sans-serif; font-weight: 700; text-shadow: 2px 2px 4px #000; color: #ffc107;">
             ¡RaceStake Pro
@@ -352,16 +352,16 @@ session_start();
         <!-- Logos de pago -->
         <div class="row justify-content-center g-3">
             <div class="col-6 col-sm-3 col-md-2">
-                <img src="imagenes/bancolombia.png" alt="Bancolombia" class="img-fluid">
+                <img src="/imagenes/bancolombia.png" alt="Bancolombia" class="img-fluid">
             </div>
             <div class="col-6 col-sm-3 col-md-2">
-                <img src="imagenes/nequi.png" alt="Nequi" class="img-fluid">
+                <img src="/imagenes/nequi.png" alt="Nequi" class="img-fluid">
             </div>
             <div class="col-6 col-sm-3 col-md-2">
-                <img src="imagenes/efecty.svg" alt="Efecty" class="img-fluid">
+                <img src="/imagenes/efecty.svg" alt="Efecty" class="img-fluid">
             </div>
             <div class="col-6 col-sm-3 col-md-2">
-                <img src="imagenes/PSE.png" alt="PSE" class="img-fluid">
+                <img src="/imagenes/PSE.png" alt="PSE" class="img-fluid">
             </div>
         </div>
 

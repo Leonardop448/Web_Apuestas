@@ -1,4 +1,11 @@
-<title>Resultados de Carreras</title>
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Resultados de Carreras</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
 
 <body class="bg-light">
   <main class="container mt-5">
@@ -15,10 +22,10 @@
           if (empty($carreras)) {
             echo '<div class="alert alert-info text-center">No hay resultados registrados aún.</div>';
           } else {
-            $formatter = new \IntlDateFormatter('es_ES', \IntlDateFormatter::LONG, \IntlDateFormatter::NONE, 'America/Bogota');
-
             foreach ($carreras as $carrera) {
+              $formatter = new \IntlDateFormatter('es_ES', \IntlDateFormatter::LONG, \IntlDateFormatter::NONE, 'America/Bogota');
               $fecha = $formatter->format(new DateTime($carrera['fecha']));
+
               echo '<div class="card bg-secondary text-white mb-4">';
               echo '<div class="card-header text-center h4"><strong>' . htmlentities($carrera['nombre']) . '</strong> | ' . $fecha . '</div>';
               echo '<div class="card-body">';

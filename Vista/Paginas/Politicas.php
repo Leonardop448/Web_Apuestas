@@ -53,7 +53,7 @@
           <p>De acuerdo con la legislación colombiana, como titular de los datos personales tienes derecho a conocer,
             actualizar, rectificar y suprimir tu información, así como a revocar tu consentimiento en cualquier momento.
           </p>
-          <p>Puedes ejercer estos derechos escribiendo a: <strong>privacidad@racestakepro.com</strong></p>
+          <p>Puedes ejercer estos derechos escribiendo a: <strong>privacidad@pulcast.com</strong></p>
         </section>
 
         <section class="mb-4">
@@ -71,7 +71,8 @@
         <section class="mb-3">
           <h4>8. Contacto</h4>
           <p>Si tienes preguntas sobre nuestra política de privacidad, puedes escribirnos a:
-            <strong>privacidad@racestakepro.com</strong></p>
+            <strong>privacidad@pulcast.com</strong>
+          </p>
         </section>
 
       </div>
