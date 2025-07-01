@@ -5,7 +5,7 @@
 
             <!-- Imagen -->
             <div class="col-md-6 col-lg-5 mb-4 mb-md-0 text-center">
-                <img src="/Imagenes/pngwing.com (6).png" class="img-fluid" alt="Login image" style="max-height: 300px;">
+                <img src="/imagenes/pngwing.com (6).png" class="img-fluid" alt="Login image" style="max-height: 300px;">
             </div>
 
             <!-- Formulario -->
