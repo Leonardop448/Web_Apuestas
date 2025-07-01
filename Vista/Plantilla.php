@@ -352,16 +352,16 @@ session_start();
         <!-- Logos de pago -->
         <div class="row justify-content-center g-3">
             <div class="col-6 col-sm-3 col-md-2">
-                <img src="imagenes/bancolombia.png" alt="Bancolombia" class="img-fluid">
+                <img src="/imagenes/bancolombia.png" alt="Bancolombia" class="img-fluid">
             </div>
             <div class="col-6 col-sm-3 col-md-2">
-                <img src="imagenes/nequi.png" alt="Nequi" class="img-fluid">
+                <img src="/imagenes/nequi.png" alt="Nequi" class="img-fluid">
             </div>
             <div class="col-6 col-sm-3 col-md-2">
-                <img src="imagenes/efecty.svg" alt="Efecty" class="img-fluid">
+                <img src="/imagenes/efecty.svg" alt="Efecty" class="img-fluid">
             </div>
             <div class="col-6 col-sm-3 col-md-2">
-                <img src="imagenes/PSE.png" alt="PSE" class="img-fluid">
+                <img src="/imagenes/PSE.png" alt="PSE" class="img-fluid">
             </div>
         </div>
 
