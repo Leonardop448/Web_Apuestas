@@ -210,7 +210,7 @@ session_start();
     ?>
 
     <div class="d-flex flex-md-row align-items-center justify-content-center text-center text-md-start">
-        <img src="/Imagenes/pngwing.com (5).png" alt="" class="img-fluid" style="max-width: 100px; margin-right: 15px;">
+        <img src="/imagenes/pngwing.com (5).png" alt="" class="img-fluid" style="max-width: 100px; margin-right: 15px;">
         <h1 class="display-4 mt-3 mt-md-0"
             style="font-family: 'WDXL Lubrifont TC', sans-serif; font-weight: 700; text-shadow: 2px 2px 4px #000; color: #ffc107;">
             ¡RaceStake Pro

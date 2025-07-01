@@ -65,7 +65,7 @@
 
 <body>
   <div class="formulario-contacto">
-    <img src="/Imagenes/pngwing.com.png" class="img-fluid" alt="Logo RaceStake Pro"
+    <img src="/imagenes/pngwing.com.png" class="img-fluid" alt="Logo RaceStake Pro"
       style="max-width: 300px; height: auto; display: block; margin: 0 auto 20px auto;">
     <h2>Contáctanos</h2>
 
