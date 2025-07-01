@@ -50,7 +50,7 @@ session_start();
         }
 
         .hero {
-            background: url('/Imagenes/Motovelocidad4.png') no-repeat center center;
+            background: url('/imagenes/Motovelocidad4.png') no-repeat center center;
             background-size: cover;
             padding: 3rem 1rem;
             text-align: center;
