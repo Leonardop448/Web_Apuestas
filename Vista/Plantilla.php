@@ -153,7 +153,7 @@ session_start();
 
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     <?php
     $listadoPaginasPrivadas = [
         'CargarCreditos',
@@ -345,7 +345,7 @@ session_start();
 
 </div>
 <!-- Pie de página -->
-<footer class="bg-dark text-white text-center py-4 mt-5">
+<footer class="bg-dark text-white text-center mt-auto">
     <div class="container-fluid">
         <h5 class="mb-3">Métodos de Pago</h5>
 
