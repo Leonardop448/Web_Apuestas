@@ -53,15 +53,18 @@ class FormularioControlador
                 $resultado = ModeloFormularios::verificarUsuarios([$email]);
 
                 if ($resultado) {
-                    if ($resultado["activo"] == 0) {
-                        echo '<div class="alert alert-warning">Tu cuenta aún no ha sido activada. Revisa tu correo para activarla.</div>';
-                        return;
-                    }
+                    if (strtolower($resultado["email"]) === $email) {
+                        if (!password_verify($_POST["contrasena"], $resultado["contrasena"])) {
+                            echo '<div class="alert alert-danger">Contraseña incorrecta.</div>';
+                            return;
+                        }
 
-                    if (
-                        strtolower($resultado["email"]) === $email &&
-                        password_verify($_POST["contrasena"], $resultado["contrasena"])
-                    ) {
+                        if ($resultado["activo"] == 0) {
+                            echo '<div class="alert alert-warning">Tu cuenta aún no ha sido activada. Revisa tu correo para activarla.</div>';
+                            return;
+                        }
+
+                        // Si todo es correcto
                         $_SESSION['id'] = $resultado['id'];
                         $_SESSION['cedula'] = $resultado["cedula"];
                         $_SESSION['nombre'] = $resultado["nombre"];
@@ -76,6 +79,8 @@ class FormularioControlador
                         exit;
                     }
                 }
+
+                echo '<div class="alert alert-danger">Usuario no registrado o datos incorrectos.</div>';
 
 
             } else {
