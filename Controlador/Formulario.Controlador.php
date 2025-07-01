@@ -51,10 +51,15 @@ class FormularioControlador
 
                 // Verificar usuario en la base de datos (solo por email)
                 $resultado = ModeloFormularios::verificarUsuarios([$email]);
-                if ($resultado && isset($resultado["email"])) {
+
+                if ($resultado) {
+                    if ($resultado["activo"] == 0) {
+                        echo '<div class="alert alert-warning">Tu cuenta aún no ha sido activada. Revisa tu correo para activarla.</div>';
+                        return;
+                    }
 
                     if (
-                        strtolower($resultado["email"]) === $email && // Normalizar correo en minúsculas para comparación
+                        strtolower($resultado["email"]) === $email &&
                         password_verify($_POST["contrasena"], $resultado["contrasena"])
                     ) {
                         $_SESSION['id'] = $resultado['id'];
@@ -66,10 +71,6 @@ class FormularioControlador
                         $_SESSION['telefono'] = $resultado["telefono"];
                         $_SESSION['fecha_registro'] = $resultado["fecha_registro"];
                         $_SESSION['saldo'] = $resultado["saldo"];
-
-
-
-
 
                         echo "<script>window.location.replace('index.php?pagina=Perfil');</script>";
                         exit;
