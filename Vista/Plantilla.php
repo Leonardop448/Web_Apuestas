@@ -342,7 +342,6 @@ session_start();
 
 
 </body>
-
 </div>
 <!-- Pie de página -->
 <footer class="bg-dark text-white text-center mt-auto">
@@ -376,6 +375,7 @@ session_start();
             <span class="text-white d-none d-sm-inline">|</span>
             <a href="?pagina=Contacto" class="text-white text-decoration-none">Contacto</a>
         </div>
+    </div>
     </div>
 </footer>
 
