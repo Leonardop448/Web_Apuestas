@@ -11,7 +11,7 @@ session_start();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/b84470ec17.js" crossorigin="anonymous"></script>
-    <link rel="icon" type="image/x-icon" href="/Imagenes/icono.png">
+    <link rel="icon" type="image/x-icon" href="/imagenes/icono.png">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=WDXL+Lubrifont+TC&display=swap"
         rel="stylesheet">
