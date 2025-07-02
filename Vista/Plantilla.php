@@ -174,6 +174,7 @@ session_start();
         'Login',
         'Registro',
         'RecuperarContrasena',
+        'ReestablecerContrasena',
         'ActivarCuenta',
         'Politicas',
         'Terminos',
