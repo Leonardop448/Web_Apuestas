@@ -16,7 +16,7 @@
   <div class="container mt-4">
     <?php if ($paginaVerificada == "Inicio") { ?>
       <h2 class="text-center"
-        style="font-size: 2.5rem; color:rgb(255, 217, 0); text-shadow: 5px 5px 4px rgb(0, 0, 0); font-family: 'Pacifico', sans-serif; font-weight: 700;">
+        style="font-size: 2.5rem; text-shadow: 5px 5px 4px rgb(0, 0, 0); font-family: 'Pacifico', sans-serif; font-weight: 700;">
         Próximas Carreras Destacadas
       </h2>
 

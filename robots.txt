@@ -1,0 +1,11 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /wp-admin/
+Disallow: /includes/
+Disallow: /tmp/
+Disallow: /cgi-bin/
+Disallow: /*?token=
+Disallow: /*?sessionid=
+
+Sitemap: https://www.pulcast.com/sitemap.xml
+

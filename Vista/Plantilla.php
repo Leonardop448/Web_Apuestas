@@ -26,49 +26,72 @@ session_start();
         })(window, document, 'script', 'dataLayer', 'GTM-5ZQJP9RJ');</script>
     <!-- End Google Tag Manager -->
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const temaGuardado = localStorage.getItem("tema") || "oscuro";
+            document.body.classList.add(`tema-${temaGuardado}`);
+        });
+
+        function cambiarTema() {
+            const body = document.body;
+            if (body.classList.contains("tema-oscuro")) {
+                body.classList.remove("tema-oscuro");
+                body.classList.add("tema-claro");
+                localStorage.setItem("tema", "claro");
+            } else {
+                body.classList.remove("tema-claro");
+                body.classList.add("tema-oscuro");
+                localStorage.setItem("tema", "oscuro");
+            }
+        }
+    </script>
+
     <style>
-        body {
+        /* === Tema Oscuro === */
+        body.tema-oscuro {
             background: linear-gradient(135deg, #1a1a1a, #1658A3);
-            color: #ffffff;
+            color: #FFC107;
             font-family: 'Arial', sans-serif;
         }
 
-        .navbar {
-            background-color: #000 !important;
+        body.tema-oscuro .piedepagina {
+            background-color: #212529;
+            color: #fff;
         }
 
-        .nav-link {
+        body.tema-oscuro .navbar {
+            background-color: #212529 !important;
+        }
+
+        body.tema-oscuro .navbar-brand,
+        body.tema-oscuro .nav-link {
             color: #ffcc00 !important;
             font-weight: bold;
         }
 
-        .nav-link:hover {
+        body.tema-oscuro .nav-link:hover {
             color: #ffcc00 !important;
         }
 
-        .btn-apuesta {
+        body.tema-oscuro .btn-apuesta {
             background-color: #ffcc00;
             color: #000;
-            font-weight: bold;
-            padding: .5rem 1rem;
-            font-size: 1rem;
-            border-radius: 5px;
         }
 
-        .btn-apuesta:hover {
+        body.tema-oscuro .btn-apuesta:hover {
             background-color: #e6b800;
         }
 
-        .hero {
+        body.tema-oscuro .hero {
             background: url('/imagenes/Motovelocidad4.png') no-repeat center center;
             background-size: cover;
-            padding: 3rem 1rem;
-            text-align: center;
             border-bottom: 5px solid #ffcc00;
             border-radius: 30px;
+            padding: 3rem 1rem;
+            text-align: center;
         }
 
-        .hero h1 {
+        body.tema-oscuro .hero h1 {
             font-size: 2rem;
             color: rgb(255, 217, 0);
             text-shadow: 2px 2px 5px #000;
@@ -76,30 +99,135 @@ session_start();
             font-weight: 700;
         }
 
-        @media (min-width: 768px) {
-            .hero {
-                padding: 6rem 3rem;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-        }
-
-        @media (min-width: 1200px) {
-            .hero {
-                padding: 6rem 4rem;
-                min-height: 400px;
-            }
-
-            .hero h1 {
-                font-size: 3.5rem;
-            }
-        }
-
-        .event-card {
+        body.tema-oscuro .event-card {
             background: #2d2d2d;
             border: 2px solid #ffcc00;
+            color: #fff;
+        }
+
+        body.tema-oscuro .dropdown-menu {
+            background-color: #1a1a1a;
+        }
+
+        body.tema-oscuro .menu-admin {
+            background-color: #000;
+            border: 2px solid #ffc107;
+        }
+
+        body.tema-oscuro .menu-admin .dropdown-item {
+            color: #fff;
+        }
+
+        body.tema-oscuro .menu-admin .dropdown-item:hover {
+            background-color: #ffc107;
+            color: #000;
+        }
+
+        /* === Tema Claro === */
+        body.tema-claro {
+            background: linear-gradient(135deg, #f5f7fa, #cfd9df);
+            color: #003366;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body.tema-claro .piedepagina {
+            background-color: #f8f9fa;
+            color: #212529;
+        }
+
+        body.tema-claro .piedepagina a {
+            color: #0d6efd;
+        }
+
+        body.tema-claro .piedepagina a:hover {
+            color: #0a58ca;
+        }
+
+        body.tema-claro .navbar {
+            background-color: #ffffff !important;
+        }
+
+        body.tema-claro .navbar-brand,
+        body.tema-claro .nav-link {
+            color: #003366 !important;
+            font-weight: bold;
+        }
+
+        body.tema-claro .nav-link:hover {
+            color: #005599 !important;
+        }
+
+        body.tema-claro .btn-apuesta {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        body.tema-claro .btn-apuesta:hover {
+            background-color: #0056b3;
+        }
+
+        body.tema-claro .hero {
+            background: url('/imagenes/Motovelocidad4.png') no-repeat center center;
+            background-size: cover;
+            border-bottom: 5px solid #007bff;
+        }
+
+        body.tema-claro .hero h1 {
+            color: #003366;
+            text-shadow: none;
+        }
+
+        body.tema-claro .event-card {
+            background: #ffffff;
+            border: 2px solid #007bff;
+            color: #000;
+        }
+
+        body.tema-claro .dropdown-menu {
+            background-color: #ffffff;
+        }
+
+        body.tema-claro .menu-admin {
+            background-color: #ffffff;
+            border: 2px solid #007bff;
+        }
+
+        body.tema-claro .menu-admin .dropdown-item {
+            color: #000;
+        }
+
+        body.tema-claro .menu-admin .dropdown-item:hover {
+            background-color: #f0f0f0;
+            color: #000;
+        }
+
+        /* Botón Cambiar Tema */
+        .btn-cambiar-tema {
+            background-color: transparent;
+            color: #ffcc00;
+            border: 1px solid #ffcc00;
+            font-size: 0.8rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .btn-cambiar-tema:hover {
+            background-color: #ffcc00;
+            color: #000;
+        }
+
+        body.tema-claro .btn-cambiar-tema {
+            background-color: #007bff;
+            color: white;
+            border: none;
+        }
+
+        body.tema-claro .btn-cambiar-tema:hover {
+            background-color: #0056b3;
+        }
+
+        /* Otros elementos comunes */
+        .event-card {
             border-radius: 10px;
             padding: 15px;
             margin: 10px;
@@ -118,56 +246,58 @@ session_start();
             border-radius: 20px;
         }
 
-        .navbar-dark .navbar-nav .nav-link {
-            color: #fff;
-            transition: 0.3s ease-in-out;
-        }
-
-        .navbar-dark .navbar-nav .nav-link:hover {
-            color: #ffc107;
-        }
-
-        .dropdown-menu {
-            background-color: #1a1a1a;
-        }
-
         /* NAV-TABS PERSONALIZADO */
         .nav-tabs {
             border-bottom: none;
         }
 
         .nav-tabs .nav-link {
-            background-color: #ffc107 !important;
-            color: #000 !important;
             border: none;
             margin-right: 5px;
             font-weight: bold;
             transition: background-color 0.3s ease;
             border-radius: 20px;
-            /* Bordes redondeados */
         }
 
-        .nav-tabs .nav-link:hover,
-        .nav-tabs .nav-link:focus {
+        body.tema-oscuro .nav-tabs .nav-link {
             background-color: #ffc107 !important;
             color: #000 !important;
         }
 
-        .nav-tabs .nav-link.active {
+        body.tema-oscuro .nav-tabs .nav-link:hover,
+        body.tema-oscuro .nav-tabs .nav-link:focus {
+            background-color: #ffc107 !important;
+            color: #000 !important;
+        }
+
+        body.tema-oscuro .nav-tabs .nav-link.active {
             background-color: #ffc107 !important;
             color: #000 !important;
             border: 2px solid #000 !important;
-            border-radius: 20px;
+        }
+
+        body.tema-claro .nav-tabs .nav-link {
+            background-color: #007bff !important;
+            color: #fff !important;
+        }
+
+        body.tema-claro .nav-tabs .nav-link:hover,
+        body.tema-claro .nav-tabs .nav-link:focus {
+            background-color: #0056b3 !important;
+        }
+
+        body.tema-claro .nav-tabs .nav-link.active {
+            background-color: #007bff !important;
+            color: #fff !important;
+            border: 2px solid #003366 !important;
         }
     </style>
+
 
 </head>
 
 <body class="d-flex flex-column min-vh-100">
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5ZQJP9RJ" height="0" width="0"
-            style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
+
     <?php
     $listadoPaginasPrivadas = [
         'CargarCreditos',
@@ -226,17 +356,23 @@ session_start();
     ?>
 
     <div class="d-flex flex-md-row align-items-center justify-content-center text-center text-md-start">
-        <img src="/imagenes/pngwing.com (5).png" alt="" class="img-fluid" style="max-width: 100px; margin-right: 15px;">
-        <h1 class="display-4 mt-3 mt-md-0"
-            style="font-family: 'WDXL Lubrifont TC', sans-serif; font-weight: 700; text-shadow: 2px 2px 4px #000; color: #ffc107;">
-            ¡RaceStake Pro
+        <img src="/imagenes/pngwing.com (5).png" alt="LogoWeb" class="img-fluid"
+            style="max-width: 100px; margin-right: 15px; margin-top: 20px;">
+        <h1 class="display-4 mt-3 md-0"
+            style="font-family: 'WDXL Lubrifont TC', sans-serif; font-weight: 700; text-shadow: 5px 5px 4px rgb(0, 0, 0) ">
+            ¡RaceStake Pro!
         </h1>
+        <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5ZQJP9RJ" height="0" width="0"
+                style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
     </div>
     <?php
     if (isset($_SESSION['id'])) {
         $saldoActual = FormularioControlador::obtenerSaldoUsuario($_SESSION['id']);
         $saldo = number_format($saldoActual, 0, ',', '.');
         ?>
+
         <h2>
             <a class="nav-link text-white fw-bold" align="right" href="?pagina=ApuMovi">
                 <strong class="text-warning">
@@ -249,7 +385,7 @@ session_start();
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
         <div class="container-fluid">
             <!-- Logo / Nombre del sitio -->
-            <a class="navbar-brand fw-bold text-warning" href="?pagina=Inicio">
+            <a class="navbar-brand fw-bold" href="?pagina=Inicio">
                 <i class="fas fa-flag-checkered me-1"></i>RaceStake Pro
             </a>
 
@@ -286,7 +422,7 @@ session_start();
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-tools me-1"></i>Administrar
                             </a>
-                            <ul class="dropdown-menu bg-dark border-warning" aria-labelledby="adminDropdown">
+                            <ul class="dropdown-menu menu-admin" id="menuAdminDropdown" aria-labelledby="adminDropdown">
                                 <li><a class="dropdown-item text-white" href="?pagina=CargarCreditos"><i
                                             class="fas fa-wallet me-1"></i>Cargar Créditos</a></li>
                                 <li><a class="dropdown-item text-white" href="?pagina=CrearCarrera"><i
@@ -308,13 +444,15 @@ session_start();
                 <!-- Menú derecho -->
                 <ul class="navbar-nav ms-auto">
                     <?php if (isset($_SESSION['privilegios'])): ?>
+                        <button onclick="cambiarTema()" class="btn btn-cambiar-tema">
+                            Cambiar Tema
+                        </button>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle fw-bold" href="#" id="userDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-user-circle me-1"></i><?= $_SESSION['nombre']; ?>
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end bg-dark border-warning"
-                                aria-labelledby="userDropdown">
+                            <ul class="dropdown-menu menu-admin" id="menuAdminDropdown" aria-labelledby="adminDropdown">
                                 <li><a class="dropdown-item text-white" href="?pagina=Perfil"><i
                                             class="fas fa-id-badge me-1"></i>Perfil</a></li>
                                 <li><a class="dropdown-item text-white" href="?pagina=historial_apuestas"><i
@@ -361,9 +499,9 @@ session_start();
 <br>
 </div>
 <!-- Pie de página -->
-<footer class="bg-dark text-white text-center mt-auto">
+<footer class="piedepagina text-center mt-auto">
     <div class="container-fluid">
-        <h5 class="mb-3">Métodos de Pago</h5>
+        <h5 class="mb-3 fw-bold">Métodos de Pago</h5>
 
         <!-- Logos de pago -->
         <div class="row justify-content-center g-3">
@@ -382,7 +520,7 @@ session_start();
         </div>
 
         <!-- Texto legal -->
-        <p class="mt-4 mb-2">&copy; RaceStake Pro. Todos los derechos reservados. 2025</p>
+        <p class="mt-4 mb-2 fw-bold">&copy; RaceStake Pro. Todos los derechos reservados. 2025</p>
 
         <!-- Enlaces legales -->
         <div class="d-flex flex-column flex-sm-row justify-content-center gap-2">
