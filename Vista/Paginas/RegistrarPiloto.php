@@ -1,6 +1,5 @@
 <title>Registrar Piloto</title>
 
-
 <div class="container mt-3">
     <div class="row justify-content-center">
         <div class="col-md-6"> <!-- Estrecho y centrado -->
@@ -13,7 +12,7 @@
                         <div class="mb-3">
                             <label for="nombre" class="form-label">Nombre del piloto</label>
                             <input type="text" class="form-control" id="nombre" name="nombre"
-                                placeholder="Ejemplo: Juan Carlos Gomez # 745" required>
+                                placeholder="Ejemplo: JUAN CARLOS GOMEZ # 745" required>
                         </div>
                         <!-- Centrado del botón -->
                         <div class="text-center">
@@ -31,13 +30,15 @@
                         }
                     }
                     ?>
-
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-
-
-</html>
+<!-- SCRIPT: Convierte a mayúsculas automáticamente -->
+<script>
+    document.getElementById("nombre").addEventListener("input", function () {
+        this.value = this.value.toUpperCase();
+    });
+</script>

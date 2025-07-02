@@ -243,8 +243,11 @@ class ModeloFormularios
         $stmt = new Conexion();
         $pdo = $stmt->conectar();
 
+        // Convertir el nombre a mayúsculas con soporte multibyte (UTF-8)
+        $nombreMayusculas = mb_strtoupper($nombre, 'UTF-8');
+
         $query = $pdo->prepare("INSERT INTO pilotos (nombre) VALUES (:nombre)");
-        $query->bindParam(":nombre", $nombre, PDO::PARAM_STR);
+        $query->bindParam(":nombre", $nombreMayusculas, PDO::PARAM_STR);
 
         if ($query->execute()) {
             return "ok";
@@ -252,6 +255,7 @@ class ModeloFormularios
 
         return "error";
     }
+
 
 
 
