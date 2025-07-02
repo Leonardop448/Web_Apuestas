@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["email"])) {
 
     if ($usuario) {
         $token = bin2hex(random_bytes(32));
-        $expiracion = date("Y-m-d H:i:s", strtotime("+1 hour"));
+        $expiracion = date("Y-m-d H:i:s", strtotime("+10 minutes"));
 
         // Guardar token y expiración en la base de datos
         $conexion = new Conexion();
@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["email"])) {
             $mail->addAddress($email);
             $mail->isHTML(true);
             $mail->Subject = 'Recuperación de Contraseña';
-            $mail->Body = "Hola,<br><br>Haz clic en el siguiente enlace para cambiar tu contraseña:<br><a href='$enlace'>$enlace</a><br><br>Este enlace expirará en 1 hora.";
+            $mail->Body = "Hola,<br><br>Haz clic en el siguiente enlace para cambiar tu contraseña:<br><a href='$enlace'>$enlace</a><br><br>Este enlace expirará en 10 minutos.";
 
             $mail->send();
         } catch (Exception $e) {

@@ -14,12 +14,12 @@ class EnviarCorreo
 
         try {
             $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';
+            $mail->Host = 'mail.pulcast.com';
             $mail->SMTPAuth = true;
-            $mail->Username = 'racestakepro@gmail.com';
-            $mail->Password = 'rjqb aqgz xnhx ipbu';
+            $mail->Username = 'contacto@pulcast.com';
+            $mail->Password = 'Isabella1812';
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-            $mail->Port = 587;
+            $mail->Port = 465;
 
             $mail->setFrom('contacto@pulcast.com', 'RaceStake Pro');
             $mail->addAddress($email, $nombre);
