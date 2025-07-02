@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // ❌ Error al enviar: alerta con descripción y redirección
         echo "<script>
             alert('❌ Error al enviar el mensaje: " . addslashes($mail->ErrorInfo) . "');
-            window.location.href = '../../index.php?pagina=Inicio';  // 🔁 Cambia aquí también si deseas otro destino
+            window.location.href = '../../index.php?pagina=Contacto';  // 🔁 Cambia aquí también si deseas otro destino
         </script>";
         exit;
     }
