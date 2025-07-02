@@ -252,14 +252,6 @@ class FormularioControlador
 
 
 
-    static public function obtenerCarreras()
-    {
-        return ModeloFormularios::obtenerCarreras();
-    }
-
-
-
-
     static public function obtenerPilotos()
     {
         return ModeloFormularios::obtenerPilotos();

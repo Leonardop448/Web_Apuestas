@@ -16,7 +16,10 @@
                             <select class="form-select" name="id_carrera" required>
                                 <option value="">-- Elige una carrera --</option>
                                 <?php
-                                $carreras = FormularioControlador::obtenerCarreras();
+                                $carreras = FormularioControlador::obtenerCarrerasProgramadas();
+                                if (empty($carreras)) {
+                                    echo '<div class="alert alert-info text-center">No hay carreras pendientes para asignar pilotos.</div>';
+                                }
                                 foreach ($carreras as $carrera) {
                                     echo '<option value="' . $carrera['id'] . '">' . htmlentities($carrera['nombre']) . ' - ' . $carrera['fecha'] . '</option>';
                                 }

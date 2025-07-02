@@ -254,15 +254,6 @@ class ModeloFormularios
     }
 
 
-    static public function obtenerCarreras()
-    {
-        $stmt = new Conexion();
-        $pdo = $stmt->conectar();
-
-        $query = $pdo->prepare("SELECT * FROM carreras ORDER BY fecha DESC");
-        $query->execute();
-        return $query->fetchAll(PDO::FETCH_ASSOC);
-    }
 
     static public function obtenerPilotos()
     {
