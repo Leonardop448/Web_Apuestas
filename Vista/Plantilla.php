@@ -92,9 +92,9 @@ session_start();
         }
 
         body.tema-oscuro .hero h1 {
-            font-size: 2rem;
+            font-size: 5rem;
             color: rgb(255, 217, 0);
-            text-shadow: 2px 2px 5px #000;
+            text-shadow: 2px 2px 5px #000000;
             font-family: 'Pacifico', cursive;
             font-weight: 700;
         }
@@ -170,11 +170,18 @@ session_start();
             background: url('/imagenes/Motovelocidad4.png') no-repeat center center;
             background-size: cover;
             border-bottom: 5px solid #007bff;
+            border-radius: 30px;
+            padding: 3rem 1rem;
+            text-align: center;
         }
 
         body.tema-claro .hero h1 {
+            font-size: 5rem;
+            text-shadow: 2px 2px 5px rgb(255, 255, 255);
+            font-family: 'Pacifico', cursive;
+            font-weight: 700;
             color: #003366;
-            text-shadow: none;
+
         }
 
         body.tema-claro .event-card {
@@ -193,12 +200,12 @@ session_start();
         }
 
         body.tema-claro .menu-admin .dropdown-item {
-            color: #000;
+            color: #000000;
         }
 
         body.tema-claro .menu-admin .dropdown-item:hover {
-            background-color: #f0f0f0;
-            color: #000;
+            background-color: rgb(117, 125, 133);
+            color: #000000;
         }
 
         /* Botón Cambiar Tema */
@@ -423,17 +430,17 @@ session_start();
                                 <i class="fas fa-tools me-1"></i>Administrar
                             </a>
                             <ul class="dropdown-menu menu-admin" id="menuAdminDropdown" aria-labelledby="adminDropdown">
-                                <li><a class="dropdown-item text-white" href="?pagina=CargarCreditos"><i
+                                <li><a class="dropdown-item " href="?pagina=CargarCreditos"><i
                                             class="fas fa-wallet me-1"></i>Cargar Créditos</a></li>
-                                <li><a class="dropdown-item text-white" href="?pagina=CrearCarrera"><i
+                                <li><a class="dropdown-item " href="?pagina=CrearCarrera"><i
                                             class="fas fa-plus me-1"></i>Crear Carreras</a></li>
-                                <li><a class="dropdown-item text-white" href="?pagina=RegistrarPiloto"><i
+                                <li><a class="dropdown-item " href="?pagina=RegistrarPiloto"><i
                                             class="fas fa-user-plus me-1"></i>Registrar Pilotos</a></li>
-                                <li><a class="dropdown-item text-white" href="?pagina=AsignarPilotos"><i
+                                <li><a class="dropdown-item " href="?pagina=AsignarPilotos"><i
                                             class="fas fa-users-cog me-1"></i>Asignar Pilotos</a></li>
-                                <li><a class="dropdown-item text-white" href="?pagina=RegistrarResultados"><i
+                                <li><a class="dropdown-item " href="?pagina=RegistrarResultados"><i
                                             class="fas fa-clipboard-check me-1"></i>Registrar Resultados</a></li>
-                                <li><a class="dropdown-item text-white" href="?pagina=Ganancias"><i
+                                <li><a class="dropdown-item " href="?pagina=Ganancias"><i
                                             class="fas fa-clipboard-check me-1"></i>Ganancias</a>
                                 </li>
                             </ul>
@@ -453,15 +460,15 @@ session_start();
                                 <i class="fas fa-user-circle me-1"></i><?= $_SESSION['nombre']; ?>
                             </a>
                             <ul class="dropdown-menu menu-admin" id="menuAdminDropdown" aria-labelledby="adminDropdown">
-                                <li><a class="dropdown-item text-white" href="?pagina=Perfil"><i
+                                <li><a class="dropdown-item " href="?pagina=Perfil"><i
                                             class="fas fa-id-badge me-1"></i>Perfil</a></li>
-                                <li><a class="dropdown-item text-white" href="?pagina=historial_apuestas"><i
+                                <li><a class="dropdown-item " href="?pagina=historial_apuestas"><i
                                             class="fas fa-history me-1"></i>Historial de Apuestas</a></li>
-                                <li><a class="dropdown-item text-white" href="?pagina=ApuMovi"><i
+                                <li><a class="dropdown-item " href="?pagina=ApuMovi"><i
                                             class="fas fa-file-invoice-dollar me-1"></i>Movimientos</a></li>
-                                <li><a class="dropdown-item text-white" href="?pagina=Ajustes"><i
+                                <li><a class="dropdown-item " href="?pagina=Ajustes"><i
                                             class="fas fa-cogs me-1"></i>Ajustes</a></li>
-                                <li><a class="dropdown-item text-white" href="?pagina=Salir"><i
+                                <li><a class="dropdown-item " href="?pagina=Salir"><i
                                             class="fas fa-sign-out-alt me-1"></i>Salir</a></li>
                             </ul>
                         </li>
