@@ -7,6 +7,10 @@ if (isset($_GET['pagina']) && $_GET['pagina'] === 'Salir') {
 if (isset($_GET['pagina']) && $_GET['pagina'] === 'exportar_ganancia_pdf') {
     include "Vista/Paginas/exportar_ganancia_pdf.php";
     exit;
+}
+if (isset($_GET['pagina']) && $_GET['pagina'] === 'EnviardeContacto') {
+    include "Vista/Paginas/EnviardeContacto.php";
+    exit;
 } else {
 
 }

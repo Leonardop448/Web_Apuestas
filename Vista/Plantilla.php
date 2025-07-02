@@ -176,6 +176,7 @@ session_start();
         'RecuperarContrasena',
         'ReestablecerContrasena',
         'ActivarCuenta',
+        'EnviardeContacto',
         'Politicas',
         'Terminos',
         'Contacto',

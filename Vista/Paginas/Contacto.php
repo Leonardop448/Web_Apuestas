@@ -1,11 +1,28 @@
-<title>Formulario de Contacto</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f6f8;
-    padding: 40px;
-  }
+<title>Contáctanos</title>
+<!-- Solo contenido, no <html>, <head> ni <body> -->
+<div class="formulario-contacto mt-5">
+  <img src="/imagenes/pngwing.com.png" class="img-fluid" alt="Logo RaceStake Pro"
+    style="max-width: 300px; height: auto; display: block; margin: 0 auto 20px auto;">
+  <h2>Contáctanos</h2>
 
+  <form action="index.php?pagina=EnviardeContacto" method="POST">
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre" required>
+
+    <label for="email">Correo electrónico:</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="asunto">Asunto:</label>
+    <input type="text" id="asunto" name="asunto" required>
+
+    <label for="mensaje">Mensaje:</label>
+    <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
+
+    <button type="submit">Enviar mensaje</button>
+  </form>
+</div>
+
+<style>
   .formulario-contacto {
     max-width: 600px;
     margin: auto;
@@ -61,29 +78,3 @@
     background-color: #0056b3;
   }
 </style>
-<br>
-
-<body>
-  <div class="formulario-contacto">
-    <img src="/imagenes/pngwing.com.png" class="img-fluid" alt="Logo RaceStake Pro"
-      style="max-width: 300px; height: auto; display: block; margin: 0 auto 20px auto;">
-    <h2>Contáctanos</h2>
-
-    <form action="" method="POST">
-      <label for="nombre">Nombre:</label>
-      <input type="text" id="nombre" name="nombre" required>
-
-      <label for="email">Correo electrónico:</label>
-      <input type="email" id="email" name="email" required>
-
-      <label for="asunto">Asunto:</label>
-      <input type="text" id="asunto" name="asunto" required>
-
-      <label for="mensaje">Mensaje:</label>
-      <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
-
-      <button type="submit">Enviar mensaje</button>
-    </form>
-  </div>
-</body>
-</div>
