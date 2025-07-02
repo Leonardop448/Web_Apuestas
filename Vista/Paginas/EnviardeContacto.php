@@ -17,16 +17,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
         // Configuración SMTP de Gmail
         $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com';
+        $mail->Host = 'mail.pulcast.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'racestakepro@gmail.com';           // ✅ Tu correo Gmail
-        $mail->Password = 'rjqb aqgz xnhx ipbu';               // ✅ Contraseña de aplicación de Gmail
-        $mail->SMTPSecure = 'tls';
-        $mail->Port = 587;
+        $mail->Username = 'contacto@pulcast.com';           // ✅ Tu correo Gmail
+        $mail->Password = 'Isabella1812';               // ✅ Contraseña de aplicación de Gmail
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 465;
 
         // Remitente (de tu parte) y destinatario (admin del sitio)
         $mail->setFrom('contacto@pulcast.com', 'Formulario Web de Carreras');
-        $mail->addAddress('leonardop448@hotmail.com', 'Administrador del sitio'); // ✅ Correo del admin
+        $mail->addAddress('contacto@pulcast.com', 'Administrador del sitio'); // ✅ Correo del admin
         $mail->addReplyTo($email, $nombre); // Permite responderle al visitante
 
         // Contenido del mensaje
