@@ -1,3 +1,4 @@
+<title>Reestablecer Contraseña</title>
 <?php
 $mensaje = "";
 

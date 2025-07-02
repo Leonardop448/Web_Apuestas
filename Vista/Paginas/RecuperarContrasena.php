@@ -1,3 +1,4 @@
+<title>Recuperar Contraseña</title>
 <?php
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
