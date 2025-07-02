@@ -1,9 +1,10 @@
 <?php
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-require 'PHPMailer/Exception.php';
-require 'PHPMailer/PHPMailer.php';
-require 'PHPMailer/SMTP.php';
+
+require_once __DIR__ . '/phpMailer/Exception.php';
+require_once __DIR__ . '/phpMailer/PHPMailer.php';
+require_once __DIR__ . '/phpMailer/SMTP.php';
 
 $mensaje = "";
 

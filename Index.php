@@ -7,9 +7,6 @@ if (isset($_GET['pagina']) && $_GET['pagina'] === 'Salir') {
 if (isset($_GET['pagina']) && $_GET['pagina'] === 'exportar_ganancia_pdf') {
     include "Vista/Paginas/exportar_ganancia_pdf.php";
     exit;
-}
-if ($_GET["pagina"] == "RecuperarContrasena") {
-    include "Vista/Paginas/RecuperarContrasena.php";
 } else {
 
 }

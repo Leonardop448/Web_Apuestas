@@ -30,7 +30,7 @@ if (isset($_GET['token'])) {
                 $stmt->bindParam(":token", $token);
 
                 if ($stmt->execute()) {
-                    $mensaje = "<div class='alert alert-success text-center'>Contraseña actualizada correctamente. <a href='index.php?pagina=Ingreso'>Inicia sesión</a>.</div>";
+                    $mensaje = "<div class='alert alert-success text-center'>Contraseña actualizada correctamente. <a href='index.php?pagina=Login'>Inicia sesión</a>.</div>";
                 } else {
                     $mensaje = "<div class='alert alert-danger text-center'>Error al actualizar la contraseña.</div>";
                 }
