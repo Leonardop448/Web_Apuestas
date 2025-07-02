@@ -218,6 +218,19 @@ class ModeloFormularios
 
     }
 
+    static public function actualizarContrasena($token, $nuevaContrasena)
+    {
+        $conexion = new Conexion();
+        $pdo = $conexion->conectar();
+
+        $stmt = $pdo->prepare("UPDATE usuarios SET contrasena = :contrasena WHERE tokenUsuario = :token");
+        $stmt->bindParam(":contrasena", $nuevaContrasena, PDO::PARAM_STR);
+        $stmt->bindParam(":token", $token, PDO::PARAM_STR);
+
+        return $stmt->execute();
+    }
+
+
 
     public static function crearCarrera($nombre, $fecha, $categorias)
     {

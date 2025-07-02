@@ -212,24 +212,48 @@ class FormularioControlador
     /// ACTUALIZAR USUARIO
     static public function actualizarUsuario()
     {
-        if (isset($_POST['nombre'])) {
-            if (
-                preg_match('/^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nombre"]) &&
-                preg_match('/^[0-9]+$/', $_POST["telefono"]) &&
-                preg_match('/^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}$/', $_POST["email"])
-            ) {
-                $nombre = ucwords($_POST["nombre"]);
-                $tel = $_POST["telefono"];
-                $email = mb_strtolower($_POST["email"]);
-                $token = $_SESSION['tokenUsuario'];
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-                $datos = array($nombre, $tel, $email, $token);
+            $nombre = strtoupper(trim($_POST["nombre"]));
+            $telefono = trim($_POST["telefono"]);
+            $email = strtolower(trim($_POST["email"]));
+            $token = $_SESSION["tokenUsuario"];
 
+            // Actualización de datos básicos
+            $actualizados = ModeloFormularios::actualizarUsuarios([$nombre, $telefono, $email, $token]);
 
+            // Comprobar si se desea cambiar contraseña
+            if (!empty($_POST["actual"]) && !empty($_POST["nueva"]) && !empty($_POST["repetir"])) {
 
-                return ModeloFormularios::actualizarUsuarios($datos);
+                // Validar que las nuevas coincidan
+                if ($_POST["nueva"] !== $_POST["repetir"]) {
+                    echo "<div class='alert alert-danger mt-3'>Las nuevas contraseñas no coinciden.</div>";
+                    return 0;
+                }
+
+                // Traer contraseña actual desde BD
+                $datosUsuario = ModeloFormularios::verificarUsuarios([$_SESSION["email"]]);
+
+                if (!password_verify($_POST["actual"], $datosUsuario["contrasena"])) {
+                    echo "<div class='alert alert-danger mt-3'>La contraseña actual no es correcta.</div>";
+                    return 0;
+                }
+
+                // Nueva contraseña encriptada
+                $nuevaHash = password_hash($_POST["nueva"], PASSWORD_DEFAULT);
+                $actualizadoPass = ModeloFormularios::actualizarContrasena($token, $nuevaHash);
+
+                if ($actualizadoPass) {
+                    echo "<div class='alert alert-success mt-3'>Contraseña actualizada correctamente.</div>";
+                } else {
+                    echo "<div class='alert alert-danger mt-3'>Error al actualizar la contraseña.</div>";
+                }
             }
+
+            return $actualizados;
         }
+
+        return 0;
     }
 
 

@@ -34,6 +34,23 @@ $actualizarusuario = FormularioControlador::actualizarUsuario();
 					<input type="number" id="telefono" name="telefono" class="form-control text-center"
 						value="<?= $_SESSION['telefono'] ?>" required>
 				</div>
+				<hr class="my-4">
+				<h5 class="text-warning text-center fw-bold">Cambiar Contraseña</h5>
+
+				<div class="mb-3">
+					<label class="form-label fw-bold" for="actual">Contraseña Actual:</label>
+					<input type="password" id="actual" name="actual" class="form-control text-center">
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label fw-bold" for="nueva">Nueva Contraseña:</label>
+					<input type="password" id="nueva" name="nueva" class="form-control text-center">
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label fw-bold" for="repetir">Repetir Nueva Contraseña:</label>
+					<input type="password" id="repetir" name="repetir" class="form-control text-center">
+				</div>
 				<label class="form-label" for="">* Documento o cedula no esta permitido
 					cambiarse</label><br>
 				<button type="submit" class="btn btn-warning fw-bold px-4">Actualizar</button>
