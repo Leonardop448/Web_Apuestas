@@ -68,3 +68,14 @@ $actualizarusuario = FormularioControlador::actualizarUsuario();
 		</div>
 	</div>
 </div>
+<script>
+	document.querySelector("form").addEventListener("submit", function (e) {
+		const nueva = document.getElementById("nueva").value;
+		const repetir = document.getElementById("repetir").value;
+
+		if (nueva && nueva !== repetir) {
+			e.preventDefault();
+			alert("Las nuevas contraseñas no coinciden.");
+		}
+	});
+</script>

@@ -214,12 +214,11 @@ class FormularioControlador
     {
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-            $nombre = strtoupper(trim($_POST["nombre"]));
+            $nombre = trim($_POST["nombre"]);
             $telefono = trim($_POST["telefono"]);
             $email = strtolower(trim($_POST["email"]));
             $token = $_SESSION["tokenUsuario"];
 
-            // Actualización de datos básicos
             $actualizados = ModeloFormularios::actualizarUsuarios([$nombre, $telefono, $email, $token]);
 
             // Comprobar si se desea cambiar contraseña
