@@ -61,7 +61,7 @@
     background-color: #0056b3;
   }
 </style>
-</head>
+<br>
 
 <body>
   <div class="formulario-contacto">
@@ -86,5 +86,4 @@
     </form>
   </div>
 </body>
-
-</html>
+</div>
