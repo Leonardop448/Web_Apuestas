@@ -18,7 +18,7 @@ class EnviarCorreo
             $mail->SMTPAuth = true;
             $mail->Username = 'contacto@pulcast.com';
             $mail->Password = 'Isabella1812';
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
             $mail->Port = 465;
 
             $mail->setFrom('contacto@pulcast.com', 'RaceStake Pro');

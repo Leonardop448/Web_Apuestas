@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->SMTPAuth = true;
         $mail->Username = 'contacto@pulcast.com';           // ✅ Tu correo Gmail
         $mail->Password = 'Isabella1812';               // ✅ Contraseña de aplicación de Gmail
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
         $mail->Port = 465;
 
         // Remitente (de tu parte) y destinatario (admin del sitio)
@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // ✅ Mensaje enviado: alerta y redirección
         echo "<script>
             alert('✅ Tu mensaje ha sido enviado correctamente.');
-            window.location.href = '../../index.php';  // 🔁 Cambia aquí a donde quieras redirigir
+            window.location.href = '../../index.php?pagina=Inicio';  // 🔁 Cambia aquí a donde quieras redirigir
         </script>";
     } catch (Exception $e) {
         // ❌ Error al enviar: alerta con descripción y redirección
@@ -55,6 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             alert('❌ Error al enviar el mensaje: " . addslashes($mail->ErrorInfo) . "');
             window.location.href = '../../index.php?pagina=Inicio';  // 🔁 Cambia aquí también si deseas otro destino
         </script>";
+        exit;
     }
 }
 ?>

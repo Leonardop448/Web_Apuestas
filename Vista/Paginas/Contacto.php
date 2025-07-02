@@ -69,7 +69,7 @@
       style="max-width: 300px; height: auto; display: block; margin: 0 auto 20px auto;">
     <h2>Contáctanos</h2>
 
-    <form action="/Vista/Paginas/EnviardeContacto.php" method="POST">
+    <form action="" method="POST">
       <label for="nombre">Nombre:</label>
       <input type="text" id="nombre" name="nombre" required>
 
