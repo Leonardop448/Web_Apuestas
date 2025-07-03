@@ -21,7 +21,7 @@
               $fecha = $formatter->format(new DateTime($carrera['fecha']));
 
               echo '<div class="card bg-secondary text-white mb-4">';
-              echo '<div class="card-header text-center h4"><strong>' . htmlentities($carrera['nombre']) . '</strong> | ' . $fecha . '</div>';
+              echo '<div class="card-header encabezado-carreras text-center h4"><strong>' . htmlentities($carrera['nombre']) . '</strong> | ' . $fecha . '</div>';
               echo '<div class="card-body">';
 
               $resultados = FormularioControlador::obtenerResultadosPorCarreraYCategorias($carrera['id']);

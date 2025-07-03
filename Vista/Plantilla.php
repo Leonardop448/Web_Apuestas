@@ -451,9 +451,9 @@ session_start();
         ?>
 
         <h2>
-            <a class="nav-link text-white fw-bold" align="right" href="?pagina=ApuMovi">
-                <strong class="text-warning">
-                    <i class="fa-solid fa-sack-dollar fa-bounce" style="color: #ffc107;"></i>
+            <a class="nav-link fw-bold" align="right" href="?pagina=ApuMovi">
+                <strong class="text-success">
+                    <i class="fa-solid fa-sack-dollar fa-bounce" style="color: #198754;"></i>
                     <?php echo "$saldo&nbsp;"; ?>
                 </strong>
             </a>
@@ -602,9 +602,9 @@ session_start();
         <!-- Enlaces legales -->
         <div class="d-flex flex-column flex-sm-row justify-content-center gap-2">
             <a href="?pagina=Terminos" class="text-decoration-none">Términos y Condiciones</a>
-            <span class="text-white d-none d-sm-inline">|</span>
+            <span class="d-none d-sm-inline"></span>
             <a href="?pagina=Politicas" class="text-decoration-none">Políticas de Privacidad</a>
-            <span class="text-white d-none d-sm-inline">|</span>
+            <span class="d-none d-sm-inline"></span>
             <a href="?pagina=Contacto" class="text-decoration-none">Contacto</a>
         </div>
     </div>
