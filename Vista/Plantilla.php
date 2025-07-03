@@ -13,8 +13,9 @@ session_start();
     <script src="https://kit.fontawesome.com/b84470ec17.js" crossorigin="anonymous"></script>
     <link rel="icon" type="image/x-icon" href="/imagenes/icono.png">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=WDXL+Lubrifont+TC&display=swap"
-        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Pacifico&display=swap" rel="stylesheet">
     <!-- Google Tag Manager -->
     <script>(function (w, d, s, l, i) {
             w[l] = w[l] || []; w[l].push({
@@ -30,18 +31,23 @@ session_start();
         document.addEventListener('DOMContentLoaded', function () {
             const temaGuardado = localStorage.getItem("tema") || "oscuro";
             document.body.classList.add(`tema-${temaGuardado}`);
+
+            const icono = document.querySelector('#btnTema i');
+            icono.classList = temaGuardado === 'claro' ? 'fas fa-moon' : 'fas fa-sun';
         });
 
         function cambiarTema() {
             const body = document.body;
+            const icono = document.querySelector('#btnTema i');
+
             if (body.classList.contains("tema-oscuro")) {
-                body.classList.remove("tema-oscuro");
-                body.classList.add("tema-claro");
+                body.classList.replace("tema-oscuro", "tema-claro");
                 localStorage.setItem("tema", "claro");
+                icono.classList = "fas fa-moon"; // Tema claro activo → mostrar luna para volver a oscuro
             } else {
-                body.classList.remove("tema-claro");
-                body.classList.add("tema-oscuro");
+                body.classList.replace("tema-claro", "tema-oscuro");
                 localStorage.setItem("tema", "oscuro");
+                icono.classList = "fas fa-sun"; // Tema oscuro activo → mostrar sol para cambiar a claro
             }
         }
     </script>
@@ -103,7 +109,8 @@ session_start();
         body.tema-oscuro .event-card {
             background: #2d2d2d;
             border: 2px solid #ffcc00;
-            color: #fff;
+            color: #ffcc00;
+            text-shadow: 2px 2px 5px rgb(0, 0, 0);
         }
 
         body.tema-oscuro .dropdown-menu {
@@ -188,7 +195,8 @@ session_start();
         body.tema-claro .event-card {
             background: #ffffff;
             border: 2px solid #007bff;
-            color: #000;
+            color: #003366;
+            text-shadow: 2px 2px 5px rgb(255, 255, 255);
         }
 
         body.tema-claro .dropdown-menu {
@@ -369,6 +377,25 @@ session_start();
             background-color: #ffffff;
             color: #000;
         }
+
+        /* Estilo por defecto (tema oscuro) */
+        .navbar-toggler {
+            border-color: #ffc107;
+            /* borde amarillo */
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,204,0, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+        }
+
+        /* Tema claro */
+        body.tema-claro .navbar-toggler {
+            border-color: #003366;
+        }
+
+        body.tema-claro .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0,51,102, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+        }
     </style>
 
 
@@ -433,17 +460,27 @@ session_start();
     }
     ?>
 
-    <div class="d-flex flex-md-row align-items-center justify-content-center text-center text-md-start">
-        <img src="/imagenes/pngwing.com (5).png" alt="LogoWeb" class="img-fluid"
-            style="max-width: 100px; margin-right: 10px; margin-top: 10px;">
-        <h1 class="display-4 mt-3 md-0"
-            style="font-family: 'WDXL Lubrifont TC', sans-serif; font-weight: 700; text-shadow: 5px 5px 4px rgb(0, 0, 0) ">
-            ¡RaceStake Pro!
-        </h1>
-        <!-- Google Tag Manager (noscript) -->
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5ZQJP9RJ" height="0" width="0"
-                style="display:none;visibility:hidden"></iframe></noscript>
-        <!-- End Google Tag Manager (noscript) -->
+    <div class="position-relative">
+        <!-- Botón flotante arriba a la derecha -->
+        <button onclick="cambiarTema()" class="btn btn-cambiar-tema position-absolute top-0 end-0 m-2" id="btnTema"
+            title="Cambiar tema">
+            <i class="fas fa-moon"></i>
+        </button>
+
+        <!-- Contenido principal -->
+        <div class="d-flex flex-md-row align-items-center justify-content-center text-center text-md-start">
+            <img src="/imagenes/pngwing.com (5).png" alt="LogoWeb" class="img-fluid"
+                style="max-width: 100px; margin-right: 10px; margin-top: 10px;">
+            <h1 class="display-4 mt-3 md-0 fw-bold" style="font-family: 'Chewy', system-ui; font-weight: 700;">
+                ¡RaceStake Pro!
+            </h1>
+        </div>
+    </div>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5ZQJP9RJ" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     </div>
     <?php
     if (isset($_SESSION['id'])) {
@@ -468,9 +505,8 @@ session_start();
             </a>
 
             <!-- Botón hamburguesa -->
-            <button class="navbar-toggler border-warning" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-                aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -521,10 +557,9 @@ session_start();
 
                 <!-- Menú derecho -->
                 <ul class="navbar-nav ms-auto">
+
                     <?php if (isset($_SESSION['privilegios'])): ?>
-                        <button onclick="cambiarTema()" class="btn btn-cambiar-tema">
-                            Cambiar Tema
-                        </button>
+
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle fw-bold" href="#" id="userDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">

@@ -20,7 +20,7 @@
               $formatter = new \IntlDateFormatter('es_ES', \IntlDateFormatter::LONG, \IntlDateFormatter::NONE, 'America/Bogota');
               $fecha = $formatter->format(new DateTime($carrera['fecha']));
 
-              echo '<div class="card bg-secondary text-white mb-4">';
+              echo '<div class="card bg-secondary mb-4">';
               echo '<div class="card-header encabezado-carreras text-center h4"><strong>' . htmlentities($carrera['nombre']) . '</strong> | ' . $fecha . '</div>';
               echo '<div class="card-body">';
 
@@ -50,7 +50,7 @@
                       default => ''
                     };
                     echo '<li class="list-group-item bg-dark text-white d-flex justify-content-center align-items-center">';
-                    echo '<span class="text-center h5">' . $medalla . ' ' . htmlentities($r['nombre']) . '</span>';
+                    echo '<span class="text-center h6">' . $medalla . ' ' . htmlentities($r['nombre']) . '</span>';
                     echo '</li>';
                   }
                   echo '</ul>';

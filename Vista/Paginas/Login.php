@@ -10,7 +10,7 @@
 
             <!-- Formulario -->
             <div class="col-md-6 col-lg-5">
-                <div class="card bg-dark border-warning text-white shadow-lg rounded-4">
+                <div class="card tarjeta-carreras shadow-lg rounded-4">
                     <div class="card-header encabezado-carreras text-center">
                         <h4 class="fw-bold m-0">Inicia Sesión</h4>
                     </div>
@@ -26,7 +26,7 @@
                             <div class="mb-3">
                                 <label for="contrasena" class="form-label fw-bold">Contraseña</label>
                                 <input type="password" id="contrasena" name="contrasena"
-                                    class="form-control form-control-lg" placeholder="******" required>
+                                    class="form-control form-control-lg" placeholder="*********" required>
                             </div>
 
                             <div class="d-flex justify-content-between align-items-center mb-3">

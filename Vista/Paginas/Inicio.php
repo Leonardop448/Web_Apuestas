@@ -8,7 +8,7 @@
       <h1 class="fw-bold mb-4">
         ¡La emoción de las carreras<br> y las apuestas en un solo lugar!
       </h1>
-      <a href="?pagina=Apostar" class="btn btn-apuesta">¡Apuesta Ahora!</a>
+      <a href="?pagina=Apostar" class="btn btn-apuesta fw-bold">¡Apuesta Ahora!</a>
     </div>
   </div>
 
@@ -23,21 +23,24 @@
       <div class="row row-cols-1 row-cols-md-3 g-3 mt-3">
         <div class="col">
           <div class="event-card h-100">
-            <h3>Valida Nacional de Cartago</h3>
+            <h3 class="mt-1 md-1" style="font-family: 'Chewy', system-ui; font-weight: 700; ">Valida
+              Nacional de Cartago</h3>
             <p><i class="fa-solid fa-calendar"></i> 15 de Diciembre, 2025</p>
             <p><i class="fa-solid fa-location-dot"></i> Circuito Callejero La Estación</p>
           </div>
         </div>
         <div class="col">
           <div class="event-card h-100">
-            <h3>Carreras Roldanillo</h3>
+            <h3 class="mt-1 md-1" style="font-family: 'Chewy', system-ui; font-weight: 700; ">Carreras
+              Roldanillo</h3>
             <p><i class="fa-solid fa-calendar"></i> 22 de Diciembre, 2025</p>
             <p><i class="fa-solid fa-location-dot"></i> Circuito Callejero Roldanillo</p>
           </div>
         </div>
         <div class="col">
           <div class="event-card h-100">
-            <h3>Carreras Dosquebradas</h3>
+            <h3 class="mt-1 md-1" style="font-family: 'Chewy', system-ui; font-weight: 700; ">Carreras
+              Dosquebradas</h3>
             <p><i class="fa-solid fa-calendar"></i> 30 de Diciembre, 2025</p>
             <p><i class="fa-solid fa-location-dot"></i> Pista Dosquebradas</p>
           </div>
