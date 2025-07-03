@@ -20,8 +20,8 @@ $Contarmovimientos = FormularioControlador::contarMovimiento($token);
 
     <?php endif; ?>
 
-    <div class="card bg-dark text-white shadow-lg rounded-4">
-        <div class="card-header bg-warning text-dark text-center">
+    <div class="card tarjeta-carreras shadow-lg rounded-4">
+        <div class="card-header encabezado-carreras text-center">
             <h2 class="fw-bold">Movimientos</h2>
         </div>
         <div class="card-body p-4">
@@ -30,7 +30,7 @@ $Contarmovimientos = FormularioControlador::contarMovimiento($token);
             <?php else: ?>
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped text-center align-middle">
-                        <thead class="table-dark">
+                        <thead class="table-info">
                             <tr>
                                 <th>Fecha</th>
                                 <th>Descripción</th>

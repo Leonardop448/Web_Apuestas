@@ -4,8 +4,8 @@
 <body class="bg-light">
   <main class="container mt-5">
     <div class="container mt-5">
-      <div class="card bg-dark text-white shadow-lg rounded-4">
-        <div class="card-header bg-warning text-dark text-center">
+      <div class="card tarjeta-carreras shadow-lg rounded-4">
+        <div class="card-header encabezado-carreras text-center">
           <h2 class="fw-bold">Resultados de Carreras</h2>
         </div>
         <div class="card-body">

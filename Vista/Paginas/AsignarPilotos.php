@@ -3,8 +3,8 @@
 <div class="container mt-3">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="card bg-dark text-white shadow-lg rounded-4">
-                <div class="card-header bg-warning text-dark text-center">
+            <div class="card tarjeta-carreras shadow-lg rounded-4">
+                <div class="card-header encabezado-carreras text-center">
                     <h2 class="fw-bold">Asignar Pilotos a una Carrera</h2>
                 </div>
                 <div class="card-body">
@@ -12,7 +12,7 @@
                     <form method="post">
                         <!-- Selección de carrera -->
                         <div class="mb-3">
-                            <label for="carrera" class="form-label">Selecciona la carrera</label>
+                            <label for="carrera" class="form-label fw-bold">Selecciona la carrera</label>
                             <select class="form-select" name="id_carrera" required>
                                 <option value="">-- Elige una carrera --</option>
                                 <?php
@@ -29,7 +29,7 @@
 
                         <!-- Selección de pilotos -->
                         <div class="mb-3">
-                            <label class="form-label">Selecciona los pilotos</label>
+                            <label class="form-label fw-bold">Selecciona los pilotos</label>
                             <?php
                             $pilotos = FormularioControlador::obtenerPilotos();
                             foreach ($pilotos as $piloto) {
@@ -43,7 +43,7 @@
 
                         <!-- Botón de envío -->
                         <div class="text-center">
-                            <button type="submit" class="btn btn-warning text-dark fw-bold px-5">Asignar
+                            <button type="submit" class="btn btn-apuesta fw-bold px-5">Asignar
                                 Pilotos</button>
                         </div>
                     </form>

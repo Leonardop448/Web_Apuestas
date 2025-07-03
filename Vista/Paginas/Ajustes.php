@@ -4,8 +4,8 @@ $actualizarusuario = FormularioControlador::actualizarUsuario();
 ?>
 
 <div class="container mt-5">
-	<div class="card bg-dark text-white shadow-lg rounded-4">
-		<div class="card-header bg-warning text-dark text-center">
+	<div class="card tarjeta-carreras shadow-lg rounded-4">
+		<div class="card-header encabezado-carreras text-center">
 			<h2 class="fw-bold">Ajustes de Usuario</h2>
 		</div>
 
@@ -35,7 +35,7 @@ $actualizarusuario = FormularioControlador::actualizarUsuario();
 						value="<?= $_SESSION['telefono'] ?>" required>
 				</div>
 				<hr class="my-4">
-				<h5 class="text-warning text-center fw-bold">Cambiar Contraseña</h5>
+				<h5 class="card-header encabezado-carreras text-center fw-bold">Cambiar Contraseña</h5>
 
 				<div class="mb-3">
 					<label class="form-label fw-bold" for="actual">Contraseña Actual:</label>
@@ -53,7 +53,7 @@ $actualizarusuario = FormularioControlador::actualizarUsuario();
 				</div>
 				<label class="form-label" for="">* Documento o cedula no esta permitido
 					cambiarse</label><br>
-				<button type="submit" class="btn btn-warning fw-bold px-4">Actualizar</button>
+				<button type="submit" class="btn btn-apuesta fw-bold px-4">Actualizar</button>
 
 				<?php
 				if ($actualizarusuario >= 1) {

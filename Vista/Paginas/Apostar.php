@@ -58,8 +58,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_piloto'])) {
 <div class="container mt-5 mb-5">
     <div class="row justify-content-center">
         <div class="col-12 col-md-10 col-lg-8">
-            <div class="card bg-dark text-white shadow-lg rounded-4">
-                <div class="card-header bg-warning text-dark text-center">
+            <div class="card tarjeta-carreras shadow-lg rounded-4">
+                <div class="card-header encabezado-carreras text-center">
                     <h2 class="fw-bold">Realiza tu apuesta</h2>
                 </div>
                 <div class="card-body p-4">
@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_piloto'])) {
                     <!-- FORMULARIO DE CARRERAS -->
                     <form method="post">
                         <div class="mb-3">
-                            <label for="id_carrera" class="form-label">Selecciona una carrera:</label>
+                            <label for="id_carrera" class="form-label fw-bold">Selecciona una carrera:</label>
                             <select name="id_carrera" class="form-select" onchange="this.form.submit()" required>
                                 <option value="">-- Elige una carrera --</option>
                                 <?php
@@ -116,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_piloto'])) {
                             <input type="hidden" name="id_carrera" value="<?= $idCarrera ?>">
 
                             <div class="mb-3">
-                                <label class="form-label">Categoría: "Una por apuesta"</label><br>
+                                <label class="form-label fw-bold">Categoría: "Una por apuesta"</label><br>
                                 <?php foreach ($categorias as $cat): ?>
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="categoria" id="cat_<?= $cat ?>"
@@ -126,7 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_piloto'])) {
                                 <?php endforeach; ?>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Selecciona piloto:</label>
+                                <label class="form-label fw-bold">Selecciona piloto:</label>
                                 <select name="id_piloto" class="form-select" required>
                                     <option value="">-- Selecciona piloto --</option>
                                     <?php foreach ($pilotos as $piloto): ?>
@@ -140,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_piloto'])) {
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label">Tipo de apuesta:</label>
+                                <label class="form-label fw-bold">Tipo de apuesta:</label>
                                 <select name="tipo_apuesta" class="form-select" required>
                                     <option value="">-- Selecciona apuesta --</option>
                                     <option value="ganador">Gana (100% ganancia)</option>
@@ -149,13 +149,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_piloto'])) {
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label">Monto a apostar:</label>
+                                <label class="form-label fw-bold">Monto a apostar:</label>
                                 <input type="number" class="form-control" name="monto" placeholder="Mínimo $1000" min="1000"
                                     required>
                             </div>
 
                             <div class="text-center mt-4">
-                                <button type="submit" class="btn btn-primary fw-bold">Realizar Apuesta</button>
+                                <button type="submit" class="btn btn-apuesta fw-bold">Realizar Apuesta</button>
                             </div>
                         </form>
                     <?php endif; ?>

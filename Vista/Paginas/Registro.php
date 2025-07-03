@@ -24,7 +24,7 @@
     <div class="row justify-content-center">
       <div class="col-md-10 col-lg-6">
         <div class="card bg-dark border-warning text-white shadow-lg rounded-4">
-          <div class="card-header bg-warning text-dark text-center">
+          <div class="card-header encabezado-carreras text-center">
             <h2 class="fw-bold m-0">¡Regístrate!</h2>
           </div>
           <div class="card-body">
@@ -50,7 +50,7 @@
                 <input type="email" class="form-control" id="email" name="email" required>
               </div>
               <div class="d-grid">
-                <button type="submit" class="btn btn-warning fw-bold">Registrar</button>
+                <button type="submit" class="btn btn-apuesta fw-bold">Registrar</button>
               </div>
             </form>
           </div>

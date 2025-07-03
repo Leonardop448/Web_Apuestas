@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tipo']) && $_POST['ti
                 <input type="hidden" name="tipo" value="carrera">
                 <div class="row align-items-end">
                     <div class="col-md-6">
-                        <label class="form-label">Seleccionar Carrera</label>
+                        <label class="form-label fw-bold">Seleccionar Carrera</label>
                         <select name="id_carrera" class="form-select" required>
                             <option value="">-- Elige una carrera --</option>
                             <?php foreach ($carreras as $c): ?>
@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tipo']) && $_POST['ti
                         </select>
                     </div>
                     <div class="col-md-4">
-                        <button type="submit" class="btn btn-warning fw-bold">Consultar</button>
+                        <button type="submit" class="btn btn-apuesta fw-bold">Consultar</button>
                     </div>
                 </div>
             </form>
@@ -108,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tipo']) && $_POST['ti
                             value="<?= isset($_POST['mes']) ? $_POST['mes'] : date('Y-m') ?>" required>
                     </div>
                     <div class="col-md-4">
-                        <button type="submit" class="btn btn-warning fw-bold">Consultar</button>
+                        <button type="submit" class="btn btn-apuesta fw-bold">Consultar</button>
                     </div>
                 </div>
             </form>

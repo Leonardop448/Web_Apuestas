@@ -51,8 +51,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="container mt-3">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="card bg-dark text-white shadow-lg rounded-4">
-                <div class="card-header bg-warning text-dark text-center">
+            <div class="card tarjeta-carreras shadow-lg rounded-4">
+                <div class="card-header encabezado-carreras text-center">
                     <h2 class="fw-bold">Registrar Resultados de Carrera</h2>
                 </div>
                 <div class="card-body">
@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <!-- Selección de carrera -->
                         <div class="mb-3">
-                            <label for="id_carrera" class="form-label">Selecciona Carrera</label>
+                            <label for="id_carrera" class="form-label fw-bold">Selecciona Carrera</label>
                             <select name="id_carrera" id="id_carrera" class="form-select"
                                 onchange="document.getElementById('accion').value='cambiar_carrera'; this.form.submit();"
                                 required>
@@ -114,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <?php endfor; ?>
 
                             <div class="text-center">
-                                <button type="button" class="btn btn-warning text-dark fw-bold mt-3 px-5"
+                                <button type="button" class="btn btn-apuesta fw-bold mt-3 px-5"
                                     onclick="enviarResultados()">
                                     Registrar Resultados
                                 </button>

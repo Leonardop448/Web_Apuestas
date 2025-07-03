@@ -36,7 +36,7 @@ require_once(__DIR__ . '/../../Modelo/Formularios.Modelo.php');
                         <h4 class="alert-heading">Token inválido</h4>
                         <p>Este enlace no es válido o no existe.</p>
                         <hr>
-                        <a href="?pagina=Registro" class="btn btn-warning fw-bold">Registrarse</a>
+                        <a href="?pagina=Registro" class="btn btn-apuesta fw-bold">Registrarse</a>
                     </div>';
         } else {
           echo '

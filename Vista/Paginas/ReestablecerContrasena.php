@@ -49,8 +49,8 @@ if (isset($_GET['token'])) {
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="card bg-dark text-white shadow-lg rounded-4">
-                <div class="card-header bg-warning text-dark text-center">
+            <div class="card tarjeta-carreras shadow-lg rounded-4">
+                <div class="card-header encabezado-carreras text-center">
                     <h2 class="fw-bold">Cambiar Contraseña</h2>
                 </div>
                 <div class="card-body">
@@ -67,7 +67,7 @@ if (isset($_GET['token'])) {
                                     placeholder="Confirma la contraseña">
                             </div>
                             <div class="text-center">
-                                <button class="btn btn-warning fw-bold px-4" type="submit">Actualizar Contraseña</button>
+                                <button class="btn btn-apuesta fw-bold px-4" type="submit">Actualizar Contraseña</button>
                             </div>
                         </form>
                     <?php endif; ?>

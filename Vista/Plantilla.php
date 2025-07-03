@@ -158,7 +158,7 @@ session_start();
         }
 
         body.tema-claro .btn-apuesta {
-            background-color: #007bff;
+            background-color: #003366;
             color: #fff;
         }
 
@@ -224,7 +224,7 @@ session_start();
         }
 
         body.tema-claro .btn-cambiar-tema {
-            background-color: #007bff;
+            background-color: #003366;
             color: white;
             border: none;
         }
@@ -280,23 +280,93 @@ session_start();
         body.tema-oscuro .nav-tabs .nav-link.active {
             background-color: #ffc107 !important;
             color: #000 !important;
-            border: 2px solid #000 !important;
+            border: 2px solid #000000 !important;
         }
 
         body.tema-claro .nav-tabs .nav-link {
-            background-color: #007bff !important;
+            background-color: #003366 !important;
             color: #fff !important;
         }
 
         body.tema-claro .nav-tabs .nav-link:hover,
         body.tema-claro .nav-tabs .nav-link:focus {
-            background-color: #0056b3 !important;
+            background-color: #003366 !important;
         }
 
         body.tema-claro .nav-tabs .nav-link.active {
-            background-color: #007bff !important;
+            background-color: #003366 !important;
             color: #fff !important;
-            border: 2px solid #003366 !important;
+            border: 2px solid #000000 !important;
+        }
+
+
+        /* Tarjeta principal de carreras */
+        .tarjeta-carreras {
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .encabezado-carreras {
+            font-weight: bold;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Subtarjetas de cada carrera */
+        .sub-tarjeta .card-header {
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Estilos base (tema oscuro por defecto) */
+        body.tema-oscuro .tarjeta-carreras {
+            background-color: #1e1e1e;
+            color: #fff;
+        }
+
+        body.tema-oscuro .encabezado-carreras {
+            background-color: #ffc107;
+            color: #000;
+        }
+
+        body.tema-oscuro .sub-tarjeta {
+            background-color: #2d2d2d;
+            color: #fff;
+            border: 1px solid #ffc107;
+        }
+
+        body.tema-oscuro .sub-tarjeta .card-header {
+            background-color: #000;
+            color: #fff;
+        }
+
+        body.tema-oscuro .item-piloto {
+            background-color: #1a1a1a;
+            color: #fff;
+        }
+
+        /* Estilos para tema claro */
+        body.tema-claro .tarjeta-carreras {
+            background-color: #ffffff;
+            color: #000;
+        }
+
+        body.tema-claro .encabezado-carreras {
+            background-color: #003366;
+            color: #fff;
+        }
+
+        body.tema-claro .sub-tarjeta {
+            background-color: #f8f9fa;
+            color: #000;
+            border: 1px solid #003366;
+        }
+
+        body.tema-claro .sub-tarjeta .card-header {
+            background-color: #e9ecef;
+            color: #000;
+        }
+
+        body.tema-claro .item-piloto {
+            background-color: #ffffff;
+            color: #000;
         }
     </style>
 
@@ -364,7 +434,7 @@ session_start();
 
     <div class="d-flex flex-md-row align-items-center justify-content-center text-center text-md-start">
         <img src="/imagenes/pngwing.com (5).png" alt="LogoWeb" class="img-fluid"
-            style="max-width: 100px; margin-right: 15px; margin-top: 20px;">
+            style="max-width: 100px; margin-right: 10px; margin-top: 10px;">
         <h1 class="display-4 mt-3 md-0"
             style="font-family: 'WDXL Lubrifont TC', sans-serif; font-weight: 700; text-shadow: 5px 5px 4px rgb(0, 0, 0) ">
             ¡RaceStake Pro!
@@ -531,11 +601,11 @@ session_start();
 
         <!-- Enlaces legales -->
         <div class="d-flex flex-column flex-sm-row justify-content-center gap-2">
-            <a href="?pagina=Terminos" class="text-white text-decoration-none">Términos y Condiciones</a>
+            <a href="?pagina=Terminos" class="text-decoration-none">Términos y Condiciones</a>
             <span class="text-white d-none d-sm-inline">|</span>
-            <a href="?pagina=Politicas" class="text-white text-decoration-none">Políticas de Privacidad</a>
+            <a href="?pagina=Politicas" class="text-decoration-none">Políticas de Privacidad</a>
             <span class="text-white d-none d-sm-inline">|</span>
-            <a href="?pagina=Contacto" class="text-white text-decoration-none">Contacto</a>
+            <a href="?pagina=Contacto" class="text-decoration-none">Contacto</a>
         </div>
     </div>
     </div>

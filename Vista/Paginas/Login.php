@@ -11,7 +11,7 @@
             <!-- Formulario -->
             <div class="col-md-6 col-lg-5">
                 <div class="card bg-dark border-warning text-white shadow-lg rounded-4">
-                    <div class="card-header bg-warning text-dark text-center">
+                    <div class="card-header encabezado-carreras text-center">
                         <h4 class="fw-bold m-0">Inicia Sesión</h4>
                     </div>
                     <div class="card-body">
@@ -39,7 +39,7 @@
                             </div>
 
                             <div class="d-grid">
-                                <button type="submit" name="ingresar" class="btn btn-warning fw-bold btn-lg">
+                                <button type="submit" name="ingresar" class="btn btn-apuesta fw-bold btn-lg">
                                     Ingresar
                                 </button>
                             </div>

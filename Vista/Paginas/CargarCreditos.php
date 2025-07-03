@@ -16,8 +16,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <main class="container mt-3">
   <div class="row justify-content-center">
     <div class="col-md-6">
-      <div class="card bg-dark text-white shadow-lg rounded-4">
-        <div class="card-header bg-warning text-dark text-center">
+      <div class="card tarjeta-carreras shadow-lg rounded-4">
+        <div class="card-header encabezado-carreras text-center">
           <h2 class="fw-bold">Cargar Créditos</h2>
         </div>
 
@@ -37,8 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
 
             <div class="text-center">
-              <input type="submit" name="verificar" value="Verificar"
-                class="btn btn-warning text-dark fw-bold btn-lg px-5">
+              <input type="submit" name="verificar" value="Verificar" class="btn btn-apuesta fw-bold btn-lg px-5">
             </div>
           </form>
 
@@ -74,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input type="hidden" name="valor" value="<?= $ingreso['cantidad'] ?>">
                 <input type="hidden" name="token" value="<?= $ingreso['token'] ?>">
                 <input type="submit" name="recargar" value="Confirmar Recarga"
-                  class="btn btn-warning text-dark fw-bold btn-lg px-5">
+                  class="btn btn-apuesta fw-bold btn-lg px-5">
               </form>
             </div>
           <?php endif; ?>

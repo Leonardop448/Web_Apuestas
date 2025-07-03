@@ -10,8 +10,8 @@ if (!isset($_SESSION['email'])) {
 <main class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
-            <div class="card bg-dark text-white shadow-lg rounded-4">
-                <div class="card-header bg-warning text-dark text-center">
+            <div class="card tarjeta-carreras shadow-lg rounded-4">
+                <div class="card-header encabezado-carreras text-center">
                     <h2 class="fw-bold">Perfil del Usuario</h2>
                 </div>
                 <div class="card-body p-4 text-center">

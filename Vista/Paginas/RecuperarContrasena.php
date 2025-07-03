@@ -60,8 +60,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["email"])) {
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="card bg-dark text-white shadow-lg rounded-4">
-                <div class="card-header bg-warning text-dark text-center">
+            <div class="card tarjeta-carreras shadow-lg rounded-4">
+                <div class="card-header encabezado-carreras text-center">
                     <h2 class="fw-bold">Recuperar Contraseña</h2>
                 </div>
                 <div class="card-body">
@@ -72,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["email"])) {
                                 placeholder="Ingresa tu correo">
                         </div>
                         <div class="text-center">
-                            <button class="btn btn-warning fw-bold px-4" type="submit">Enviar enlace</button>
+                            <button class="btn btn-apuesta fw-bold px-4" type="submit">Enviar enlace</button>
                         </div>
                     </form>
 

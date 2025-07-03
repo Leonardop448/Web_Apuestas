@@ -23,8 +23,8 @@ $apuestas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-12 col-lg-10">
-            <div class="card bg-dark text-white shadow-lg rounded-4">
-                <div class="card-header bg-warning text-dark text-center">
+            <div class="card tarjeta-carreras shadow-lg rounded-4">
+                <div class="card-header encabezado-carreras text-center">
                     <h2 class="fw-bold">Historial de Apuestas</h2>
                 </div>
                 <div class="card-body p-4">
@@ -35,7 +35,7 @@ $apuestas = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <?php else: ?>
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered text-center align-middle">
-                                <thead class="table-dark">
+                                <thead class="table-info">
                                     <tr>
                                         <th>Fecha</th>
                                         <th>Carrera</th>
