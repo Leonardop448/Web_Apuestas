@@ -87,6 +87,7 @@ session_start();
             background-size: cover;
             border-bottom: 5px solid #ffcc00;
             border-radius: 30px;
+            text-shadow: 2px 2px 5px #000000;
             padding: 3rem 1rem;
             text-align: center;
         }
@@ -94,7 +95,7 @@ session_start();
         body.tema-oscuro .hero h1 {
             font-size: 5rem;
             color: rgb(255, 217, 0);
-            text-shadow: 2px 2px 5px #000000;
+            text-shadow: 5px 5px 5px rgb(0, 0, 0);
             font-family: 'Pacifico', cursive;
             font-weight: 700;
         }
@@ -578,7 +579,7 @@ session_start();
 <!-- Pie de página -->
 <footer class="piedepagina text-center mt-auto">
     <div class="container-fluid">
-        <h6 class="mb-3 fw-bold">Métodos de Pago</h6>
+        <h6 class="mb-3 fw-bold"><br>Métodos de Pago</h6>
 
         <!-- Logos de pago -->
         <div class="row justify-content-center g-3">
