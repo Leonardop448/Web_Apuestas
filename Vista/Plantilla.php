@@ -578,7 +578,7 @@ session_start();
 <!-- Pie de página -->
 <footer class="piedepagina text-center mt-auto">
     <div class="container-fluid">
-        <h5 class="mb-3 fw-bold">Métodos de Pago</h5>
+        <h6 class="mb-3 fw-bold">Métodos de Pago</h6>
 
         <!-- Logos de pago -->
         <div class="row justify-content-center g-3">
