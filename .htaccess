@@ -35,10 +35,6 @@ Header always set Referrer-Policy "strict-origin-when-cross-origin"
 Header always set Permissions-Policy "accelerometer=(), camera=(), geolocation=(), microphone=(), usb=()"
 Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
 
-# Redirección a HTTPS (si aplica)
-RewriteCond %{HTTPS} off
-RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-
 # Limita acceso a bots agresivos
 BrowserMatchNoCase "AhrefsBot" bad_bot
 BrowserMatchNoCase "SemrushBot" bad_bot

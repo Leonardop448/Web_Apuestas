@@ -645,15 +645,7 @@ session_start();
         </div>
     </div>
     </div>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4VFG5S4BL7"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
 
-        gtag('config', 'G-4VFG5S4BL7');
-    </script>
 
 </footer>
 
