@@ -2,3 +2,5 @@
 BasedeDatos/
 Modelo/Conexion.php
 Vista/Paginas/EnviarCorreo.php
+Vista/Paginas/EnviardeContacto.php
+Vista/Paginas/RecuperarContrasena.ph
