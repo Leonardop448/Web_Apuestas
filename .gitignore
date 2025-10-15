@@ -1,4 +1,4 @@
 #ignorar archivos de configuracion
 BasedeDatos/
-Modelo\Conexion.php
-Vista\Paginas\EnviarCorreo.php
+Modelo/Conexion.php
+Vista/Paginas/EnviarCorreo.php
