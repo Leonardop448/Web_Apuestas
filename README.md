@@ -1,3 +1,61 @@
+## ✨ Características Principales
+
+* **Gestión de Usuarios y Saldo:** Registro seguro, perfiles de usuario y un sistema de recarga de saldo integrado.
+* **Creación y Administración de Carreras:** Herramientas para definir nuevos eventos, configurar parámetros de apuestas y asignar pilotos.
+* **Gestión de Pilotos:** Creación y administración del perfil de los pilotos participantes.
+* **Sistema de Apuestas:** Interfaz intuitiva para que los usuarios realicen sus apuestas en las carreras activas.
+* **Cálculo Automatizado de Resultados:** Funcionalidad clave para la gestión, cálculo y distribución automática de ganancias y pérdidas una vez finalizada la carrera.
+* **Diseño Adaptable (Responsive):** Experiencia de usuario optimizada para visualización en cualquier dispositivo.
+
+---
+
+## 🚀 Empezando
+
+Sigue estos pasos para obtener una copia operativa del proyecto en tu máquina local para desarrollo y pruebas.
+
+### Prerrequisitos
+
+Necesitas un entorno de servidor que soporte **PHP** y **MySQL**. Las opciones más comunes son:
+
+* **XAMPP / MAMP / WAMP** (Solución de entorno local todo en uno).
+* Un servidor web como **Apache** o **Nginx**.
+* **PHP** (versión recomendada: 7.4 o superior).
+* **MySQL** (o MariaDB).
+
+## 🛠️ Tecnologías Utilizadas
+
+Este proyecto fue **construido desde cero** utilizando el *stack* de desarrollo clásico y robusto:
+
+* **Backend (Lógica de Servidor): PHP 🐘**
+    * Maneja la autenticación, la gestión CRUD de datos, la administración de carreras y el **cálculo automatizado** de resultados de apuestas.
+* **Frontend (Experiencia del Usuario): JavaScript, HTML & CSS 🌐**
+    * Se utiliza **JavaScript** para la interactividad, validaciones y actualizaciones dinámicas de la interfaz.
+* **Base de Datos: MySQL 🗄️**
+    * Almacenamiento y gestión de datos transaccionales críticos (usuarios, saldos, apuestas y resultados).
+
+---
+
+## 🤝 Contribuyendo
+
+¡Las contribuciones son bienvenidas! Sigue estos pasos:
+
+1.  Haz un **Fork** del proyecto.
+2.  Crea tu **Feature Branch** (`git checkout -b feature/nueva-funcionalidad`).
+3.  Comitéa tus cambios (`git commit -m 'feat: Añadir X funcionalidad'`).
+4.  Sube al **Branch** (`git push origin feature/nueva-funcionalidad`).
+5.  Abre un **Pull Request** explicando detalladamente tu cambio.
+
+---
+
+## 📄 Licencia
+
+Distribuido bajo Licencia. Consulta el archivo `LICENSE` para más información.
+
+---
+
+
+
+
 <h1 align="center">Hi 👋, I'm Leonardo Pulgarin</h1>
 <h3 align="center">A passionate FullStack developer from Colombia</h3>
 
